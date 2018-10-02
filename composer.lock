@@ -1,0 +1,89 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "8ee1d31374eb57d4ef58ab68188988e8",
+    "packages": [
+        {
+            "name": "abeautifulsite/simple-php-captcha",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/claviska/simple-php-captcha.git",
+                "reference": "673e5e98487699a4be6a1640dde63321ebe7e490"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/claviska/simple-php-captcha/zipball/673e5e98487699a4be6a1640dde63321ebe7e490",
+                "reference": "673e5e98487699a4be6a1640dde63321ebe7e490",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "simple-php-captcha.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A simple PHP CAPTCHA script",
+            "homepage": "http://www.abeautifulsite.net/",
+            "time": "2017-06-27T14:09:32+00:00"
+        },
+        {
+            "name": "verot/class.upload.php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/verot/class.upload.php.git",
+                "reference": "f5107e76919c646044b08a681089da5b701e8db0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/verot/class.upload.php/zipball/f5107e76919c646044b08a681089da5b701e8db0",
+                "reference": "f5107e76919c646044b08a681089da5b701e8db0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/class.upload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Verot",
+                    "email": "colin@verot.net"
+                }
+            ],
+            "description": "This PHP class uploads files and manipulates images very easily.",
+            "homepage": "http://www.verot.net/php_class_upload.htm",
+            "keywords": [
+                "gd",
+                "upload"
+            ],
+            "time": "2018-09-30T10:00:36+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "verot/class.upload.php": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
