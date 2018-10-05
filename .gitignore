@@ -1,3 +1,4 @@
-/storage/*.key
+/storage/app/public*.key
+/storage/log*.key
 /vendor
 .env
