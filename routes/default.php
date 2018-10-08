@@ -8,9 +8,9 @@ return [
 
 	'landing' => [
 
-		'controller' => 'sd',
+		'controller' => 'home',
 
-		'action' => ''
+		'action' => 'frontpage'
 	],
 
 	'error' => [

@@ -13,16 +13,6 @@
 	    }
 	}
 
-		// Include Routes
-	/*foreach (glob("routes/*.php") as $files){
-	    $routes = include $files;
-	    foreach ($routes as $key=>$value){
-	    	$route[$key] = $value;
-	    }
-	}*/
-
-	print_r($route);
-
 	if(!empty($_GET)){
 
 			// Sanitize parameters
@@ -41,8 +31,27 @@
 		$default = include("routes/default.php");
 		$controller = $default['landing']['controller'];
 		$action = $default['landing']['action'];
+	}
 
-		echo $controller;
+		// Include Routes
+    $routes = include("routes/web.php");
+
+	if (array_key_exists($controller, $routes)) {
+		
+		require_once('app/Http/Controllers/'.$controller.'.php');
+	    
+	    if (in_array($action, $routes[$controller]['methods'])) {
+			$controller = new $class($action);
+		} 
+
+		else {
+			echo "nope";
+	      // call('home', 'error');
+	    }
+	} 
+	else {
+			echo "nope";
+	    // call('home', 'error');
 	}
 	
 	ob_end_flush();
