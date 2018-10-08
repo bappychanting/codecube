@@ -13,26 +13,37 @@
 	    }
 	}
 
+		// Include Routes
+	/*foreach (glob("routes/*.php") as $files){
+	    $routes = include $files;
+	    foreach ($routes as $key=>$value){
+	    	$route[$key] = $value;
+	    }
+	}*/
+
+	print_r($route);
+
 	if(!empty($_GET)){
 
 			// Sanitize parameters
 		foreach ($_GET as $key => $value) {
 		  $_GET[$key][$value] = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET[$key][$value]);
 		}
+
 			// Set parameters
 		if (isset($_GET['controller']) && isset($_GET['action'])) {
 		  $controller = $_GET['controller'];
 		  $action     = $_GET['action'];
 		}
 	} 
-	else {
+	else{
 			// Set default parameters
-		$controller = 'home';
-		$action     = 'frontpage';
-	}
+		$default = include("routes/default.php");
+		$controller = $default['landing']['controller'];
+		$action = $default['landing']['action'];
 
-		// Include route
-	require_once('routes.php');
+		echo $controller;
+	}
 	
 	ob_end_flush();
 ?>
