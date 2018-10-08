@@ -3,7 +3,8 @@
 return [
 
 		/* 
-		*	Declaring landing page, 
+		*	Declaring landing page and error page 
+		*	Make sure the method exists in the class while adding actions, otherwise the application may crash!
 		*/
 
 	'landing' => [
@@ -15,9 +16,9 @@ return [
 
 	'error' => [
 
-		'controller' => '',
+		'controller' => 'home',
 
-		'action' => ''
+		'action' => 'error'
 	],
 
 ];
