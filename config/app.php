@@ -2,18 +2,16 @@
 
 return [
 
-		// Declaring all project assets directory
+		// Declaring project assets directory
+
 	'assets' => 'resources/assets',
 
-		// Declaring all project assets directory
+		// Declaring project assets directory
+
 	'views' => 'resources/views',
 
-		// Declaring all project user roles
-	'roles' => array(
-		'superAdmin'=>'Super Administrator', 
-		'admin'=>'Administrator', 
-		'employee'=>'Employee', 
-		'student'=>'Student'
-	),
+		// Declaring project user roles
+
+	'roles' => array('Super Administrator', 'Administrator', 'Employee', 'Student'),
 
 ];
