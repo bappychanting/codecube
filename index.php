@@ -1,5 +1,6 @@
 <?php
 	ob_start();
+
 	session_start();
 
 		// Declaring controller calling function
@@ -43,7 +44,9 @@
 
 			// Sanitize parameters
 		foreach ($_GET as $key => $value) {
-		  $_GET[$key][$value] = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET[$key][$value]);
+		  $key = preg_replace('/[^-a-zA-Z0-9_]/', '', $key);
+		  $value = preg_replace('/[^-a-zA-Z0-9_]/', '', $value);
+		  $_GET[$key] = $value;
 		}
 
 			// Set parameters
