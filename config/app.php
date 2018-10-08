@@ -12,6 +12,6 @@ return [
 
 		// Declaring project user roles
 
-	'roles' => array('Super Administrator', 'Administrator', 'Employee', 'Student'),
+	'roles' => ['Super Administrator', 'Administrator', 'Employee', 'Student'],
 
 ];
