@@ -9,8 +9,10 @@
 
 			require_once('app/Http/Controllers/'.$route['class'].'.php');
 
-			if(method_exists($route['class'] , $action)) {	
-				$controller = new $route['class']($action);		
+			$class = end(explode("/", $route['class']));
+
+			if(method_exists($class , $action)) {	
+				$controller = new $class($action);		
 			}
 			else{
 				echo "Action not found!";
