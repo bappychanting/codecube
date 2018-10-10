@@ -29,12 +29,13 @@
 	include("vendor/autoload.php");
 
 		// Include project configurations
-	foreach (glob("config/*.php") as $files){
+	/*foreach (glob("config/*.php") as $files){
 	    $configurations = include $files;
 	    foreach ($configurations as $key=>$value){
 	    	$GLOBALS['config'][$key] = $value;
 	    }
-	}
+	}*/
+	$GLOBALS['config'] = include("config/app.php");
 			
 		// Set default parameters
 	$default = include("routes/default.php");
