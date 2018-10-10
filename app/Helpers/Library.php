@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Library;
+namespace App\Helpers;
 
-	class Library extends Database{
+	class Library{
 
 
       // Function for setting session data */

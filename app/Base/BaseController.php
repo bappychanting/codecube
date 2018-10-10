@@ -1,1 +1,9 @@
-BaseController.php
+<?php
+  
+  namespace App\Base;
+  
+  class BaseController {
+
+  }
+
+?>

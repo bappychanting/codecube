@@ -1,7 +1,7 @@
 <?php
-namespace App\Library;
+namespace App\Helpers;
 
-final class Image extends Library {
+final class Image{
 
       // Function for handling error
     public static function handle_error(){
