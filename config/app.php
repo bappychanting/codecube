@@ -1,21 +1,20 @@
 <?php
 
-return [
 
-		// Declaring application name
+		// Declaring application environment variables
 
-	'app_name' => 'Student Relationship Management System'
+	const APP_NAME = 'Student Relationship Management System';
 
-		// Declaring project assets directory
+	const DB_CONNECTION = 'mysql';
 
-	'assets' => 'resources/assets',
+	const DB_HOST = '127.0.0.1';
 
-		// Declaring project assets directory
+	const DB_PORT = '3306';
 
-	'views' => 'resources/views',
+	const DB_DATABASE = 'ecommerce';
 
-		// Declaring project user roles
+	const DB_USERNAME = 'root';
 
-	'roles' => ['Super Administrator', 'Administrator', 'Employee', 'Student'],
-
-];
+	const DB_PASSWORD = '1234';
+	
+	const APP_SERVER = 'localhost';
