@@ -15,12 +15,12 @@
 				$controller = new $class($action);		
 			}
 			else{
-				echo "Action not found!";
+				echo "<br><h1><center>Action not found!</center></h1>";
 				die();
 			}
 		}
 		else{
-			echo "Controller class not found!";
+			echo "<br><h1><center>Controller class not found!</center></h1>";
 			die();
 		}
 	}

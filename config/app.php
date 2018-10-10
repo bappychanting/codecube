@@ -2,6 +2,10 @@
 
 return [
 
+		// Declaring application name
+
+	'app_name' => 'Student Relationship Management System'
+
 		// Declaring project assets directory
 
 	'assets' => 'resources/assets',
