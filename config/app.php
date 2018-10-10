@@ -1,20 +1,23 @@
 <?php
 
+return [
+
 
 		// Declaring application environment variables
 
-	const APP_NAME = 'Student Relationship Management System';
+	'app_name' => 'Student Relationship Management System',
 
-	const DB_CONNECTION = 'mysql';
+	'db_connection' => 'mysql',
 
-	const DB_HOST = '127.0.0.1';
+	'db_host' => '127.0.0.1',
 
-	const DB_PORT = '3306';
+	'db_port' => '3306',
 
-	const DB_DATABASE = 'ecommerce';
+	'db_database' => 'ecommerce',
 
-	const DB_USERNAME = 'root';
+	'db_username' => 'root',
 
-	const DB_PASSWORD = '1234';
-	
-	const APP_SERVER = 'localhost';
+	'db_password' => '1234',
+
+];
+

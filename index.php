@@ -35,8 +35,6 @@
 	    	$GLOBALS['config'][$key] = $value;
 	    }
 	}
-
-	echo APP_NAME;
 			
 		// Set default parameters
 	$default = include("routes/default.php");

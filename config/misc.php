@@ -10,8 +10,4 @@ return [
 
 	'views' => 'resources/views',
 
-		// Declaring project user roles
-
-	'roles' => ['Super Administrator', 'Administrator', 'Employee', 'Student'],
-
 ];
