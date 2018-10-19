@@ -1,23 +1,25 @@
 <?php
 
-return [
-
-
 		// Declaring application environment variables
 
-	'app_name' => 'Student Relationship Management System',
 
-	'db_connection' => 'mysql',
+	/*foreach (glob("config/*.php") as $files){
+	    $configurations = include $files;
+	    foreach ($configurations as $key=>$value){
+	    	$GLOBALS['config'][$key] = $value;
+	    }
+	}*/
 
-	'db_host' => '127.0.0.1',
+ 	const APP_NAME = 'Student Relationship Management System';
 
-	'db_port' => '3306',
+	const DB_CONNECTION = 'mysql';
 
-	'db_database' => 'ecommerce',
+	const DB_HOST = '127.0.0.1';
 
-	'db_username' => 'root',
+	const DB_PORT = '3306';
 
-	'db_password' => '1234',
+	const DB_DATABASE = 'srms';
 
-];
+	const DB_USERNAME = 'root';
 
+	const DB_PASSWORD = '1234';

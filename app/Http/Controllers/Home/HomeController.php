@@ -1,17 +1,19 @@
 <?php
 
+namespace App\Http\Controllers\Home;
+
 class HomeController {
 
-    public function __construct($action) {
-      $this->{ $action }();
+    public function __construct() {
+    	// $this->{ $action }();
     }
 
     public function frontpage() {
-        echo "Home/Welcome!";
+        echo "Welcome to home!";
     }
 
     public function error() {
-        echo "Home/Error!";
+        echo "Found Error!";
     }
 
 }

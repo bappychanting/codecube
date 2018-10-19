@@ -11,7 +11,7 @@ return [
 
 		'class' => 'HomeController',
 		
-		'methods' => ['frontpage', 'error']
+		'methods' => ['frontpage']
 	]
 
 ];

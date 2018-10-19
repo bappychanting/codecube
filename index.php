@@ -9,19 +9,21 @@
 
 			require_once('app/Http/Controllers/'.$route['class'].'.php');
 
-			$class = end(explode("/", $route['class']));
+			$class = str_replace('/', '\\', $route['class']);
+
+			$class = 'App\Http\Controllers\\'.$class;
 
 			if(method_exists($class , $action)) {	
-				$controller = new $class($action);		
+				// $controller = new $class($action);	
+				$controller = new $class();
+				$controller->{ $action }();
 			}
 			else{
-				echo "<br><h1><center>Action not found!</center></h1>";
-				die();
+				echo "Action not found!"; die();
 			}
 		}
 		else{
-			echo "<br><h1><center>Controller class not found!</center></h1>";
-			die();
+			echo "Controller class not found!"; die();
 		}
 	}
 
@@ -29,13 +31,7 @@
 	include("vendor/autoload.php");
 
 		// Include project configurations
-	/*foreach (glob("config/*.php") as $files){
-	    $configurations = include $files;
-	    foreach ($configurations as $key=>$value){
-	    	$GLOBALS['config'][$key] = $value;
-	    }
-	}*/
-	$GLOBALS['config'] = include("config/app.php");
+	include("config/app.php");
 			
 		// Set default parameters
 	$default = include("routes/default.php");

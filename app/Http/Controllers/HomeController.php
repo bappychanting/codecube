@@ -1,12 +1,19 @@
 <?php
 
-class HomeController {
+namespace App\Http\Controllers;
 
-    public function __construct($action) {
-      $this->{ $action }();
+use App\Models\User; 
+
+class HomeController extends Controller
+{
+
+    public function __construct(User $user='') {
     }
 
     public function frontpage() {
+
+	    /*$users = User::getUsers();
+	    print_r($users);*/
         echo "Welcome!";
     }
 
