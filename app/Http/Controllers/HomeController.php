@@ -17,7 +17,6 @@ class HomeController extends Controller
 
 	    $users = $this->user->getUsers();
 	    print_r($users);
-        echo "Welcome!";
     }
 
     public function error() {

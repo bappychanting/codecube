@@ -5,55 +5,44 @@ use PDO;
   
 class BaseModel {
 
-  private static $instance = NULL;
-  private static $bindInt = NULL;
-  private static $dbhost = NULL;
-  private static $dbname = NULL;
-  private static $dbuser = NULL;
-  private static $dbpass = NULL;
+  private $instance = NULL;
+  private $bindInt = NULL;
+  
+  private $dbhost = NULL;
+  private $dbname = NULL;
+  private $dbuser = NULL;
+  private $dbpass = NULL;
 
   public function __construct() {
     if (defined('DB_HOST')) {
-      self::$dbhost = DB_HOST;
+      $this->dbhost = DB_HOST;
     }
     if (defined('DB_DATABASE')) {
-      self::$dbname = DB_DATABASE;
+      $this->dbname = DB_DATABASE;
     }
     if (defined('DB_USERNAME')) {
-      self::$dbuser = DB_USERNAME;
+      $this->dbuser = DB_USERNAME;
     }
     if (defined('DB_PASSWORD')) {
-      self::$dbpass = DB_PASSWORD;
+      $this->dbpass = DB_PASSWORD;
     }
   }
 
   private function __clone() {}
 
-  public static function getInstance() {
-    try{
-      if (!isset(self::$instance)) {
-        $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-        self::$instance = new PDO('mysql:host='.self::$dbhost.';dbname='.self::$dbname, self::$dbuser, self::$dbpass, $pdo_options);
-      }
-      return self::$instance;        
+  public function getInstance() {
+    if (!isset($this->instance)) {
+      $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+      $this->instance = new PDO('mysql:host='.$this->dbhost.';dbname='.$this->dbname, $this->dbuser, $this->dbpass, $pdo_options);
     }
-    catch (PDOException $e) {
-        echo 'Error: ' . $e->getMessage();
-        die();
-    }
+    return $this->instance;     
   }
 
-  public static function bindInteger() {
-    try{
-      if (!isset(self::$bindInt)) {
-        self::$bindInt = PDO::PARAM_INT;
-      }
-      return self::$bindInt;
+  public function bindInteger() {
+    if (!isset($this->bindInt)) {
+      $this->bindInt = PDO::PARAM_INT;
     }
-    catch (PDOException $e) {
-        echo 'Error: ' . $e->getMessage();
-        die();
-    }
+    return $this->bindInt;
   }
 
     // Function for Creating string for table row
@@ -71,7 +60,7 @@ class BaseModel {
   }
 
     // Function for Creating string for table inputs
-  private static function inputString($rows = ''){
+  private function inputString($rows = ''){
       if(is_array($rows)){  
         $string = '';
         foreach($rows as $row){
@@ -85,7 +74,7 @@ class BaseModel {
   }
 
     // Function for Creating execute array
-  private static function parameterArray($rows = '', $inputs= '', $conditionRows = '', $conditionInputs= ''){
+  private function parameterArray($rows = '', $inputs= '', $conditionRows = '', $conditionInputs= ''){
       if(is_array($rows) && is_array($inputs) && count($rows) == count($inputs)){
         if(is_array($conditionRows) && is_array($conditionInputs) && count($conditionRows) == count($conditionInputs)){
           for ($i = 0; $i < count($conditionRows); $i++) {
@@ -107,7 +96,7 @@ class BaseModel {
   }
 
     // Function for Creating update input string
-  private static function generateUpdateString($rows = ''){
+  private function generateUpdateString($rows = ''){
       if(is_array($rows)){ 
         $string = '';
         foreach($rows as $row){
@@ -121,7 +110,7 @@ class BaseModel {
   }
 
     // Function for Creating condition string
-  private static function generateCondition($conditionRows=''){
+  private function generateCondition($conditionRows=''){
       if(is_array($conditionRows)){
         $string = 'WHERE ';
         foreach($conditionRows as $condition){
@@ -149,10 +138,10 @@ class BaseModel {
    
 
     // Function for selecting data
-  public static function read($tablename='', $paginate='', $conditionRows = '', $conditionInputs= '', $extra=''){
+  public static function read($tablename='', $conditionRows = '', $conditionInputs= '', $paginate='', $extra=''){
       if(!empty($tablename)){
-        $pdo = self::getInstance();
-        $generateQuery = 'SELECT * FROM '.$tablename.' '.self::generateCondition($conditionRows).$extra;
+        $pdo = $this->getInstance();
+        $generateQuery = 'SELECT * FROM '.$tablename.' '.$this->generateCondition($conditionRows).$extra;
 
           // check if the query will paginate the data or not
         if(is_array($paginate) && array_key_exists('perpage',$paginate) && array_key_exists('page',$paginate) && array_key_exists('start',$paginate)){
@@ -163,19 +152,19 @@ class BaseModel {
 
             // Query for pagination
           $countQuery =  $pdo->prepare($generateQuery);
-          $countQuery->execute(self::parameterArray($conditionRows, $conditionInputs)); 
+          $countQuery->execute($this->parameterArray($conditionRows, $conditionInputs)); 
           $total = $countQuery->rowCount();
-          $pagination = self::paginate($total, $perpage, $page);
+          $pagination = $this->paginate($total, $perpage, $page);
 
             // Query for getting data
           $dataQuery = $pdo->prepare($generateQuery." LIMIT $start, $perpage");
-          $dataQuery->execute(self::parameterArray($conditionRows, $conditionInputs));
+          $dataQuery->execute($this->parameterArray($conditionRows, $conditionInputs));
           $data=$dataQuery->fetchAll();
           return array('data'=>$data, 'pagination'=>$pagination);
         }
         else{
           $query = $pdo->prepare($generateQuery);
-          $query->execute(self::parameterArray($conditionRows, $conditionInputs));
+          $query->execute($this->parameterArray($conditionRows, $conditionInputs));
           $data=$query->fetchAll();
           return $data;
         }
@@ -185,14 +174,14 @@ class BaseModel {
     // Function for inserting data
   public static function create($tablename='', $rows='', $inputs=''){
     if(!empty($tablename) && is_array($rows) && is_array($inputs) && count($rows) == count($inputs)){
-      $pdo = self::getInstance();
+      $pdo = $this->getInstance();
 
         // Creating the query command
-      $generateQuery = 'INSERT INTO '.$tablename.' ('.self::rowString($rows).') VALUES ('.self::inputString($rows).')'; 
+      $generateQuery = 'INSERT INTO '.$tablename.' ('.$this->rowString($rows).') VALUES ('.$this->inputString($rows).')'; 
       //return $generateQuery;
         // Execute Query
       $query = $pdo->prepare($generateQuery);        
-      $status = $query->execute(self::parameterArray($rows, $inputs));
+      $status = $query->execute($this->parameterArray($rows, $inputs));
   
       // Return Status
       return $status;
@@ -205,11 +194,11 @@ class BaseModel {
       $pdo = Database::getInstance();
 
         // Creating the query command
-      $generateQuery = 'UPDATE '.$tablename.' SET '.self::generateUpdateString($rows).self::generateCondition($conditionRows).$extra; 
+      $generateQuery = 'UPDATE '.$tablename.' SET '.$this->generateUpdateString($rows).$this->generateCondition($conditionRows).$extra; 
 
         // Execute Query
       $query = $pdo->prepare($generateQuery);        
-      $status = $query->execute(self::parameterArray($rows, $inputs, $conditionRows, $conditionInputs));
+      $status = $query->execute($this->parameterArray($rows, $inputs, $conditionRows, $conditionInputs));
   
       // Return Status
       return $status;
@@ -222,11 +211,11 @@ class BaseModel {
       $pdo = Database::getInstance();
 
         // Creating the query command
-      $generateQuery = 'DELETE FROM '.$tablename.self::generateCondition($conditionRows).$extra; 
+      $generateQuery = 'DELETE FROM '.$tablename.$this->generateCondition($conditionRows).$extra; 
 
        // Execute Query
       $deleteQuery = $pdo->prepare($generateQuery);
-      $status = $query->execute(self::parameterArray($conditionRows, $conditionInputs));
+      $status = $query->execute($this->parameterArray($conditionRows, $conditionInputs));
   
         // Return Status
       return $status;
@@ -248,7 +237,7 @@ class BaseModel {
 
     // Funcntion for pagination
   public static function paginate($total=1, $perpage=1, $page=1) {
-    $url = Self::getURL('&page');
+    $url = $this->getURL('&page');
     $totalPages = ceil($total / $perpage);
     $navigation = array('nav'=>'', 'skip_previous'=>'', 'previous'=>'', 'link'=>'', 'next'=>'', 'skip_next'=>'','endnav'=>'');
     $navigation['nav'] = "<nav><ul class='pagination'>";

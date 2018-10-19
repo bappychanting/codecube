@@ -9,9 +9,7 @@
 
 			require_once('app/Http/Controllers/'.$route['class'].'.php');
 
-			$class = str_replace('/', '\\', $route['class']);
-
-			$class = 'App\Http\Controllers\\'.$class;
+			$class = 'App\Http\Controllers\\'.str_replace('/', '\\', $route['class']);
 
 			if(method_exists($class , $action)) {		
 				$controller = new $class();
