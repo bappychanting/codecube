@@ -7,13 +7,16 @@ use App\Models\User;
 class HomeController extends Controller
 {
 
-    public function __construct(User $user='') {
+	private $user; 
+
+    public function __construct() {
+    	$this->user = new User;
     }
 
     public function frontpage() {
 
-	    /*$users = User::getUsers();
-	    print_r($users);*/
+	    $users = $this->user->getUsers();
+	    print_r($users);
         echo "Welcome!";
     }
 

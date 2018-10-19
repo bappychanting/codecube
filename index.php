@@ -13,8 +13,7 @@
 
 			$class = 'App\Http\Controllers\\'.$class;
 
-			if(method_exists($class , $action)) {	
-				// $controller = new $class($action);	
+			if(method_exists($class , $action)) {		
 				$controller = new $class();
 				$controller->{ $action }();
 			}

@@ -7,24 +7,23 @@ class BaseModel {
 
   private static $instance = NULL;
   private static $bindInt = NULL;
+  private static $dbhost = NULL;
+  private static $dbname = NULL;
+  private static $dbuser = NULL;
+  private static $dbpass = NULL;
 
-  private $dbhost = NULL;
-  private $dbname = NULL;
-  private $username = NULL;
-  private $password = NULL;
-
-  private function __construct() {
+  public function __construct() {
     if (defined('DB_HOST')) {
-      $dbhost = DB_HOST;
+      self::$dbhost = DB_HOST;
     }
     if (defined('DB_DATABASE')) {
-      $dbname = DB_DATABASE;
+      self::$dbname = DB_DATABASE;
     }
     if (defined('DB_USERNAME')) {
-      $dbuser = DB_USERNAME;
+      self::$dbuser = DB_USERNAME;
     }
     if (defined('DB_PASSWORD')) {
-      $dbpass = DB_PASSWORD;
+      self::$dbpass = DB_PASSWORD;
     }
   }
 
@@ -34,7 +33,7 @@ class BaseModel {
     try{
       if (!isset(self::$instance)) {
         $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-        self::$instance = new PDO('mysql:host='.$dbhost.';dbname='.$dbname, $dbuser, $dbpass, $pdo_options);
+        self::$instance = new PDO('mysql:host='.self::$dbhost.';dbname='.self::$dbname, self::$dbuser, self::$dbpass, $pdo_options);
       }
       return self::$instance;        
     }
