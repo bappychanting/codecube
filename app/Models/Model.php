@@ -2,8 +2,15 @@
 
 namespace App\Models;
 
-use App\Base\BaseModel;  
+use App\Base\DB;  
 
-class Model extends BaseModel{
+class Model{
+
+	protected $db;
+
+	public function __construct() 
+	{
+		$this->db = new DB();
+	}
 
 }

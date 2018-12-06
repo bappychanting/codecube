@@ -16,25 +16,39 @@
 				$controller->{ $action }();
 			}
 			else{
-				echo "Action not found!"; die();
+				die("Error: Action not found!");
 			}
 		}
 		else{
-			echo "Controller class not found!"; die();
+			die("Error: Action not found!");
 		}
+	}
+
+		// Include Helpers
+	$helpers = glob('helpers/*.php');
+	foreach ($helpers as $helper) {
+	    include($helper);   
 	}
 
 		// Include composer
 	include("vendor/autoload.php");
 
 		// Include project configurations
-	include("config/app.php");
+	if(file_exists("env.php") && is_readable("env.php")) {
+		include("env.php");
+	}
+	else{
+		die("Error: &quot;env.php&quot; file not found! This file contains environment variables! Please create a copy of the &quot;env.exmaple.php&quot; file in the config folder and rename it to &quot;env.php&quot;.");
+	}
 			
 		// Set default parameters
 	$default = include("routes/default.php");
 
 		// Include Routes
     $routes = include("routes/web.php");
+	
+	$controller = $default['landing']['controller'];
+	$action = $default['landing']['action'];
 
 	if(!empty($_GET)){
 
@@ -51,10 +65,6 @@
 		  $action     = $_GET['action'];
 		}
 	} 
-	else{
-		$controller = $default['landing']['controller'];
-		$action = $default['landing']['action'];
-	}
 
 	if (array_key_exists($controller, $routes)){
 		$route = $routes[$controller];

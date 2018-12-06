@@ -10,13 +10,20 @@ class HomeController extends Controller
 	private $user; 
 
     public function __construct() {
-    	$this->user = new User;
+    	// parent::__construct();
+        $this->user = new User;
     }
 
-    public function frontpage() {
-
-	    $users = $this->user->getUsers();
-	    print_r($users);
+    public function frontpage() 
+    {
+        try {
+            return $this->view('welcome');
+            $users = $this->user->queryTest();
+            return $this->view('users.user', compact('users'));
+        }
+        catch (\Exception $e) {
+            return $this->log('ERROR: '.$e->getMessage());
+        }
     }
 
     public function error() {
