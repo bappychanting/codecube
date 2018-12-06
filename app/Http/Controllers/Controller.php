@@ -1,5 +1,14 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Http\Controllers;
 
-$glob = $GLOBALS;
+use App\Base\Templating; 
+
+class Controller extends Templating{
+
+	public function __construct() 
+	{
+		
+	}
+
+}

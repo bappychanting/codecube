@@ -1,13 +1,29 @@
 <?php
 
-class HomeController {
+namespace App\Http\Controllers;
 
-    public function __construct($action) {
-      $this->{ $action }();
+use App\Models\User; 
+
+class HomeController extends Controller
+{
+
+	private $user; 
+
+    public function __construct() {
+    	// parent::__construct();
+        $this->user = new User;
     }
 
-    public function frontpage() {
-        echo "Welcome!";
+    public function frontpage() 
+    {
+        try {
+            return $this->view('welcome');
+            $users = $this->user->queryTest();
+            return $this->view('users.user', compact('users'));
+        }
+        catch (\Exception $e) {
+            return $this->log('ERROR: '.$e->getMessage());
+        }
     }
 
     public function error() {

@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "8ee1d31374eb57d4ef58ab68188988e8",
@@ -40,12 +40,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/verot/class.upload.php.git",
-                "reference": "f5107e76919c646044b08a681089da5b701e8db0"
+                "reference": "6a4bcb5383634ebf3e802e0eae51af553988c7e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/verot/class.upload.php/zipball/f5107e76919c646044b08a681089da5b701e8db0",
-                "reference": "f5107e76919c646044b08a681089da5b701e8db0",
+                "url": "https://api.github.com/repos/verot/class.upload.php/zipball/6a4bcb5383634ebf3e802e0eae51af553988c7e8",
+                "reference": "6a4bcb5383634ebf3e802e0eae51af553988c7e8",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 "gd",
                 "upload"
             ],
-            "time": "2018-09-30T10:00:36+00:00"
+            "time": "2018-10-31T20:29:58+00:00"
         }
     ],
     "packages-dev": [],

@@ -1,0 +1,6 @@
+<pagination>
+	<nav></nav>
+	<ul>pagination</ul>
+	<li>active</li>
+	<a>waves-effect</a>
+</pagination>
