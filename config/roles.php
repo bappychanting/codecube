@@ -6,13 +6,9 @@ return [
 
 	'roles' => [
 
-				'Super Administrator', 
-
 				'Administrator', 
 
-				'Employee', 
-
-				'Student'
+				'User', 
 				
 			],
 

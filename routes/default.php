@@ -3,23 +3,13 @@
 return [
 
 		/* 
-		*	Declaring landing page and error page 
-		*	Input controller and action name in black values
+		*	Declaring default landing page and error page 
+		*	Input a class and and a method referenced with "@" in the blank values
 		*	Make sure the method exists in the class while adding actions, otherwise the application may crash!
 		*/
 
-	'landing' => [
+	'landing' => 'HomeController@frontpage',
 
-		'controller' => 'home',
-
-		'action' => 'frontpage'
-	],
-
-	'error' => [
-
-		'controller' => 'home',
-
-		'action' => 'error'
-	],
+	'error' => 'HomeController@error',
 
 ];

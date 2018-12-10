@@ -5,7 +5,6 @@
         }
     },
     "require": {
-        "abeautifulsite/simple-php-captcha":"1.0.1",
         "verot/class.upload.php": "dev-master"
     }
 }

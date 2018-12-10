@@ -6,6 +6,8 @@
 
  	const APP_NAME = 'CodeCube';
 
+ 	const APP_URL = 'http://localhost:8000';
+
  	const APP_ENV = 'dev';
 
  	const APP_KEY = 'secret';
