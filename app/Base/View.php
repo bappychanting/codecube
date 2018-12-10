@@ -3,9 +3,6 @@
   // Function for creating current page title
 function title($title='')
 {
-  if(empty($title) && !empty($_GET['controller']) && !empty($_GET['action'])){
-    $title .= ucwords($_GET['controller']).' || '.ucwords($_GET['action']);
-  }
   return empty($title) ? ucwords(APP_NAME) : $title.' || '.ucwords(APP_NAME);
 }
 
@@ -16,7 +13,7 @@ function icon($ico='')
     return '<link rel="icon" href="'.$ico.'">';
   }
   else{
-    return (APP_ENV == 'dev') ? '<link href="resources/assets/'.$ico.'?'.mt_rand().'" rel="stylesheet">' : '<link href="resources/assets/'.$ico.'" rel="stylesheet">';
+    return (APP_ENV == 'dev') ? '<link href="'.APP_URL.'/resources/assets/'.$ico.'?'.mt_rand().'" rel="stylesheet">' : '<link href="'.APP_URL.'/resources/assets/'.$ico.'" rel="stylesheet">';
   }
 }
 
@@ -46,7 +43,7 @@ function style($style='')
     return '<link href="'.$style.'" rel="stylesheet">';
   }
   else{
-    return (APP_ENV == 'dev') ? '<link href="resources/assets/'.$style.'?'.mt_rand().'" rel="stylesheet">' : '<link href="resources/assets/'.$style.'" rel="stylesheet">';
+    return (APP_ENV == 'dev') ? '<link href="'.APP_URL.'/resources/assets/'.$style.'?'.mt_rand().'" rel="stylesheet">' : '<link href="'.APP_URL.'/resources/assets/'.$style.'" rel="stylesheet">';
   }
 }
 
@@ -57,7 +54,7 @@ function script($script='')
     return '<script type="text/javascript" src="'.$script.'"></script>';
   }
   else{
-    return (APP_ENV == 'dev') ? '<link href="resources/assets/'.$script.'?'.mt_rand().'" rel="stylesheet">' : '<link href="resources/assets/'.$script.'" rel="stylesheet">';
+    return (APP_ENV == 'dev') ? '<link href="'.APP_URL.'/resources/assets/'.$script.'?'.mt_rand().'" rel="stylesheet">' : '<link href="'.APP_URL.'/resources/assets/'.$script.'" rel="stylesheet">';
   }
 }
 
@@ -97,24 +94,21 @@ function inherits($_location='')
   }
 }
 
-  // Function for link
-function route($controller, $action, $parameters= array())
+  // Function for generating link
+function route($route_url, $parameters= array())
 {
 
-  $link = $controller.'/'.$action;
-
-  $link = '?controller='.$controller.'&action='.$action;
+  $link = APP_URL.'/'.$route_url;
 
   if(!empty($parameters)){
-    /*$link .= '?';
-    $count = 1;*/
+    $link .= '/?';
+    $count = 1;
     foreach($parameters as $key=>$value){
-      /*if($count > 1){
+      if($count > 1){
         $link .= '&';
       }
-      $link .= $key.'='.$value;*/
-      $link .= '&'.$key.'='.$value;
-      //$count++;
+      $link .= $key.'='.$value;
+      $count++;
     }
   }
 

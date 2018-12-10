@@ -1,6 +1,6 @@
 <?php
 
-class Image{
+class ImageHelpers{
 
       // Function for Image upload
     public static function imageUpload($directory, $filename){

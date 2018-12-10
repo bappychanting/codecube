@@ -1,9 +1,8 @@
 <?php inherits('layouts.master'); ?>
 
-
 <?php startblock('title') ?>
 	
-	<?php echo title('Users'); ?>
+	<?php echo title(); ?>
 
 <?php endblock() ?>
 
@@ -13,7 +12,7 @@
 	
 	<br>
 
-	<a href="<?php echo route('home', 'frontpage', ['id' => '3', 'uname'=>'bappy']); ?>">Home</a>	
+	<a href="<?php echo route('home', ['id' => '3', 'uname'=>'bappy']); ?>">Home</a>	
 
 	<br>	
 

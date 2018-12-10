@@ -3,15 +3,11 @@
 return [
 
 		/* 
-		*	Declaring all routes
-		*	Each controller key must have a class and a list of methods
+		*	Declaring all route urls
+		*	Make sure there is no slash (/) at the end of the route key string
+		*	Each route url must contain a class and and a method referenced with "@" as value
 		*/
 
-	'home' => [
-
-		'class' => 'HomeController',
-		
-		'methods' => ['frontpage']
-	]
+	'home' => 'HomeController@frontpage'
 
 ];

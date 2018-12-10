@@ -64,11 +64,11 @@
 				
 				// Check Project name and environment
 			$.ajax({
-			    url: 'functions/check_env.php',
+			    url: 'app/Base/Migration/check_env.php',
 			    type: 'GET',
 			    dataType: 'JSON',
 			    beforeSend: function(){
-			      document.title = '<i class="fa fa-spinner fa-spin"></i>';
+			      document.title = 'Database Migration';
 			      $("#project_name").empty().append('<i class="fa fa-spinner fa-spin"></i>');
 			      $("#feedback").empty().append('<i class="fa fa-spinner fa-spin"></i>');
 			    },
@@ -80,7 +80,7 @@
 			      }
 			      else{
 			      	var html = '';
-			      	html +='<form class="mb-5 mx-5 execute-form" method="post" action="functions/execute_queries.php">';
+			      	html +='<form class="mb-5 mx-5 execute-form" method="post" action="app/Base/Migration/execute_queries.php">';
                         html +='<div class="form-group">';
                             html +='<label for="key">Please enter project execution key to continue..</label>';
                            	html +='<input type="password" class="form-control" id="key" name="app-key" placeholder="KEY" pattern=".{3,}" required title="3 characters minimum">';

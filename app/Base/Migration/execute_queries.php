@@ -4,9 +4,9 @@ header('Content-type: application/json');
 
 $messages = array();
 
-if(file_exists('../../env.php')){
+if(file_exists('../../../env.php')){
 
-	require_once('../../env.php');
+	require_once('../../../env.php');
 
 	if(APP_ENV == 'dev' && !empty($_POST['app-key']) && $_POST['app-key'] == APP_KEY){
 
@@ -46,7 +46,7 @@ if(file_exists('../../env.php')){
 	   	}
 
 			// Include Queries
-		foreach (glob("../queries/*.php") as $files){
+		foreach (glob("../../../queries/*.php") as $files){
 
 		    $queries = include $files;
 

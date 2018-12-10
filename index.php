@@ -3,17 +3,24 @@
 
 	session_start();
 
-		// Declaring controller calling function
-	function call($action, $route){
-		if(file_exists('app/Http/Controllers/'.$route['class'].'.php')){
+		// Declaring controller method calling function
+	function call($route_url =''){
+		
+		$get_controller_action = explode("@", $route_url);
 
-			require_once('app/Http/Controllers/'.$route['class'].'.php');
+		$controller = $get_controller_action[0];
 
-			$class = 'App\Http\Controllers\\'.str_replace('/', '\\', $route['class']);
+		$method = $get_controller_action[1];
 
-			if(method_exists($class , $action)) {		
-				$controller = new $class();
-				$controller->{ $action }();
+		if(file_exists('app/Http/Controllers/'.$controller.'.php')){
+
+			require_once('app/Http/Controllers/'.$controller.'.php');
+
+			$controller_class = 'App\Http\Controllers\\'.str_replace('/', '\\', $controller);
+
+			if(method_exists($controller_class , $method)) {		
+				$class = new $controller_class();
+				$class->{ $method }();
 			}
 			else{
 				die("Error: Action not found!");
@@ -22,6 +29,13 @@
 		else{
 			die("Error: Action not found!");
 		}
+	}
+
+		// Check if database migration
+	if($_SERVER['REQUEST_URI'] == '/database'){
+		require_once("app/Base/Migration/migration_view.php");
+		ob_end_flush();
+		die();
 	}
 
 		// Include Helpers
@@ -41,42 +55,48 @@
 		die("Error: &quot;env.php&quot; file not found! This file contains environment variables! Please create a copy of the &quot;env.exmaple.php&quot; file in the config folder and rename it to &quot;env.php&quot;.");
 	}
 			
-		// Set default parameters
+		// Set default urls
 	$default = include("routes/default.php");
 
 		// Include Routes
     $routes = include("routes/web.php");
-	
-	$controller = $default['landing']['controller'];
-	$action = $default['landing']['action'];
 
+		// Sanitize url parameters
 	if(!empty($_GET)){
-
-			// Sanitize parameters
 		foreach ($_GET as $key => $value) {
 		  $key = preg_replace('/[^-a-zA-Z0-9_]/', '', $key);
 		  $value = preg_replace('/[^-a-zA-Z0-9_]/', '', $value);
 		  $_GET[$key] = $value;
 		}
+	} 
 
-			// Set parameters
-		if (isset($_GET['controller']) && isset($_GET['action'])) {
-		  $controller = $_GET['controller'];
-		  $action     = $_GET['action'];
+		// Create route ur string
+	$route_url = '';
+
+	$_URI = explode("/", $_SERVER['REQUEST_URI']);
+
+    $count_slash = 0;
+	foreach ($_URI as $value) {
+		if(!empty($value) && strpos($value, "=") == false){
+			if($count_slash > 0){
+        		$route_url .= '/';
+      		}
+			$route_url .= $value;
+      		$count_slash++;
 		}
-	} 
+	}
 
-	if (array_key_exists($controller, $routes)){
-		$route = $routes[$controller];
-	    if (in_array($action, $route['methods'])){
-			call($action, $route);
-		} 
-		else {
-			call($default['error']['action'], $routes[$default['error']['controller']]);
-	    }
-	} 
-	else {
-		call($default['error']['action'], $routes[$default['error']['controller']]);
+		// Call route
+	if(!empty($route_url)){
+		if(!empty($routes[$route_url])){
+			call($routes[$route_url]);
+		}
+		else{
+			call($default['error']);
+		}
+	}
+	else{
+		call($default['landing']);
 	}
 	
 	ob_end_flush();
