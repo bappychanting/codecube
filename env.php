@@ -18,7 +18,7 @@
 
 	const DB_PORT = '3306';
 
-	const DB_DATABASE = 'srms';
+	const DB_DATABASE = 'codecube';
 
 	const DB_USERNAME = 'admin';
 

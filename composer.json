@@ -7,9 +7,6 @@
     },
     "require": {
         "abeautifulsite/simple-php-captcha":"1.0.1",
-        "verot/class.upload.php": "dev-master",
-        "mpdf/mpdf":"v6.0.0",
-        "phpoffice/phpspreadsheet": "^1.5",
-        "php-curl-class/php-curl-class": "^8.5"
+        "verot/class.upload.php": "dev-master"
     }
 }
