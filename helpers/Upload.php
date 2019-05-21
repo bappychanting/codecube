@@ -1,6 +1,24 @@
 <?php
 
-class ImageHelpers{
+namespace Helpers; 
+
+class Upload{
+
+      // Function for File upload
+    public static function fileUpload($file, $directory){
+      $validextensions = array("pdf", "doc", "docx", "xls", "xlsx", "txt", "csv", "zip", "rar", "png", "jpg", "jpeg", "gif");  
+      $ext = explode('.', basename($_FILES['file']['name']));
+      $file_extension = end($ext); 
+      $file_name = md5(uniqid())."." . $ext[count($ext) -1];  
+      if (($_FILES["file"]["size"] < 5000000) && in_array($file_extension, $validextensions)) {
+        if (!file_exists($directory)) {
+            mkdir($directory, 0777, true);
+        }
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $directory.'/'.$file_name)) {
+          return $directory.'/'.$file_name;
+        } 
+      } 
+    }
 
       // Function for Image upload
     public static function imageUpload($directory, $filename){

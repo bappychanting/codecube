@@ -4,7 +4,7 @@
   <!-- Header -->
   <head>
     <!-- Favicon-->
-    <link rel="icon" href="https://i.imgur.com/UHfIf2Z.png">
+    <link rel="icon" href="resources/assets/img/favicon.png">
     <title></title>
     
     <!-- CSS-->
@@ -116,6 +116,7 @@
 							}, 1000);
 					      },
 					      complete: function(xhr) {
+					      	$(".brand").remove();
 			                $('#feedback').append("<h5 class='my-5 text-secondary'><i class='far fa-clock pr-2'></i>Waiting for return messages...</h5>");
 			                var time = 1000;
 					        var message = JSON.parse(xhr.responseText);
@@ -128,6 +129,7 @@
 							    time += 100;
 							    info.delay(time).fadeIn('fast');
 							};
+			                $('#feedback').append("<p class='small'><a href='https://www.codecubeit.com/' class='text-muted'>codecube.com</a></p>");
 					      }
 					    }); 
 			  		})();

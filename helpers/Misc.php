@@ -1,6 +1,38 @@
 <?php
 
+namespace Helpers; 
+
 class Misc{
+
+    // Function For Plucking
+  public static function pluck($array = array(), $column= '')
+  {
+    $plucked = array();
+    if(!empty($column) && !empty($array)){
+      foreach($array as $arr){
+        array_push($plucked, $arr[$column]);
+      }
+    }
+    return $plucked;
+  }
+
+  public static function createArrString($strArray = array())
+  {
+    $str = '';
+    $count = 1;
+    if(!empty($strArray)){
+      foreach($strArray as $arr){
+        if($count != count($strArray)){
+          $str .= $arr.', ';
+        }
+        else{
+          $str .= $arr;
+        }
+        $count++;
+      }
+    }
+    return $str;
+  }
 
     // Function for creating SEO friendly url
   public function urlString($string, $separator = '-'){
@@ -46,21 +78,18 @@ class Misc{
     // Function for generating year array
   public static function generateYearArray($previousYears = 1){
     $dates = array();
-          for ($year=date("Y")-$previousYears; $year<=date("Y"); $year++) {
-              $yearOfDates = array();
-              for ($month=1; $month<=12; $month++) {
-                  $begin = strtotime($year."-".$month."-01 12:00:00AM");
-                  $end = strtotime($year."-".($month+1)."-01 12:00:00AM")-1;
-                  $key = date("F, Y", $begin); // January, 2017
-                  $yearOfDates[$key] = array(
-                      'start' => $begin,
-                      'end' => $end
-                  );
-              }
-              if ($year==date("Y")) $dates['previousYear'] = $yearOfDates;
-              else $dates['currentYear'] = $yearOfDates; //assume 2018
-          }
-      return $dates;
+    for ($year=date("Y")-intval($previousYears); $year<=date("Y"); $year++) {
+        for ($month=1; $month<=12; $month++) {
+            $begin = strtotime($year."-".$month."-01 12:00:00AM");
+            $end = strtotime($year."-".($month+1)."-01 12:00:00AM")-1;
+            $key = date("F", $begin); 
+            $dates[$year][$key] = array(
+                'start' => $begin,
+                'end' => $end
+            );
+        }
+    }
+    return $dates;
   }
 
    

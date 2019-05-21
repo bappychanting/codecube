@@ -55,21 +55,15 @@ if(file_exists('../../../env.php')){
 			    	array_push($messages, 'Warning: Migration `'.ucwords(str_replace("_", " ", $key)).'` already exists! Migration skipped.');
 		    	}
 		    	else{
-		    		try
-			    	{
-			    			// Execute Query
-						$status = mysqli_query($con, $value);
-				        if($status){
-				        	mysqli_query($con, 'INSERT INTO migrations (migration, batch) VALUES ("'.$key.'", '.time().')');
-				        	array_push($messages, 'Success: Query `'.ucwords(str_replace("_", " ", $key)).'` executed successfully!');
-				        }
-				        else{
-				        	array_push($messages, 'Error: Query `'.ucwords(str_replace("_", " ", $key)).'` failed!');
-				        }      
-				    }
-				    catch (Exception $e) {
-				      	array_push($messages, 'Error: ' . $e->getMessage());
-				    }
+		    			// Execute Query
+					$status = mysqli_query($con, $value);
+			        if($status){
+			        	mysqli_query($con, 'INSERT INTO migrations (migration, batch) VALUES ("'.$key.'", '.time().')');
+			        	array_push($messages, 'Success: Query `'.ucwords(str_replace("_", " ", $key)).'` executed successfully!');
+			        }
+			        else{
+			        	array_push($messages, 'Error: Query `'.ucwords(str_replace("_", " ", $key)).'` failed! Reason: '.mysqli_error($con));
+			        }   
 		    	}
 		    }
 		}

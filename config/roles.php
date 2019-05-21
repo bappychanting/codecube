@@ -2,14 +2,8 @@
 
 return [
 
-		// Declaring project user roles
+			// Declaring project user roles
 
-	'roles' => [
-
-				'Administrator', 
-
-				'User', 
-				
-			],
+		'Super Administrator', 'Administrator', 'General User', 'Student'
 
 ];

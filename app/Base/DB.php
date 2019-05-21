@@ -11,8 +11,11 @@ class DB
   private $instance;
   private $table;
   private $queryString;
+  private $orderby;
   private $paginate;
   private $execArray;
+  private $lastId;
+  private $total;
   
     // Declaring database credentials
   private $dbhost;
@@ -26,7 +29,10 @@ class DB
     $this->instance = NULL;
     $this->table = '';
     $this->queryString = '';
+    $this->orderby = '';
     $this->paginate = '';
+    $this->lastId = '';
+    $this->total = '';
     $this->execArray = array();
 
     $this->dbhost = '127.0.0.1';
@@ -52,6 +58,13 @@ class DB
   {
 
   }
+    // Destruct Variables
+  private function destroy()
+  {
+    $this->queryString = '';
+    $this->orderby = '';
+    $this->execArray = array();
+  }
 
     // Returning database instance
   public function getInstance() 
@@ -74,11 +87,16 @@ class DB
 
     // Add conditions and string to query
   private function addQuery($row, $op, $value){
-    if(!empty($row) && !empty($op) && !empty($value)){
+    if(!empty($row) && !empty($op)){
       $this->queryString .= ' ';
       $this->queryString .= $row.' '.$op.' :'.$row;
       $this->queryString .= ' ';
-      $this->execArray[':'.$row] = $value;
+      if(empty($value)){
+        $this->execArray[':'.$row] =  ' ';
+      }
+      else{
+        $this->execArray[':'.$row] =  $value;
+      }
     }
   }
 
@@ -97,7 +115,14 @@ class DB
     return $this;
   }
 
-    // Including conditions
+    // Including Condition String
+  public function condition($str = '')
+  {
+    $this->queryString .= ' '.$str.' ';
+    return $this;
+  }
+
+    // Including WHERE conditions
   public function where($row='', $op='', $value='')
   {
     $this->queryString .= 'WHERE';
@@ -133,14 +158,14 @@ class DB
     // Including Order By Statement
   public function orderBy($row='created_at', $order='ASC')
   {
-    if(strpos($this->queryString, 'ORDER BY') == false){
-      $this->queryString .= 'ORDER BY';
+    if(strpos($this->orderby, 'ORDER BY') == false){
+      $this->orderby .= 'ORDER BY';
     }
     else{
-      $this->queryString .= ',';
+      $this->orderby .= ', ';
     }
-    $this->queryString .= ' ';
-    $this->queryString .= $row.' '.strtoupper($order);
+    $this->orderby .= ' ';
+    $this->orderby .= $row.' '.strtoupper($order);
     return $this;
   }
 
@@ -199,7 +224,7 @@ class DB
     return $this;
   }
 
-    // Raw query from database
+    // Get data from raw query from database
   public function get($raw='')
   {
     $pdo = $this->getInstance();
@@ -207,6 +232,15 @@ class DB
     $query->execute();
     $data = $query->fetchAll();
     return $data;
+  }
+
+    // Insert/Update/Delete from raw query in database
+  public function write($raw='')
+  {
+    $pdo = $this->getInstance();
+    $query = $pdo->prepare($raw);    
+    $status = $query->execute();
+    return $status;
   }
 
     // Read from database
@@ -222,38 +256,69 @@ class DB
       }
       $this->queryString .= $deleted_at;
     }
-    $query = $pdo->prepare('SELECT * FROM '.$this->table.' '.$this->queryString.' '.$this->paginate);    
+    logger('SELECT * FROM '.$this->table.' '.$this->queryString.' '.$this->orderby.' '.$this->paginate);
+    $query = $pdo->prepare('SELECT * FROM '.$this->table.' '.$this->queryString.' '.$this->orderby.' '.$this->paginate);    
     $query->execute($this->execArray);
     $data = $query->fetchAll();
+
+    $all_data = $pdo->prepare('SELECT * FROM '.$this->table.' '.$this->queryString);
+    $all_data->execute($this->execArray);
+    $this->total = $all_data->rowCount();
+
+    $this->destroy();
     return $data;
   }
 
-    // Calculate total result
-  public function total()
+    // Returning total data of last query
+  public function getTotal() 
+  {
+    $total = $this->total;
+    $this->total = '';
+    return $total;     
+  }
+
+    // Checking if exists in deleted
+  public function check()
   {
     $pdo = $this->getInstance();
+    logger('SELECT * FROM '.$this->table.' '.$this->queryString);
     $query = 'SELECT * FROM '.$this->table.' '.$this->queryString;
     $total = $pdo->prepare($query);
     $total->execute($this->execArray);
-    $this->total = $total->rowCount();
-    return $this->total;
+    $this->destroy();
+    if($total->rowCount() > 0){
+      return true;
+    }
   }
 
     // Store in database
-  public function store()
+  public function create()
   {
     $pdo = $this->getInstance();
+    logger('INSERT INTO '.$this->table.' '.$this->queryString);
     $query = $pdo->prepare('INSERT INTO '.$this->table.' '.$this->queryString);    
     $status = $query->execute($this->execArray);
+    $this->lastId = $pdo->lastInsertId();
+    $this->destroy();
     return $status;
+  }
+
+    // Returning ID of last inserted data
+  public function getLastId() 
+  {
+    $id = $this->lastId;
+    $this->lastId = '';
+    return $id;     
   }
 
     // Update database column
   public function update()
   {
     $pdo = $this->getInstance();
+    logger('UPDATE '.$this->table.' '.$this->queryString);
     $query = $pdo->prepare('UPDATE '.$this->table.' '.$this->queryString);    
-    $status = $query->execute($this->execArray);
+    $status = $query->execute($this->execArray); 
+    $this->destroy();
     return $status;
   }
 
@@ -263,20 +328,23 @@ class DB
     $pdo = $this->getInstance();
     $check = $this->checkColumn('deleted_at');
     if($check){
+      logger('UPDATE '.$this->table.' SET deleted_at = :deleted_at '.$this->queryString);
       $query = $pdo->prepare('UPDATE '.$this->table.' SET deleted_at = :deleted_at '.$this->queryString);
       $this->execArray[':deleted_at'] = date("Y-m-d H:i:s", time());
     } 
     else {
+      logger('DELETE FROM '.$this->table.' '.$this->queryString);
       $query = $pdo->prepare('DELETE FROM '.$this->table.' '.$this->queryString);
     }
     $status = $query->execute($this->execArray);
+    $this->destroy();
     return $status;
   }
 
     // Create pagination
   public function pagination(){
 
-    $total = $this->total();
+    $total = $this->getTotal();
 
     $limit = explode(" ", $this->paginate);  
 
@@ -284,107 +352,121 @@ class DB
 
     $page = isset($_GET["page"]) ? intval($_GET["page"]) : 1; 
 
-    $url = strpos($_SERVER['REQUEST_URI'], '&page') !== false ? substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '&page')) : $_SERVER['REQUEST_URI'];
+    $param = '/?page';
 
-    $totalPages = ceil($total / $perpage);
+    $url = $_SERVER['REQUEST_URI'];
+
+    if(count($_GET) > 0){
+      $param = strpos($_SERVER['REQUEST_URI'], $param) == false ? '&page' : $param;
+      $url = strpos($url, $param) !== false ? substr($url, 0, strpos($url, $param)) : $url;
+    }
+
+    $url = $url.$param; 
+
+    $totalPages = ceil($total / $perpage); 
     
-    $xml = simplexml_load_file("resources/markups/pagination.xml") or die("Error: &quot;pagination.xml&quot; not found! This file is required for parsing pagination classes. Please create an &quot;pagination.xml&quot; file in the &quot;resources > markup&quot; folder containing markup for &quotnav&quot;, &quot;ul&quot;, &quot;li&quot;, and &quot;a&quot; tags!");
+    if (file_exists("resources/markups/pagination.xml")){
+      $xml = simplexml_load_file("resources/markups/pagination.xml") or die(logger('ERROR: Can  not load xml file'));
+    }
+    else{ 
+      throw new \Exception("&quot;pagination.xml&quot; not found! This file is required for parsing pagination classes. Please create a &quot;pagination.xml&quot; file in the &quot;resources > markup&quot; folder containing markup for &quotnav&quot;, &quot;ul&quot;, &quot;li&quot;, and &quot;a&quot; tags!");
+    }
 
     $nav_class = $xml->nav;
     $ul_class = $xml->ul;
     $li_class = $xml->li;
     $a_class = $xml->a;
 
-    $pagination = "<nav class='$nav_class'><ul class='$ul_class'>";
+    $pagination = '<nav class="'.$nav_class.'"><ul class="'.$ul_class.'">';
     
     if($page > 1 ){
-      $pagination .= "<li>
-                        <a href='$url&page=1' class='$a_class'>
-                          |<
+      $pagination .= '<li>
+                        <a href="'.$url.'=1" class="'.$a_class.'">
+                          &#8676;
                         </a>
-                      </li>";
+                      </li>';
     }
   
     if($page <=1 ){
-      $pagination .= "<li class='disabled'>
-                        <a href='javascript:void(0);'>
+      $pagination .= '<li class="disabled">
+                        <a href="javascript:void(0);">
                           Previous
                         </a>
-                      </li>";
+                      </li>';
     }
     else{
       $j = $page - 1;
-      $pagination .= "<li>
-                        <a href='$url&page=$j' class='$a_class'>
+      $pagination .= '<li>
+                        <a href="'.$url.'='.$j.'" class="'.$a_class.'">
                           Previous
                         </a>
-                      </li>";
+                      </li>';
     }
   
     if ($totalPages >=1 && $page <= $totalPages){
       $range = 2;
       $limit = $range+1;
-      $pagination .= "";
+      $pagination .= '';
 
       if ($page > $limit){ 
-        $pagination .= "<li>
-                          <a href='$url&page=1' class='$a_class'>1</a>
+        $pagination .= '<li>
+                          <a href="'.$url.'=1" class="'.$a_class.'">1</a>
                         </li>
-                        <li class='disabled'>
-                          <a href = 'javascript:void(0);'>...</a>
-                        </li>";
+                        <li class="disabled">
+                          <a href = "javascript:void(0);">...</a>
+                        </li>';
       }
 
       for($i= ($page-$range); $i <(($page + $range)  + 1); $i++){
         if (($i > 0) && ($i <= $totalPages)){
           if($i<>$page){
-            $pagination .= "<li>
-                              <a href='$url&page=$i' class='$a_class'>$i</a>
-                            </li>";
+            $pagination .= '<li>
+                              <a href="'.$url.'='.$i.'" class="'.$a_class.'">'.$i.'</a>
+                            </li>';
           }
           else{
-            $pagination .= "<li class='$li_class'>
-                              <a href='javascript:void(0);'>$i</a>
-                            </li>";
+            $pagination .= '<li class="'.$li_class.'">
+                              <a href="javascript:void(0);">'.$i.'</a>
+                            </li>';
           }       
         }
       }
 
       if ($page <= $totalPages - $limit){ 
-        $pagination .= "<li class='disabled'>
-                          <a href = 'javascript:void(0);'>...</a>
+        $pagination .= '<li class="disabled">
+                          <a href = "javascript:void(0);">...</a>
                         </li>
                         <li> 
-                          <a href='$url&page=" .$totalPages." ' class='$a_class'>$totalPages</a>
-                        </li>"; 
+                          <a href="'.$url.'='.$totalPages.'" class="'.$a_class.'">'.$totalPages.'</a>
+                        </li>'; 
       }
     } 
 
     if($page == $totalPages ){
-      $pagination .= "<li class='disabled'>
-                        <a href='javascript:void(0);'>
+      $pagination .= '<li class="disabled">
+                        <a href="javascript:void(0);">
                             Next
                         </a>
-                      </li>";
+                      </li>';
     }
     else{
       $j = $page + 1;
-      $pagination .= "<li>
-                        <a href='$url&page=$j' class='$a_class'>
+      $pagination .= '<li>
+                        <a href="'.$url.'='.$j.'" class="'.$a_class.'">
                             Next
                         </a>
-                     </li>";
+                      </li>';
     }
 
     if($page < $totalPages ){ 
-      $pagination .= "<li>
-                        <a href='$url&page=" .$totalPages." ' class='$a_class'>
-                          >|
+      $pagination .= '<li>
+                        <a href="'.$url.'='.$totalPages.'" class="'.$a_class.'">
+                          &#8677;
                         </a>
-                      </li>"; 
+                      </li>'; 
     }
 
-    $pagination .= "</ul></nav>";
+    $pagination .= '</ul></nav>';
 
     return $pagination;
     
