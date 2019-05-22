@@ -26,7 +26,15 @@ return [
 
 	'password/update' => 'Admin/UserController@updatePassword',
 
-	'signout' => 'Admin/UserController@signout',
+	'home' => 'Admin/ItemController@index',
+
+	'items/store' => 'Admin/ItemController@store',
+
+	'items/get' => 'Admin/ItemController@sections',
+
+	'items/update' => 'Admin/ItemController@update',
+
+	'items/delete' => 'Admin/ItemController@delete',
 
 	'user/show' => 'Admin/UserController@show',
 
@@ -38,14 +46,6 @@ return [
 
 	'user/update/password' => 'Admin/UserController@updatePassword',
 
-	'items/all' => 'Admin/ItemController@index',
-
-	'items/store' => 'Admin/ItemController@store',
-
-	'items/get' => 'Admin/ItemController@sections',
-
-	'items/update' => 'Admin/ItemController@update',
-
-	'items/delete' => 'Admin/ItemController@delete',
+	'signout' => 'Admin/UserController@signout',
 
 ];

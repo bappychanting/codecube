@@ -19,24 +19,6 @@
     <?php echo style('css/bootstrap.min.css'); ?>
     <?php echo style('plugins/iconic/css/open-iconic-bootstrap.css'); ?>
 
-    <style>
-      body {
-          background-color: #f2f2f2;
-      }
-      a:link {
-          text-decoration: none;
-      }
-      .brand {  
-        position:absolute;
-        bottom:0px;
-        right:25%;
-        left:50%;
-      }
-      .framework_icon{
-        height: 60px;
-      }
-    </style>
-
   </head>
   <!-- #ENDS# Header -->
 

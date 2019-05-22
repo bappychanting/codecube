@@ -11,7 +11,7 @@ class CheckGuest
     {
         $request = new Request();
         if($request->auth()){
-            base::redirect('error');
+            base::redirect('home');
         }
     }
 

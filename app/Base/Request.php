@@ -31,7 +31,9 @@ class Request
     $_SESSION['request']['auth'] = $value;
   }
   public static function getAuth(){
-    return (object)$_SESSION['request']['auth'];
+    if(isset($_SESSION['request']['auth'])){
+      return (object)$_SESSION['request']['auth'];
+    }
   }
 
     // Check if auth
