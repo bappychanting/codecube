@@ -8,7 +8,7 @@ return [
 		*	Make sure the method exists in the class while adding actions, otherwise the application may crash!
 		*/
 
-	'landing' => 'HomeController@home',
+	'landing' => 'HomeController@welcome',
 
 	'error' => 'HomeController@error',
 

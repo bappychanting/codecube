@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Base\Templating; 
 
-class Controller extends Templating{
+use App\Base\BaseController; 
+
+class Controller extends BaseController{
 
 	public function __construct() 
 	{
