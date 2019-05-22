@@ -1,7 +1,5 @@
 <?php
 
-ob_start();
-
 	// Fucntion for generating log
 function logger($log_msg = '')
 {
@@ -88,6 +86,8 @@ function call($route_url =''){
 }
 
 try {
+
+	ob_start();
 
 	if(file_exists('config/app.php')){
 		$config = include('config/app.php');
@@ -197,7 +197,8 @@ catch (Exception $e) {
     logger('ERROR: '.$e->getMessage());
     die("<h4 style='margin-top: 50px; color: #666666; text-align: center;'>Error: ".$e->getMessage()."</h4>");
 }
-
-ob_end_flush();
+finally{
+	ob_end_flush();
+}
 	
 ?>
