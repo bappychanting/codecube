@@ -22,35 +22,8 @@ class UserController extends Controller
     public function login() 
     {
         $this->guard('CheckGuest'); 
-        $curl = new Curl();
-        try {
-            $auth_api = $this->config('auth');
-            $response = $curl->post($auth_api['url'], array(
-                'key' => $auth_api['key']
-            ));
-            if($response->status == 'error'){
-                $this->abort(402, $response->message);
-            }
-            else{
-                $this->request->put('captcha', simple_php_captcha());   
-                return $this->view('admin.auth.login');
-            }    
-        }
-        catch (Exception $e){
-            echo $e->getMessage();
-            echo $curl->getError();
-        }
-    }
-
-    public function register() 
-    {
-        $store = $this->user->setData($_POST)->validateData()->storeUser();
-        if($store){
-            $this->request->setFlash(array('success' => "Your user account has beed added!"));
-            $this->request->setFlash($alerts);
-            $this->redirect('user/show');
-        }
-        $this->redirect(back());
+        $this->request->put('captcha', simple_php_captcha());   
+        return $this->view('admin.auth.login');
     }
 
     public function checkCaptcha() 
