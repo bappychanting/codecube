@@ -12,40 +12,42 @@ return [
 
 	'welcome' => 'HomeController@welcome',
 
-	'login' => 'Admin/UserController@login',
+	'login' => 'Auth/AuthController@login',
 
-	'captcha' => 'Admin/UserController@checkCaptcha',
+	'captcha' => 'Auth/AuthController@checkCaptcha',
 
-	'signin' => 'Admin/UserController@signin',
+	'signin' => 'Auth/AuthController@signin',
 
-	'password/forgot' => 'Admin/UserController@forgotPassword',
+	'register' => 'Auth/AuthController@register',
 
-	'password/mail' => 'Admin/UserController@sendResetInfo',
+	'password/forgot' => 'Auth/AuthController@forgotPassword',
 
-	'password/reset' => 'Admin/UserController@resetPassword',
+	'password/mail' => 'Auth/AuthController@sendResetInfo',
 
-	'password/update' => 'Admin/UserController@updatePassword',
+	'password/reset' => 'Auth/AuthController@resetPassword',
 
-	'home' => 'Admin/ItemController@index',
+	'password/update' => 'Auth/AuthController@updatePassword',
 
-	'items/store' => 'Admin/ItemController@store',
+	'home' => 'ItemController@index',
 
-	'items/get' => 'Admin/ItemController@sections',
+	'items/store' => 'ItemController@store',
 
-	'items/update' => 'Admin/ItemController@update',
+	'items/get' => 'ItemController@sections',
 
-	'items/delete' => 'Admin/ItemController@delete',
+	'items/update' => 'ItemController@update',
 
-	'user/show' => 'Admin/UserController@show',
+	'items/delete' => 'ItemController@delete',
 
-	'user/edit' => 'Admin/UserController@edit',
+	'user/show' => 'User/UserController@show',
 
-	'user/edit/password' => 'Admin/UserController@editPassword',
+	'user/edit' => 'User/UserController@edit',
 
-	'user/update' => 'Admin/UserController@update',
+	'user/edit/password' => 'User/UserController@editPassword',
 
-	'user/update/password' => 'Admin/UserController@updatePassword',
+	'user/update' => 'User/UserController@update',
 
-	'signout' => 'Admin/UserController@signout',
+	'user/update/password' => 'User/UserController@updatePassword',
+
+	'signout' => 'User/UserController@signout',
 
 ];
