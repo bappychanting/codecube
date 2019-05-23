@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         $this->guard('CheckGuest'); 
         $this->request->put('captcha', simple_php_captcha());   
-        return $this->view('admin.auth.login');
+        return $this->view('auth.login');
     }
 
     public function checkCaptcha() 
@@ -31,7 +31,7 @@ class UserController extends Controller
         if($_POST['check'] == $this->request->show('captcha')->code){
           $this->auth->signout();
         }
-        $this->redirect('admin/login');
+        $this->redirect('login');
     }
 
     public function signin() 
@@ -40,11 +40,17 @@ class UserController extends Controller
         $this->auth->setPassword($_POST['password']);
         $signin = $this->auth->signin();
 	    if($signin){
-            $this->redirect('admin/dashboard');
+            $this->redirect('home');
 	    }
 	    else{
-	    	$this->redirect('admin/login');
+	    	$this->redirect('login');
 	    }
+    }
+
+    public function register() 
+    {
+        $this->guard('CheckGuest');  
+        return $this->view('auth.register');
     }
 
     public function forgotPassword() 
@@ -66,10 +72,10 @@ class UserController extends Controller
             $this->auth->storeLink();
             $subject = 'Link For Password Reset!';
             $body = 'Please click the below link to reset your password-';
-            $body .= '<br><a href="'.route("admin/password/reset", ["token" => $token]).'" target="_blank">Link to reset password!</a>';
+            $body .= '<br><a href="'.route("password/reset", ["token" => $token]).'" target="_blank">Link to reset password!</a>';
             // $this->sendMail($user['email'], $subject, $body);
         }
-        $msg = ['code' => 'success', 'message' => 'Pleace check your mail! You will get an email if your given credential is found in our database!', 'link' => route('admin/login')];
+        $msg = ['code' => 'success', 'message' => 'Pleace check your mail! You will get an email if your given credential is found in our database!', 'link' => route('login')];
         return $this->view('admin.auth.message', compact('msg'));
     }
 
@@ -82,7 +88,7 @@ class UserController extends Controller
             return $this->view('admin.auth.reset', compact('link'));
         }
         else{
-            $msg = ['code' => 'error', 'message' => 'This link is expired!', 'link' => route('admin/login')];
+            $msg = ['code' => 'error', 'message' => 'This link is expired!', 'link' => route('login')];
             return $this->view('admin.auth.message', compact('msg'));
         }
     }
@@ -95,14 +101,14 @@ class UserController extends Controller
         $update = $this->auth->updatePass();
         $this->auth->setToken($_POST['token']);
         $update = $this->auth->updateValidity();
-        $msg = ['code' => 'success', 'message' => 'Your password has been updated!', 'link' => route('admin/login')];
+        $msg = ['code' => 'success', 'message' => 'Your password has been updated!', 'link' => route('login')];
         return $this->view('admin.auth.message', compact('msg'));
     }
 
     public function signout() 
     {
         $this->auth->signout();
-        $this->redirect('admin/login');
+        $this->redirect('login');
     }
 
 }
