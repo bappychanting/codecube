@@ -121,11 +121,6 @@ class User extends Model{
     return $this;
   }
 
-  public function getUser(){    
-    $user = $this->db->table('users')->where('username', '=', $this->getUsername())->or('email', '=', $this->getEmail())->read();
-    return $user[0];
-  }
-
   public function storeUser(){    
     if(empty(getErrors())){
       $store = $this->db->table('users')->data(['name' => $this->getName(), 'username' => $this->getUsername(), 'email' => $this->getEmail(), 'password' => empty($this->getPassword()) ? '' : password_hash($this->getPassword(), PASSWORD_BCRYPT)])->create();

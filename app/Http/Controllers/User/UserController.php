@@ -26,17 +26,13 @@ class UserController extends Controller
     public function edit() 
     {
         $this->guard('UserAccess');
-        $roles = $this->config('roles');
-        $genders = $this->config('genders');
         $auth_user = $this->request->getAuth();
-        $user = $this->user->setData($_GET)->getUser();
-        return $this->view('admin.users.edit', compact('user', 'genders', 'roles', 'auth_user'));
+        return $this->view('admin.users.edit', compact('auth_user'));
     }
 
     public function editPassword() 
     { 
         $this->guard('UserAccess');
-        $user = $this->user->setData($_GET)->getUser();
         $auth_user = $this->request->getAuth();
         return $this->view('admin.users.edit_pass', compact('user', 'auth_user'));
     }
