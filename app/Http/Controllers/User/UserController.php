@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin; 
+namespace App\Http\Controllers\User; 
 
 use App\Base\Request; 
-use App\Models\People\User; 
+use App\Models\User\User; 
 use App\Http\Controllers\Controller; 
 
 class UserController extends Controller

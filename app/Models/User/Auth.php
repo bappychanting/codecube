@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\People; 
+namespace App\Models\User; 
 
 use App\Base\Authenticable;
 

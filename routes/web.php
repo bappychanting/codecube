@@ -12,21 +12,21 @@ return [
 
 	'welcome' => 'HomeController@welcome',
 
-	'login' => 'Auth/AuthController@login',
+	'login' => 'User/AuthController@login',
 
-	'captcha' => 'Auth/AuthController@checkCaptcha',
+	'captcha' => 'User/AuthController@checkCaptcha',
 
-	'signin' => 'Auth/AuthController@signin',
+	'signin' => 'User/AuthController@signin',
 
-	'register' => 'Auth/AuthController@register',
+	'register' => 'User/AuthController@register',
 
-	'password/forgot' => 'Auth/AuthController@forgotPassword',
+	'password/forgot' => 'User/AuthController@forgotPassword',
 
-	'password/mail' => 'Auth/AuthController@sendResetInfo',
+	'password/mail' => 'User/AuthController@sendResetInfo',
 
-	'password/reset' => 'Auth/AuthController@resetPassword',
+	'password/reset' => 'User/AuthController@resetPassword',
 
-	'password/update' => 'Auth/AuthController@updatePassword',
+	'password/update' => 'User/AuthController@updatePassword',
 
 	'home' => 'ItemController@index',
 

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\User; 
 
 use App\Base\Request;
-use App\Models\People\Auth; 
-use App\Models\People\User; 
+use App\Models\User\Auth; 
+use App\Models\User\User; 
 use App\Http\Controllers\Controller; 
 
-class UserController extends Controller
+class AuthController extends Controller
 {
     private $user; 
     private $auth;
