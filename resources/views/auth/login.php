@@ -18,14 +18,8 @@
       ?>
       <div class="alert alert-danger"><?php echo App\Base\Request::getData('timeout'); ?></div>
       <h5 class="card-title">Spam Protection</h5>
-      <div class="row">
-        <div class="col-7 pr-2">
-          <span class="img"><img src="<?php echo App\Base\Request::show('captcha')->image_src; ?>" alt="CAPTCHA code"></span>
-        </div>
-        <div class="col-5 pr-2">
-          <a href="<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn btn-block bg-red waves-effect"><span class="oi oi-account-logout pr-2"></span> <span class="icon-name">ReCaptcha</span></a>
-        </div>
-      </div>
+      <span class="img"><img src="<?php echo App\Base\Request::show('captcha')->image_src; ?>" alt="CAPTCHA code"></span>
+      <a href="<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn btn-block bg-red waves-effect"><span class="oi oi-reload pr-2"></span> <span class="icon-name">ReCaptcha</span></a>
       <form method="POST" action="<?php echo route('captcha'); ?>">            
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <div class="form-group">
