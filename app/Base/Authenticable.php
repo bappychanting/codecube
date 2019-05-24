@@ -35,7 +35,7 @@ class Authenticable
 					$attempts = $user['attempts'] + 1;
 					$update = $this->db->table('users')->set(['attempts' => $attempts])->where('username', '=', $identity)->or('email', '=', $identity)->update();
 					if($attempts > 3){
-						$this->request->put('timeout', 'Multiple incorrect attempts detected!');
+						$this->request->setData('timeout', 'Multiple incorrect attempts detected!');
 						return FALSE;
 					}
 					else{

@@ -6,12 +6,14 @@ class Request
 {
 
     // Data setter and geter
-  public static function setData($key, $request){
-    $_SESSION['request'][$key] = $request;
+  public static function setData($key, $value){
+    $_SESSION['request'][$key] = $value;
   }
 
   public static function getData($key){
-    return (object)$_SESSION['request'][$key];
+    if(isset($_SESSION['request'][$key])){
+      return $_SESSION['request'][$key];
+    }
   }
 
     // Flash setter and geter
@@ -22,7 +24,19 @@ class Request
     if(isset($_SESSION['request']['flash'])){
       $flash = $_SESSION['request']['flash']; 
       unset($_SESSION['request']['flash']);
-      return (object)$flash;
+      return $flash;
+    }
+  }
+
+    // Put Array in request
+  public static function put($key, $arr = array()){
+    $_SESSION['request'][$key] = $arr;
+  }
+
+    // Get Array from request
+  public static function show($key){
+    if(isset($_SESSION['request'][$key])){
+      return (object)$_SESSION['request'][$key];
     }
   }
 
@@ -42,16 +56,6 @@ class Request
       return TRUE;
     }
     return FALSE;
-  }
-
-    // Input new Request
-  public static function put($key, $value){
-    $_SESSION['request'][$key] = $value;
-  }
-
-    // Output new Request
-  public static function show($key){
-    return (object)$_SESSION['request'][$key];
   }
 
     // destroy Request session array

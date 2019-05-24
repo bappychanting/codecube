@@ -14,16 +14,16 @@
   </div>
   <div class="card-body">
     <?php 
-    if(!empty($_SESSION['timeout'])){
+    if(!empty(App\Base\Request::getData('timeout'))){
       ?>
-      <div class="alert alert-danger"><?php echo $_SESSION['timeout']; ?></div>
+      <div class="alert alert-danger"><?php echo App\Base\Request::getData('timeout'); ?></div>
       <h5 class="card-title">Spam Protection</h5>
       <div class="row">
         <div class="col-7 pr-2">
-          <span class="img"><?php echo '<img src="' . $_SESSION['captcha']['image_src'] . '" alt="CAPTCHA code">'; ?></span>
+          <span class="img"><img src="<?php echo App\Base\Request::show('captcha')->image_src; ?>" alt="CAPTCHA code"></span>
         </div>
         <div class="col-5 pr-2">
-          <a href="<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn btn-block bg-red waves-effect"><i class="material-icons">cached</i> <span class="icon-name">ReCaptcha</span></a>
+          <a href="<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn btn-block bg-red waves-effect"><span class="oi oi-account-logout pr-2"></span> <span class="icon-name">ReCaptcha</span></a>
         </div>
       </div>
       <form method="POST" action="<?php echo route('captcha'); ?>">            
