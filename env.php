@@ -20,6 +20,6 @@
 
 	const DB_DATABASE = 'codecube';
 
-	const DB_USERNAME = 'admin';
+	const DB_USERNAME = 'root';
 
-	const DB_PASSWORD = '1234';
+	const DB_PASSWORD = '';

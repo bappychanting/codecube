@@ -30,9 +30,11 @@ return [
 
 	'home' => 'ItemController@index',
 
+	'items/all' => 'ItemController@store',
+
 	'items/store' => 'ItemController@store',
 
-	'items/get' => 'ItemController@sections',
+	'items/edit' => 'ItemController@sections',
 
 	'items/update' => 'ItemController@update',
 

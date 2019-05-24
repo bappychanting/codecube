@@ -7,7 +7,6 @@ class HomeController extends Controller
 
     public function welcome() 
     {
-        $this->guard('CheckGuest');
         return $this->view('welcome');
     }
 
