@@ -17,7 +17,7 @@ if(file_exists('../../../env.php')){
 			array_push($messages, "Error: Failed to connect to MySQL! " . mysqli_connect_error());
 		}
 
-		if($_POST['reset_migration'] == "reset"){
+		if(isset($_POST['reset_migration']) && $_POST['reset_migration'] == "reset"){
 			$status = mysqli_query($con, "DROP TABLE IF EXISTS `migrations`");
 			if($status){
 				array_push($messages, 'Success: Existing Migration table has been removed!');
