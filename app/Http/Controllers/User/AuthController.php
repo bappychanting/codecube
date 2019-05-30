@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User; 
 
-use App\Base\Request;
+use Base\Request;
 use App\Models\User\Auth; 
 use App\Models\User\User; 
 use App\Http\Controllers\Controller; 

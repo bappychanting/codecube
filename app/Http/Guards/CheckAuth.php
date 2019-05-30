@@ -2,9 +2,9 @@
 
 namespace App\Http\Guards;
 
-use App\Base\Request;
-use App\Base\DB;
-use App\Base\BaseController as base; 
+use Base\Request;
+use Base\DB;
+use Base\BaseController as base; 
 
 class CheckAuth 
 {

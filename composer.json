@@ -2,8 +2,12 @@
     "autoload": {
         "psr-4":{
             "App\\": "app/",
-            "Helpers\\": "helpers/"
-        }
+            "Base\\": "base/Classes"
+        },
+        "files": [
+            "base/Templating/Inheritance.php",
+            "base/Templating/View.php"
+        ]
     },
     "require": {
         "abeautifulsite/simple-php-captcha":"1.0.1",

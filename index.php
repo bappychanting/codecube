@@ -103,9 +103,9 @@ try {
 	}
 
 		// Check if database migration
-	if($_SERVER['REQUEST_URI'] == '/databaseMigration'){
-		if(file_exists("app/Base/Migration/migration_view.php") && is_readable("app/Base/Migration/migration_view.php")) {
-			require_once("app/Base/Migration/migration_view.php");
+	if($_SERVER['REQUEST_URI'] == '/database_migration'){
+		if(file_exists("base/Migration/migration_view.php") && is_readable("base/Migration/migration_view.php")) {
+			require_once("base/Migration/migration_view.php");
 			ob_end_flush();
 			die();
 		}

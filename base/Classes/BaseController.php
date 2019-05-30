@@ -1,10 +1,8 @@
 <?php
   
-namespace App\Base;
+namespace Base;
 
-use App\Base\Request;
-
-require_once('Templating/View.php');
+use Base\Request;
 
 class BaseController 
 {

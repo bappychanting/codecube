@@ -1,6 +1,4 @@
-<?php 
-
-require_once('Inheritance.php');   
+<?php   
 
   // Function for creating current page title
 function title($title='')

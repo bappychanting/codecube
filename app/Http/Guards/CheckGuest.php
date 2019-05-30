@@ -2,8 +2,8 @@
 
 namespace App\Http\Guards;
 
-use App\Base\Request;
-use App\Base\BaseController as base; 
+use Base\Request;
+use Base\BaseController as base; 
 
 class CheckGuest
 {

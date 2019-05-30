@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Base\BaseController; 
+use Base\BaseController; 
 
 class Controller extends BaseController{
 

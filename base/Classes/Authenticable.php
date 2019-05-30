@@ -1,9 +1,9 @@
 <?php
   
-namespace App\Base;
+namespace Base;
 
-use App\Base\DB; 
-use App\Base\Request;
+use Base\DB; 
+use Base\Request;
   
 class Authenticable
 {

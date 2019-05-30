@@ -2,7 +2,7 @@
 
 namespace App\Models\User; 
 
-use App\Base\Authenticable;
+use Base\Authenticable;
 
 class Auth extends User{
 
