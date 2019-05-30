@@ -5,12 +5,12 @@
             "Base\\": "base/Classes"
         },
         "files": [
-            "base/Templating/Inheritance.php",
-            "base/Templating/View.php"
+            "base/Functions/Initials.php",
+            "base/Functions/Inheritance.php",
+            "base/Functions/View.php"
         ]
     },
     "require": {
-        "abeautifulsite/simple-php-captcha":"1.0.1",
         "verot/class.upload.php": "dev-master"
     }
 }

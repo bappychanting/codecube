@@ -4,36 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ee1d31374eb57d4ef58ab68188988e8",
+    "content-hash": "7eae8231dc4f94597177b5d6c3f6a55c",
     "packages": [
-        {
-            "name": "abeautifulsite/simple-php-captcha",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/claviska/simple-php-captcha.git",
-                "reference": "673e5e98487699a4be6a1640dde63321ebe7e490"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/claviska/simple-php-captcha/zipball/673e5e98487699a4be6a1640dde63321ebe7e490",
-                "reference": "673e5e98487699a4be6a1640dde63321ebe7e490",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "simple-php-captcha.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A simple PHP CAPTCHA script",
-            "homepage": "http://www.abeautifulsite.net/",
-            "time": "2017-06-27T14:09:32+00:00"
-        },
         {
             "name": "verot/class.upload.php",
             "version": "dev-master",
