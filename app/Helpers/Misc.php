@@ -48,26 +48,26 @@ class Misc{
 
     // Function for cutting a string
   public static function substrwords($text, $maxchar, $end='...') {
-      if (strlen($text) > $maxchar || $text == '') {
-          $words = preg_split('/\s/', $text);      
-          $output = '';
-          $i      = 0;
-          while (1) {
-              $length = strlen($output)+strlen($words[$i]);
-              if ($length > $maxchar) {
-                  break;
-              } 
-              else {
-                  $output .= " " . $words[$i];
-                  ++$i;
-              }
-          }
-          $output .= $end;
-      } 
-      else {
-          $output = $text;
+    if (strlen($text) > $maxchar || $text == '') {
+      $words = preg_split('/\s/', $text);      
+      $output = '';
+      $i      = 0;
+      while (1) {
+        $length = strlen($output)+strlen($words[$i]);
+        if ($length > $maxchar) {
+          break;
+        } 
+        else {
+          $output .= " " . $words[$i];
+          ++$i;
+        }
       }
-      return $output;
+      $output .= $end;
+    } 
+    else {
+      $output = $text;
+    }
+    return $output;
   }
 
     //  Function for generating HTML colors
@@ -79,20 +79,38 @@ class Misc{
   public static function generateYearArray($previousYears = 1){
     $dates = array();
     for ($year=date("Y")-intval($previousYears); $year<=date("Y"); $year++) {
-        for ($month=1; $month<=12; $month++) {
-            $begin = strtotime($year."-".$month."-01 12:00:00AM");
-            $end = strtotime($year."-".($month+1)."-01 12:00:00AM")-1;
-            $key = date("F", $begin); 
-            $dates[$year][$key] = array(
-                'start' => $begin,
-                'end' => $end
-            );
-        }
+      for ($month=1; $month<=12; $month++) {
+        $begin = strtotime($year."-".$month."-01 12:00:00AM");
+        $end = strtotime($year."-".($month+1)."-01 12:00:00AM")-1;
+        $key = date("F", $begin); 
+        $dates[$year][$key] = array(
+          'start' => $begin,
+          'end' => $end
+        );
+      }
     }
     return $dates;
   }
 
-   
+    // Function for generating Captcha
+  public static function generateCaptcha($img_width = 70, $img_height = 40, $font_size = 30, $font_type = 'font.ttf', $image_color = array(0, 0, 0), $background_color = array(255, 255, 255)){
+
+    $captcha_num = rand(1000, 9999);
+    $_SESSION['code'] = $captcha_num;
+
+    header('Content-type: image/jpeg');
+
+    $image = imagecreate($img_width, $img_height); // create background image with dimensions
+    imagecolorallocate($image, $background_color[0], $background_color[1], $background_color[2]); // set background color
+
+    $text_color = imagecolorallocate($image, $image_color[0], $image_color[1], $image_color[2]); // set captcha text color
+
+    imagettftext($image, $font_size, 0, 15, 30, $text_color, $font_type, $captcha_num);
+    return imagejpeg($image);
+
+  }
+
+
 }
 
 ?>

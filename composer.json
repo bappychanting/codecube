@@ -11,6 +11,6 @@
         ]
     },
     "require": {
-        "verot/class.upload.php": "dev-master"
+        "abeautifulsite/simple-php-captcha":"1.0.1"
     }
 }
