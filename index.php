@@ -37,7 +37,7 @@ try {
 		include("env.php");
 	}
 	else{
-		throw new Exception('&quot;env.php&quot; file not found! This file contains environment variables! Please create a copy of the &quot;env.exmaple.php&quot; file in the config folder and rename it to &quot;env.php&quot;.');
+		throw new Exception('Environment configuration file not found! Please create a copy of the &quot;env.exmaple.php&quot; file in the root folder and rename it to &quot;env.php&quot;.');
 	}
 			
 		// Set default urls
