@@ -15,8 +15,10 @@
 
     <title><?php startblock('title') ?><?php endblock() ?></title>
     
-    <!-- CSS-->
-    <?php echo style('css/bootstrap.min.css'); ?>
+    <!-- Bootstrap CSS-->
+    <?php echo style('plugins/bootstrap/css/bootstrap.min.css'); ?>
+
+    <!-- Iconic CSS-->
     <?php echo style('plugins/iconic/css/open-iconic-bootstrap.css'); ?>
 
   </head>
@@ -73,10 +75,11 @@
     </div>
   </div>
 
-    <!-- Bootstrap tooltips -->
-    <?php echo script('js/popper.min.js'); ?>
+    <!-- Jquery -->
+    <?php echo script('plugins/jquery/jquery.min.js'); ?>
+    
     <!-- Bootstrap core JavaScript -->
-    <?php echo script('js/bootstrap.min.js'); ?>
+    <?php echo script('plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>
 
   </body>
 

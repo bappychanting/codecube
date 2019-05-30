@@ -100,10 +100,12 @@ class Misc{
 
     header('Content-type: image/jpeg');
 
-    $image = imagecreate($img_width, $img_height); // create background image with dimensions
-    imagecolorallocate($image, $background_color[0], $background_color[1], $background_color[2]); // set background color
-
-    $text_color = imagecolorallocate($image, $image_color[0], $image_color[1], $image_color[2]); // set captcha text color
+      // create background image with dimensions
+    $image = imagecreate($img_width, $img_height); 
+     // set background color
+    imagecolorallocate($image, $background_color[0], $background_color[1], $background_color[2]);
+      // set captcha text color
+    $text_color = imagecolorallocate($image, $image_color[0], $image_color[1], $image_color[2]);
 
     imagettftext($image, $font_size, 0, 15, 30, $text_color, $font_type, $captcha_num);
     return imagejpeg($image);
