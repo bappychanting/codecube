@@ -16,7 +16,7 @@
     <title><?php echo 'Welcome || '.title(); ?></title>
     
     <!-- CSS-->
-    <?php echo style('css/bootstrap.min.css'); ?>
+    <?php echo style('plugins/bootstrap/css/bootstrap.min.css'); ?>
 
     <style>
       body {
@@ -58,9 +58,9 @@
     </p> 
 
     <!-- Bootstrap tooltips -->
-    <?php echo script('js/popper.min.js'); ?>
+    <?php echo script('plugins/bootstrap/js/popper.min.js'); ?>
     <!-- Bootstrap core JavaScript -->
-    <?php echo script('js/bootstrap.min.js'); ?>
+    <?php echo script('plugins/bootstrap/js/bootstrap.min.js'); ?>
 
   </body>
 

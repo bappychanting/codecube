@@ -13,9 +13,7 @@
     Sign In
   </div>
   <div class="card-body">
-    <?php 
-    if(!empty(Base\Request::getData('timeout'))){
-      ?>
+    <?php if(!empty(Base\Request::getData('timeout'))){ ?>
       <div class="alert alert-danger"><?php echo Base\Request::getData('timeout'); ?></div>
       <h5 class="card-title">Spam Protection</h5>
       <span class="img"><img src="<?php echo Base\Request::show('captcha')->image_src; ?>" alt="CAPTCHA code"></span>
@@ -28,10 +26,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-      <?php 
-    }
-    else{
-      ?>
+    <?php } else{ ?>
       <form method="POST" action="<?php echo route('signin'); ?>">            
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <?php 
@@ -45,8 +40,7 @@
             <?php                            
           }
         } 
-        else { 
-          ?> 
+        else { ?> 
           <h5 class="card-title">Please Input Your Login Credentials</h5>
         <?php } ?>
         <div class="form-group">
@@ -59,9 +53,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-      <?php    
-    }
-    ?>
+    <?php  } ?>
   </div>
 </div>
 

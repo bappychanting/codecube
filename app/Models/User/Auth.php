@@ -18,7 +18,7 @@ class Auth extends User{
 
     // Token setter getter
   function setToken($token){
-      $this->token = $token;
+    $this->token = $token;
   }
   function getToken(){
     return $this->token;
@@ -58,7 +58,7 @@ class Auth extends User{
   }
 
   public function signout(){    
-      $this->auth->signout();
+    $this->auth->signout();
   }
 
 }

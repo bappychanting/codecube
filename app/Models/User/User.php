@@ -116,6 +116,10 @@ class User extends Model{
       }
     }
 
+    if(empty($this->getPassword())){
+      $errors['email'] = "Password can not be empty!";
+    }
+
     setErrors($errors);   
 
     return $this;

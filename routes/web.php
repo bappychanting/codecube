@@ -28,6 +28,8 @@ return [
 
 	'password/update' => 'User/AuthController@updatePassword',
 
+	'signout' => 'User/AuthController@signout',
+
 	'home' => 'ItemController@index',
 
 	'items/all' => 'ItemController@store',
@@ -51,7 +53,5 @@ return [
 	'user/update' => 'User/UserController@update',
 
 	'user/update/password' => 'User/UserController@updatePassword',
-
-	'signout' => 'User/UserController@signout',
 
 ];
