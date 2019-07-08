@@ -17,17 +17,6 @@ class UserController extends Controller
         $this->request = new Request; 
     }
 
-    public function store() 
-    {
-        $alerts = array();
-        $store = $this->user->setData($_POST)->validateData()->storeUser();
-        if($store){
-            $this->request->setFlash(array('success' => "You have now been registered!"));
-            $this->redirect('login');
-        }
-        $this->redirect(back());
-    }
-
     public function show() 
     { 
         $auth_user = $this->request->getAuth();

@@ -12,11 +12,13 @@ return [
 
 	'welcome' => 'HomeController@welcome',
 
-	'login' => 'User/AuthController@login',
+	'signin' => 'User/AuthController@signin',
 
 	'captcha' => 'User/AuthController@checkCaptcha',
 
-	'signin' => 'User/AuthController@signin',
+	'login' => 'User/AuthController@login',
+
+	'signup' => 'User/AuthController@signup',
 
 	'register' => 'User/AuthController@register',
 

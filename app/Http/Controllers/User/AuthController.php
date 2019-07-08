@@ -19,7 +19,7 @@ class AuthController extends Controller
         $this->request = new Request();
     }
 
-    public function login() 
+    public function signin() 
     {
         $this->guard('CheckGuest'); 
         $this->request->put('captcha', simple_php_captcha());   
@@ -34,7 +34,7 @@ class AuthController extends Controller
         $this->redirect('login');
     }
 
-    public function signin() 
+    public function login() 
     {
         $this->auth->setUsername($_POST['username']);
         $this->auth->setPassword($_POST['password']);
@@ -47,10 +47,20 @@ class AuthController extends Controller
 	    }
     }
 
-    public function register() 
+    public function signup() 
     {
         $this->guard('CheckGuest');  
         return $this->view('auth.register');
+    }
+
+    public function register() 
+    {
+        /*$store = $this->user->setData($_POST)->validateData()->storeUser();
+        if($store){
+            $this->request->setFlash(array('success' => "You have now been registered!"));
+            $this->redirect('login');
+        }*/
+        $this->redirect(back());
     }
 
     public function forgotPassword() 

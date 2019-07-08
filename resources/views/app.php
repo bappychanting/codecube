@@ -45,7 +45,7 @@
         <span class="navbar-text">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link <?php echo route_is('register') ? 'active' : ''; ?>" href="<?php echo route('register'); ?>"><span class="oi oi-person pr-2"></span>Account</a>
+              <a class="nav-link"><span class="oi oi-person pr-2"></span>Account</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo route('signout'); ?>"><span class="oi oi-account-logout pr-2"></span>Sign Out</a>
@@ -56,10 +56,10 @@
         <span class="navbar-text">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link <?php echo route_is('register') ? 'active' : ''; ?>" href="<?php echo route('register'); ?>"><span class="oi oi-pencil pr-2"></span>Sign Up</a>
+              <a class="nav-link <?php echo route_is('signup') ? 'active' : ''; ?>" href="<?php echo route('signup'); ?>"><span class="oi oi-pencil pr-2"></span>Sign Up</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php echo route_is('login') ? 'active' : ''; ?>" href="<?php echo route('login'); ?>"><span class="oi oi-account-login pr-2"></span>Sign In</a>
+              <a class="nav-link <?php echo route_is('signin') ? 'active' : ''; ?>" href="<?php echo route('signin'); ?>"><span class="oi oi-account-login pr-2"></span>Sign In</a>
             </li>
           </ul>
         </span>
