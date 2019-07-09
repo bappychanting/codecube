@@ -77,7 +77,7 @@ class User extends Model{
       $this->setEmail($data['email']);
     }
 
-    if (isset($data['password'])){
+    if (isset($data['password']) && $data['password'] == $data['confirmPassword']){
       $this->setPassword($data['password']);
     }
        
@@ -117,7 +117,7 @@ class User extends Model{
     }
 
     if(empty($this->getPassword())){
-      $errors['password'] = "Password can not be empty!";
+      $errors['password'] = "Please input password and make sure it matches with the password confirmation!";
     }
 
     setErrors($errors);   

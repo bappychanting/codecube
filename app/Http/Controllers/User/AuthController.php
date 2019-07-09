@@ -36,14 +36,14 @@ class AuthController extends Controller
 
     public function login() 
     {
-        $this->auth->setUsername($_POST['username']);
-        $this->auth->setPassword($_POST['password']);
+        $this->auth->setUsername(isset($_POST['username']) ? $_POST['username'] : '');
+        $this->auth->setPassword(isset($_POST['password']) ? $_POST['password'] : '');
         $signin = $this->auth->signin();
 	    if($signin){
             $this->redirect('home');
 	    }
 	    else{
-	    	$this->redirect('login');
+	    	$this->redirect('signin');
 	    }
     }
 
@@ -55,11 +55,11 @@ class AuthController extends Controller
 
     public function register() 
     {
-        /*$store = $this->user->setData($_POST)->validateData()->storeUser();
+        $store = $this->user->setData($_POST)->validateData()->storeUser();
         if($store){
             $this->request->setFlash(array('success' => "You have now been registered!"));
             $this->redirect('login');
-        }*/
+        }
         $this->redirect(back());
     }
 

@@ -27,7 +27,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     <?php } else{ ?>
-      <form method="POST" action="<?php echo route('signin'); ?>">            
+      <form method="POST" action="<?php echo route('login'); ?>">            
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <?php 
         $alerts = Base\Request::getFlash();
@@ -41,7 +41,7 @@
           }
         } 
         else { ?> 
-          <h5 class="card-title">Please Input Your Login Credentials</h5>
+        <h5 class="card-title">Please Input Your Login Credentials</h5>
         <?php } ?>
         <div class="form-group">
           <label for="username">Username/Email address:</label>

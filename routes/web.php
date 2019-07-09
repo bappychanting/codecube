@@ -46,8 +46,6 @@ return [
 
 	'user/show' => 'User/UserController@show',
 
-	'user/store' => 'User/UserController@store',
-
 	'user/edit' => 'User/UserController@edit',
 
 	'user/edit/password' => 'User/UserController@editPassword',

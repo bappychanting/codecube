@@ -47,7 +47,7 @@
       </h1>
       <p class="my-5">
         <a href="https://www.codecubeit.com/" class="mx-5">Documentation</a>
-        <a href="<?php echo route('login'); ?>" class="mx-5">Demo App</a>
+        <a href="<?php echo route('signin'); ?>" class="mx-5">Demo App</a>
         <a href="/databaseMigration" class="mx-5">Migration</a>
         <a href="https://www.codecubeit.com/know-us/" class="mx-5">About Us</a>
       </p> 
