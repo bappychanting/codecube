@@ -12,7 +12,7 @@ class CheckAuth
     {
         $request = new Request();
         if(!$request->auth()){
-            base::redirect('login');
+            base::redirect('signin');
         }
         else{
 	        $config = base::config('app');
