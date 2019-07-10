@@ -13,6 +13,7 @@
     Items
   </div>
   <div class="card-body">
+    <a class="btn btn-primary mb-3" href="<?php echo route('items/create') ?>"><span class="oi oi-plus pr-2"></span> Add New Item</a>
     <table class="table table-bordered">
       <thead>
         <tr>

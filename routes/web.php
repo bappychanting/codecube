@@ -36,6 +36,8 @@ return [
 
 	'items/all' => 'ItemController@index',
 
+	'items/create' => 'ItemController@create',
+
 	'items/store' => 'ItemController@store',
 
 	'items/show' => 'ItemController@show',
