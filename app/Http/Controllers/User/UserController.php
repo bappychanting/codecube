@@ -19,22 +19,23 @@ class UserController extends Controller
 
     public function show() 
     { 
-        $auth_user = $this->request->getAuth();
-        return $this->view('users.show', compact('auth_user'));
+        $auth_user = $this->request->getAuth(); 
+        $user = $this->user->setData((array) $auth_user)->getUser();
+        return $this->view('user.show', compact('user'));
     }
 
     public function edit() 
     {
-        $this->guard('UserAccess');
-        $auth_user = $this->request->getAuth();
-        return $this->view('admin.users.edit', compact('auth_user'));
+        $auth_user = $this->request->getAuth(); 
+        $user = $this->user->setData((array) $auth_user)->getUser();
+        return $this->view('user.edit', compact('user'));
     }
 
     public function editPassword() 
     { 
-        $this->guard('UserAccess');
-        $auth_user = $this->request->getAuth();
-        return $this->view('admin.users.edit_pass', compact('user', 'auth_user'));
+        $auth_user = $this->request->getAuth(); 
+        $user = $this->user->setData((array) $auth_user)->getUser();
+        return $this->view('user.edit_pass', compact('user'));
     }
 
     public function update() 
@@ -42,7 +43,7 @@ class UserController extends Controller
         $update = $this->user->setData($_POST)->validateData()->updateUser();
         if($update){
             $this->request->setFlash(array('success' => "User has beed updated!"));
-            $this->redirect('admin/users/show', ['username' => $_POST['username']]);
+            $this->redirect('user/show');
         }
         else{
             $this->redirect(back());

@@ -44,7 +44,7 @@
         </ul>
         <span class="navbar-text">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item <?php echo route_is('user/show') ? 'active' : '' ?>">
+            <li class="nav-item <?php echo route_is('user') ? 'active' : '' ?>">
               <a class="nav-link" href="<?php echo route('user/show'); ?>"><span class="oi oi-person pr-2"></span>Account</a>
             </li>
             <li class="nav-item">

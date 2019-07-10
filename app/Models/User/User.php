@@ -139,7 +139,7 @@ class User extends Model{
 
   public function updateUser(){  
     if(empty(getErrors())){
-      $update = $this->db->table('users')->set(['name' => $this->getName(), 'email' => $this->getEmail(), 'contact' => $this->getContact()])->where('username', '=', $this->getUsername())->update();
+      $update = $this->db->table('users')->set(['name' => $this->getName(), 'email' => $this->getEmail()])->where('username', '=', $this->getUsername())->update();
       return $update;
     }
   }
