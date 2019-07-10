@@ -350,7 +350,7 @@ class DB
 
     $perpage = intval($limit[count($limit)-1]);
 
-    $page = isset($_GET["page"]) ? intval($_GET["page"]) : 1; 
+    $page = isset($_GET["page"]) ? intval($_GET["page"]) : 1;
 
     $param = '/?page';
 
@@ -442,7 +442,7 @@ class DB
       }
     } 
 
-    if($page == $totalPages ){
+    if($page == $totalPages){
       $pagination .= '<li  class="'.$li_class.'" disabled">
                         <a href="javascript:void(0);" class="'.$a_class.'">
                             Next
@@ -458,7 +458,7 @@ class DB
                       </li>';
     }
 
-    if($page < $totalPages ){ 
+    if($page < $totalPages){ 
       $pagination .= '<li  class="'.$li_class.'">
                         <a href="'.$url.'='.$totalPages.'" class="'.$a_class.'">
                           &#8677;
