@@ -29,7 +29,7 @@
     foreach($items['items'] as $item) { 
 ?>
         <tr>
-          <th scope="row">1</th>
+          <th scope="row"><?php echo $count ?></th>
           <td><?php echo $item['name'] ?></td>
           <td><?php echo $item['price'] ?></td>
           <td>

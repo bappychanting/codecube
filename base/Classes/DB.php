@@ -363,7 +363,7 @@ class DB
 
     $url = $url.$param; 
 
-    $totalPages = ceil($total / $perpage); 
+    $totalPages = ceil($total / $perpage);
     
     if (file_exists("resources/markups/pagination.xml")){
       $xml = simplexml_load_file("resources/markups/pagination.xml") or die(logger('ERROR: Can  not load xml file'));
@@ -442,7 +442,7 @@ class DB
       }
     } 
 
-    if($page == $totalPages){
+    if($totalPages == 0 || $page == $totalPages){
       $pagination .= '<li  class="'.$li_class.'" disabled">
                         <a href="javascript:void(0);" class="'.$a_class.'">
                             Next
