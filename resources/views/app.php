@@ -35,17 +35,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <?php if(Base\Request::auth()){ ?>
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item <?php echo route_is('home') ? 'active' : '' ?>">
             <a class="nav-link" href="<?php echo route('home'); ?>">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item <?php echo route_is('items/all') ? 'active' : '' ?>">
             <a class="nav-link" href="<?php echo route('items/all'); ?>">Items <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <span class="navbar-text">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link"><span class="oi oi-person pr-2"></span>Account</a>
+            <li class="nav-item <?php echo route_is('user/show') ? 'active' : '' ?>">
+              <a class="nav-link" href="<?php echo route('user/show'); ?>"><span class="oi oi-person pr-2"></span>Account</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo route('signout'); ?>"><span class="oi oi-account-logout pr-2"></span>Sign Out</a>

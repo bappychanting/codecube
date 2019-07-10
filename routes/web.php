@@ -32,9 +32,9 @@ return [
 
 	'signout' => 'User/AuthController@signout',
 
-	'home' => 'ItemController@index',
+	'home' => 'HomeController@home',
 
-	'items/all' => 'ItemController@store',
+	'items/all' => 'ItemController@index',
 
 	'items/store' => 'ItemController@store',
 

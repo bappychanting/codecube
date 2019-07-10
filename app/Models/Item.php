@@ -91,8 +91,9 @@ class Item extends Model{
 
 		// Function for showing items
     public function getItems() {   
-	    $items = $this->db->table('items')->limit(2000)->read();
-	    return $items;
+	    $items = $this->db->table('items')->limit(15)->read();
+        $pagination = $this->db->pagination();
+        return array('items' => $items, 'pagination' => $pagination);
     }
 
     	// Function for showing item

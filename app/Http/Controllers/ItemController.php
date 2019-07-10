@@ -15,7 +15,8 @@ class ItemController extends Controller
 
     public function index() 
     {
-        return $this->view('items.index');
+        $items = $this->item->getItems();
+        return $this->view('items.index', compact('items'));
     }
 
     public function error() 
