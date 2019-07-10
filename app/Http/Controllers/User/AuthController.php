@@ -31,7 +31,7 @@ class AuthController extends Controller
         if($_POST['check'] == $this->request->show('captcha')->code){
           $this->auth->signout();
         }
-        $this->redirect('login');
+        $this->redirect('signin');
     }
 
     public function login() 
@@ -58,7 +58,7 @@ class AuthController extends Controller
         $store = $this->user->setData($_POST)->validateData()->storeUser();
         if($store){
             $this->request->setFlash(array('success' => "You have now been registered!"));
-            $this->redirect('login');
+            $this->redirect('signin');
         }
         $this->redirect(back());
     }
@@ -85,7 +85,7 @@ class AuthController extends Controller
             $body .= '<br><a href="'.route("password/reset", ["token" => $token]).'" target="_blank">Link to reset password!</a>';
             // $this->sendMail($user['email'], $subject, $body);
         }
-        $msg = ['code' => 'success', 'message' => 'Pleace check your mail! You will get an email if your given credential is found in our database!', 'link' => route('login')];
+        $msg = ['code' => 'success', 'message' => 'Pleace check your mail! You will get an email if your given credential is found in our database!', 'link' => route('signin')];
         return $this->view('admin.auth.message', compact('msg'));
     }
 
@@ -98,7 +98,7 @@ class AuthController extends Controller
             return $this->view('admin.auth.reset', compact('link'));
         }
         else{
-            $msg = ['code' => 'error', 'message' => 'This link is expired!', 'link' => route('login')];
+            $msg = ['code' => 'error', 'message' => 'This link is expired!', 'link' => route('signin')];
             return $this->view('admin.auth.message', compact('msg'));
         }
     }
@@ -111,14 +111,14 @@ class AuthController extends Controller
         $update = $this->auth->updatePass();
         $this->auth->setToken($_POST['token']);
         $update = $this->auth->updateValidity();
-        $msg = ['code' => 'success', 'message' => 'Your password has been updated!', 'link' => route('login')];
+        $msg = ['code' => 'success', 'message' => 'Your password has been updated!', 'link' => route('signin')];
         return $this->view('admin.auth.message', compact('msg'));
     }
 
     public function signout() 
     {
         $this->auth->signout();
-        $this->redirect('login');
+        $this->redirect('signin');
     }
 
 }
