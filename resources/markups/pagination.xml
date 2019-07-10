@@ -2,5 +2,5 @@
 	<nav></nav>
 	<ul>pagination</ul>
 	<li>active</li>
-	<a>waves-effect</a>
+	<a>page-link</a>
 </pagination>

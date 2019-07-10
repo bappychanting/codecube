@@ -38,7 +38,9 @@ return [
 
 	'items/store' => 'ItemController@store',
 
-	'items/edit' => 'ItemController@sections',
+	'items/show' => 'ItemController@show',
+
+	'items/edit' => 'ItemController@edit',
 
 	'items/update' => 'ItemController@update',
 
