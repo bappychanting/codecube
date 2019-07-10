@@ -94,29 +94,27 @@ class User extends Model{
       $errors['name'] = "Name can not be empty!";
     }
 
-    if(empty($this->getUsername())){
+    if(empty($this->getId()) && empty($this->getUsername())){
       $errors['username'] = "Username can not be empty!";
     }
     else{
-      if(empty($this->getId())){
-        $check = $this->db->table('users')->where('username', '=', $this->getUsername())->check();
-        if($check){
-          $errors['username'] = "Username already exists!";
-        }
+      $check = $this->db->table('users')->where('username', '=', $this->getUsername())->check();
+      if($check){
+        $errors['username'] = "Username already exists!";
       }
     }
 
-    if(empty($this->getEmail())){
+    if(empty($this->getId()) && empty($this->getEmail())){
       $errors['email'] = "Email can not be empty!";
     }
     else{
-      $check = $this->db->table('users')->where('email', '=', $this->getEmail())->and('username', '!=', $this->getUsername())->check();
+      $check = $this->db->table('users')->where('email', '=', $this->getEmail())->check();
       if($check){
         $errors['email'] = "Email already exists!";
       }
     }
 
-    if(empty($this->getPassword())){
+    if(empty($this->getId()) && empty($this->getPassword())){
       $errors['password'] = "Please input password and make sure it matches with the password confirmation!";
     }
 
@@ -137,7 +135,7 @@ class User extends Model{
     }
   }
 
-  public function updateUser(){  
+  public function updateUser(){ 
     if(empty(getErrors())){
       $update = $this->db->table('users')->set(['name' => $this->getName(), 'email' => $this->getEmail()])->where('username', '=', $this->getUsername())->update();
       return $update;
