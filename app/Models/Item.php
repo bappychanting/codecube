@@ -80,6 +80,10 @@ class Item extends Model{
             }
         }
 
+        if(empty($this->getPrice())){
+          $errors['price'] = "Price can not be empty!";
+        }
+
 		setErrors($errors);   
 
 		return $this;
