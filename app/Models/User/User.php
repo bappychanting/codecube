@@ -80,7 +80,7 @@ class User extends Model{
     if (isset($data['password']) && $data['password'] == $data['confirmPassword']){
       $this->setPassword($data['password']);
     }
-       
+
     return $this;
   }
 
@@ -125,6 +125,11 @@ class User extends Model{
     return $this;
   }
 
+  public function getUser(){    
+    $user = $this->db->table('users')->where('username', '=', $this->getUsername())->or('email', '=', $this->getEmail())->read();
+    return $user[0];
+  }
+
   public function storeUser(){    
     if(empty(getErrors())){
       $store = $this->db->table('users')->data(['name' => $this->getName(), 'username' => $this->getUsername(), 'email' => $this->getEmail(), 'password' => empty($this->getPassword()) ? '' : password_hash($this->getPassword(), PASSWORD_BCRYPT)])->create();
@@ -149,9 +154,11 @@ class User extends Model{
     }
   }
 
-  public function updatePass(){  
-    $update = $this->db->table('users')->set(['password' => empty($this->getPassword()) ? '' : password_hash($this->getPassword(), PASSWORD_BCRYPT)])->where('username', '=', $this->getUsername())->update();
-    return $update;
+  public function updatePass(){ 
+    if(empty(getErrors())){
+      $update = $this->db->table('users')->set(['password' => empty($this->getPassword()) ? '' : password_hash($this->getPassword(), PASSWORD_BCRYPT)])->where('username', '=', $this->getUsername())->update();
+      return $update;
+    }
   }
 
 }

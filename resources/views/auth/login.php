@@ -51,7 +51,8 @@
           <label for="password">Password:</label>
           <input type="password" id="password" class="form-control" name="password">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary mr-5">Submit</button>
+        <a href="<?php echo route('password/forgot'); ?>">Forgot Password?</a>
       </form>
     <?php  } ?>
   </div>

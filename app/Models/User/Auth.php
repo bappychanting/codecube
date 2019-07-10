@@ -24,6 +24,21 @@ class Auth extends User{
     return $this->token;
   }
 
+    // Validating necesarry data
+  public function validateData()
+  {
+    
+    $errors = array();
+
+    if(empty($this->getPassword())){
+      $errors['password'] = "Please input password and make sure it matches with the password confirmation!";
+    }
+
+    setErrors($errors);   
+
+    return $this;
+  }
+
 
   /* All functions */
   
