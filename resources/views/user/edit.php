@@ -19,8 +19,6 @@
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 
         <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-
-        <input type="hidden" name="username" value="<?php echo $user['username']; ?>">
         
         <div class="form-label-group my-3">
           <label for="inputName">Name</label>
@@ -28,6 +26,16 @@
           <?php if(!empty(field_err('name'))){ ?>
           <span class="invalid-feedback" role="alert">
             <strong><?php echo field_err('name'); ?></strong>
+          </span>
+          <?php } ?>
+        </div>
+        
+        <div class="form-label-group my-3">
+          <label for="inputUserame">Username</label>
+          <input type="text" name="username" value="<?php echo $user['username']; ?>" id="inputUserame" class="form-control <?php echo empty(field_err('username'))? '' : 'is-invalid'; ?>">
+          <?php if(!empty(field_err('username'))){ ?>
+          <span class="invalid-feedback" role="alert">
+            <strong><?php echo field_err('username'); ?></strong>
           </span>
           <?php } ?>
         </div>

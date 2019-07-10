@@ -18,10 +18,10 @@ class User extends Model{
 
     // ID setter getter
   function setId($id){
-      $this->id = intval($id);
+    $this->id = intval($id);
   }
   function getId(){
-      return $this->id;
+    return $this->id;
   }
 
     // Name setter getter
@@ -29,7 +29,7 @@ class User extends Model{
     $this->name = ucwords($name);
   }
   function getName(){
-      return $this->name;
+    return $this->name;
   }
 
   	// Username setter and geter
@@ -50,7 +50,7 @@ class User extends Model{
 
   	// Password setter getter
   function setPassword($password){
-      $this->password = $password;
+    $this->password = $password;
   }
   function getPassword(){
     return $this->password;
@@ -77,8 +77,11 @@ class User extends Model{
       $this->setEmail($data['email']);
     }
 
-    if (isset($data['password']) && $data['password'] == $data['confirmPassword']){
+    if (isset($data['password'])){
       $this->setPassword($data['password']);
+      if(isset($data['confirmPassword']) && $data['password'] != $data['confirmPassword']){
+        $this->setPassword('');
+      }
     }
 
     return $this;
@@ -87,35 +90,46 @@ class User extends Model{
     // Validating necesarry data
   public function validateData()
   {
-    
+
     $errors = array();
 
     if(empty($this->getName())){
       $errors['name'] = "Name can not be empty!";
     }
 
-    if(empty($this->getId()) && empty($this->getUsername())){
+    if(empty($this->getUsername())){
       $errors['username'] = "Username can not be empty!";
     }
-    else{
-      $check = $this->db->table('users')->where('username', '=', $this->getUsername())->check();
-      if($check){
-        $errors['username'] = "Username already exists!";
-      }
-    }
 
-    if(empty($this->getId()) && empty($this->getEmail())){
+    if(empty($this->getEmail())){
       $errors['email'] = "Email can not be empty!";
     }
-    else{
-      $check = $this->db->table('users')->where('email', '=', $this->getEmail())->check();
-      if($check){
+
+    if(empty($this->getId())){
+
+      if($this->db->table('users')->where('username', '=', $this->getUsername())->check()){
+        $errors['username'] = "Username already exists!";
+      }
+
+      if($this->db->table('users')->where('email', '=', $this->getEmail())->check()){
         $errors['email'] = "Email already exists!";
       }
-    }
 
-    if(empty($this->getId()) && empty($this->getPassword())){
-      $errors['password'] = "Please input password and make sure it matches with the password confirmation!";
+      if(empty($this->getPassword())){
+        $errors['password'] = "Please input password and make sure it matches with the password confirmation!";
+      }
+
+    }
+    else{
+
+      if($this->db->table('users')->where('username', '=', $this->getUsername())->and('id', '!=', $this->getId())->check()){
+        $errors['username'] = "Username already exists!";
+      }
+
+      if($this->db->table('users')->where('email', '=', $this->getEmail())->and('id', '!=', $this->getId())->check()){
+        $errors['email'] = "Email already exists!";
+      }
+
     }
 
     setErrors($errors);   
@@ -124,7 +138,7 @@ class User extends Model{
   }
 
   public function getUser(){    
-    $user = $this->db->table('users')->where('username', '=', $this->getUsername())->or('email', '=', $this->getEmail())->read();
+    $user = $this->db->table('users')->where('id', '=', $this->getId())->read();
     return $user[0];
   }
 
@@ -137,24 +151,7 @@ class User extends Model{
 
   public function updateUser(){ 
     if(empty(getErrors())){
-      $update = $this->db->table('users')->set(['name' => $this->getName(), 'email' => $this->getEmail()])->where('username', '=', $this->getUsername())->update();
-      return $update;
-    }
-  }
-
-  public function passVerify(){  
-    $user = $this->getUser();
-    if(password_verify($this->getPassword(), $user['password'])){
-      return TRUE;
-    }
-    else{
-      return FALSE;
-    }
-  }
-
-  public function updatePass(){ 
-    if(empty(getErrors())){
-      $update = $this->db->table('users')->set(['password' => empty($this->getPassword()) ? '' : password_hash($this->getPassword(), PASSWORD_BCRYPT)])->where('username', '=', $this->getUsername())->update();
+      $update = $this->db->table('users')->set(['name' => $this->getName(), 'username' => $this->getUsername(), 'email' => $this->getEmail()])->where('id', '=', $this->getId())->update();
       return $update;
     }
   }

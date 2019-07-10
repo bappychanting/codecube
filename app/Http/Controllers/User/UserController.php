@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\User; 
 
 use Base\Request; 
+use App\Models\User\Auth; 
 use App\Models\User\User; 
 use App\Http\Controllers\Controller; 
 
 class UserController extends Controller
 {
     private $user; 
+    private $auth;
     private $request; 
 
     public function __construct() {
         $this->guard('CheckAuth');
+        $this->auth = new Auth;
         $this->user = new User;
         $this->request = new Request; 
     }
@@ -52,21 +55,15 @@ class UserController extends Controller
 
     public function updatePassword() 
     {
-        $auth_user = $this->request->getAuth();
-        if($auth_user->username == $_POST['username']){ 
-            $this->user->setUsername($_POST['username']);
-            $this->user->setPassword($_POST['auth_pass']);
-            $check = $this->user->passVerify();
-            if($check){
-                $update = $this->user->setData($_POST)->updatePass();
-            }
-        }
-        else{
-            $update = $this->user->setData($_POST)->updatePass();
+        $this->auth->setId($_POST['id']);
+        $this->auth->setPassword($_POST['auth_pass']);
+        $check = $this->auth->passVerify();
+        if($check){
+            $update = $this->auth->setData($_POST)->validateData()->updatePass();
         }
         if($update){
             $this->request->setFlash(array('success' => "Password has beed updated!"));
-            $this->redirect('admin/users/show', ['username' => $_POST['username']]);
+            $this->redirect('user/show');
         }
         else{
             $this->request->setFlash(array('danger' => "Password could not be updated! Please try again!"));
