@@ -36,10 +36,10 @@
       <?php if(Base\Request::auth()){ ?>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item <?php echo route_is('home') ? 'active' : '' ?>">
-            <a class="nav-link" href="<?php echo route('home'); ?>">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="<?php echo route('home'); ?>"><span class="oi oi-home pr-2"></span>Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item <?php echo route_is('items/all') ? 'active' : '' ?>">
-            <a class="nav-link" href="<?php echo route('items/all'); ?>">Items <span class="sr-only">(current)</span></a>
+          <li class="nav-item <?php echo route_is('items') ? 'active' : '' ?>">
+            <a class="nav-link" href="<?php echo route('items/all'); ?>"><span class="oi oi-list pr-2"></span>Items <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <span class="navbar-text">

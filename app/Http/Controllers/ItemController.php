@@ -8,9 +8,13 @@ use App\Models\Item;
 class ItemController extends Controller
 {
 
+    private $item;
+    private $request;
+
     public function __construct() {
         $this->guard('CheckAuth');
-        $this->item = new Item; 
+        $this->item = new Item;
+        $this->request = new Request;  
     }
 
     public function index() 
@@ -19,9 +23,60 @@ class ItemController extends Controller
         return $this->view('items.index', compact('items'));
     }
 
-    public function error() 
+    public function create() 
     {
-        $this->abort(404);
+        return $this->view('items.create');
+    }
+
+    public function store() 
+    {
+        $store = $this->item->setData($_POST)->validateData()->storeItem();
+        if($store){
+            $this->request->destroy('post');
+            $this->request->setFlash(array('success' => "New item has been added!"));
+            $this->redirect('items/all');
+        }
+        else{
+            $this->redirect(back());
+        }
+    }
+
+    public function show() 
+    {
+        $item = $this->item->setData($_GET)->getItem();
+        return $this->view('items.show', compact('item'));  
+    }
+
+    public function edit() 
+    {
+        $item = $this->item->setData($_GET)->getItem();
+        return $this->view('items.edit', compact('item'));  
+    }
+
+    public function update() 
+    {
+        $update = $this->item->setData($_POST)->validateData()->updateItem();
+        if($update){
+            $this->request->destroy('post');
+            $this->request->setFlash(array('success' => "Item has been updated!"));
+            $this->redirect('items/show', ['id' => $_POST['id']]);
+        }
+        else{
+            $this->redirect(back());
+        }
+    }
+
+    public function delete() 
+    { 
+        $delete = $this->item->setData($_POST)->deleteItem();
+        if($delete){
+            $this->request->setFlash(array('success' => "Selected item has been deleted!"));
+            $this->redirect('items/all');
+        }
+        else{
+            $this->request->setFlash(array('danger' => "Item could not be deleted!"));
+            $this->redirect(back());
+        }  
     }
 
 }

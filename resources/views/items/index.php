@@ -14,6 +14,19 @@
   </div>
   <div class="card-body">
     <a class="btn btn-primary mb-3" href="<?php echo route('items/create') ?>"><span class="oi oi-plus pr-2"></span> Add New Item</a>
+    <?php 
+    $alerts = Base\Request::getFlash();
+    if(!empty((array) $alerts)){
+      foreach($alerts as $key=>$value){
+        ?>
+        <div class="alert alert-<?php echo $key; ?> alert-dismissible"> 
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <?php echo $value; ?>
+        </div>
+        <?php                            
+      }
+    } 
+    ?>
     <table class="table table-bordered">
       <thead>
         <tr>
