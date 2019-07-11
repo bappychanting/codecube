@@ -41,11 +41,6 @@ class Auth extends User{
 
 
   /* All functions */
-
-  public function getUser(){    
-    $user = $this->db->table('users')->where('username', '=', $this->getUsername())->or('email', '=', $this->getEmail())->read();
-    return $user[0];
-  }
   
   public function signin(){   
       $auth = $this->auth->signin($this->getUsername(), $this->getPassword());
@@ -79,23 +74,6 @@ class Auth extends User{
 
   public function signout(){    
     $this->auth->signout();
-  }
-
-  public function passVerify(){  
-    $user = $this->getUser();
-    if(password_verify($this->getPassword(), $user['password'])){
-      return TRUE;
-    }
-    else{
-      return FALSE;
-    }
-  }
-
-  public function updatePass(){ 
-    if(empty(getErrors())){
-      $update = $this->db->table('users')->set(['password' => empty($this->getPassword()) ? '' : password_hash($this->getPassword(), PASSWORD_BCRYPT)])->where('id', '=', $this->getId())->update();
-      return $update;
-    }
   }
 
 }
