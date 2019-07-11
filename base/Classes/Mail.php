@@ -76,7 +76,7 @@ class Mail
     $headers = "From: " . $this->getSender() . "\r\n";
     $headers .= "Reply-To: ". $this->getSender() . "\r\n";
     if(!empty($this->getCarbonCopy())){
-      $headers .= "CC: ".."\r\n";
+      $headers .= "CC: ".$this->getCarbonCopy()."\r\n";
     }
     if(!empty($this->getCarbonCopy())){
       $headers .= "BCC: ".$this->getBlindCarbonCopy()."\r\n";

@@ -78,9 +78,11 @@ class User extends Model{
     }
 
     if (isset($data['password'])){
-      $this->setPassword($data['password']);
       if(isset($data['confirmPassword']) && $data['password'] != $data['confirmPassword']){
         $this->setPassword('');
+      }
+      else{
+        $this->setPassword($data['password']);
       }
     }
 
@@ -138,7 +140,7 @@ class User extends Model{
   }
 
   public function getUser(){    
-    $user = $this->db->table('users')->where('id', '=', $this->getId())->read();
+    $user = $this->db->table('users')->where('id', '=', $this->getId())->or('username', '=', $this->getUsername())->or('email', '=', $this->getEmail())->read();
     return $user[0];
   }
 
@@ -152,6 +154,23 @@ class User extends Model{
   public function updateUser(){ 
     if(empty(getErrors())){
       $update = $this->db->table('users')->set(['name' => $this->getName(), 'username' => $this->getUsername(), 'email' => $this->getEmail()])->where('id', '=', $this->getId())->update();
+      return $update;
+    }
+  }
+
+  public function passVerify(){  
+    $user = $this->getUser();
+    if(password_verify($this->getPassword(), $user['password'])){
+      return TRUE;
+    }
+    else{
+      return FALSE;
+    }
+  }
+
+  public function updatePass(){ 
+    if(empty(getErrors())){
+      $update = $this->db->table('users')->set(['password' => empty($this->getPassword()) ? '' : password_hash($this->getPassword(), PASSWORD_BCRYPT)])->where('id', '=', $this->getId())->update();
       return $update;
     }
   }
