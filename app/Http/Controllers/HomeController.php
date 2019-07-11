@@ -2,29 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; 
-
 class HomeController extends Controller
 {
 
-	private $user; 
-
-    public function __construct() {
-        $this->user = new User;
-    }
-
-    public function frontpage() 
+    public function welcome() 
     {
-        try {
-            return $this->view('welcome');
-        }
-        catch (\Exception $e) {
-            return $this->log('ERROR: '.$e->getMessage());
-        }
+        return $this->view('welcome');
     }
 
-    public function error() {
-        echo "Error!";
+    public function home() 
+    {
+        $this->guard('CheckAuth');
+        return $this->view('home');
+    }
+
+    public function error() 
+    {
+        $this->abort(404);
     }
 
 }

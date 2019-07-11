@@ -4,56 +4,41 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7eae8231dc4f94597177b5d6c3f6a55c",
+    "content-hash": "f0363ac5895ca7cd299b41a0baac481c",
     "packages": [
         {
-            "name": "verot/class.upload.php",
-            "version": "dev-master",
+            "name": "abeautifulsite/simple-php-captcha",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/verot/class.upload.php.git",
-                "reference": "6a4bcb5383634ebf3e802e0eae51af553988c7e8"
+                "url": "https://github.com/claviska/simple-php-captcha.git",
+                "reference": "673e5e98487699a4be6a1640dde63321ebe7e490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/verot/class.upload.php/zipball/6a4bcb5383634ebf3e802e0eae51af553988c7e8",
-                "reference": "6a4bcb5383634ebf3e802e0eae51af553988c7e8",
+                "url": "https://api.github.com/repos/claviska/simple-php-captcha/zipball/673e5e98487699a4be6a1640dde63321ebe7e490",
+                "reference": "673e5e98487699a4be6a1640dde63321ebe7e490",
                 "shasum": ""
-            },
-            "require": {
-                "php": ">=4"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "src/class.upload.php"
+                "files": [
+                    "simple-php-captcha.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0-only"
+                "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Colin Verot",
-                    "email": "colin@verot.net"
-                }
-            ],
-            "description": "This PHP class uploads files and manipulates images very easily.",
-            "homepage": "http://www.verot.net/php_class_upload.htm",
-            "keywords": [
-                "gd",
-                "upload"
-            ],
-            "time": "2018-10-31T20:29:58+00:00"
+            "description": "A simple PHP CAPTCHA script",
+            "homepage": "http://www.abeautifulsite.net/",
+            "time": "2017-06-27T14:09:32+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "verot/class.upload.php": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

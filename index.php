@@ -1,50 +1,35 @@
 <?php
+
+try {
+
 	ob_start();
 
-	session_start();
-
-		// Declaring controller method calling function
-	function call($route_url =''){
-		
-		$get_controller_action = explode("@", $route_url);
-
-		$controller = $get_controller_action[0];
-
-		$method = $get_controller_action[1];
-
-		if(file_exists('app/Http/Controllers/'.$controller.'.php')){
-
-			require_once('app/Http/Controllers/'.$controller.'.php');
-
-			$controller_class = 'App\Http\Controllers\\'.str_replace('/', '\\', $controller);
-
-			if(method_exists($controller_class , $method)) {		
-				$class = new $controller_class();
-				$class->{ $method }();
-			}
-			else{
-				die("Error: Action not found!");
-			}
+	if(file_exists('config/app.php')){
+		$config = include('config/app.php');
+		if($config['update_session_cookie_settings'] == 'yes'){
+			ini_set('session.gc_maxlifetime', $config['auth_time']*60);
+			session_set_cookie_params($config['auth_time']*60);
 		}
-		else{
-			die("Error: Action not found!");
-		}
+		session_start();
+		$headers = apache_request_headers();
+	}
+	else{
+		throw new Exception('Framework configuration file not found!');
 	}
 
 		// Check if database migration
-	if($_SERVER['REQUEST_URI'] == '/database'){
-		require_once("app/Base/Migration/migration_view.php");
-		ob_end_flush();
-		die();
+	if($_SERVER['REQUEST_URI'] == '/database_migration'){
+		if(file_exists("base/Migration/migration_view.php") && is_readable("base/Migration/migration_view.php")) {
+			require_once("base/Migration/migration_view.php");
+			ob_end_flush();
+			die();
+		}
+		else{
+			throw new Exception('Database Management files missing!');
+		}
 	}
 
-		// Include Helpers
-	$helpers = glob('helpers/*.php');
-	foreach ($helpers as $helper) {
-	    include($helper);   
-	}
-
-		// Include composer
+		// Include autoload
 	include("vendor/autoload.php");
 
 		// Include project configurations
@@ -52,7 +37,7 @@
 		include("env.php");
 	}
 	else{
-		die("Error: &quot;env.php&quot; file not found! This file contains environment variables! Please create a copy of the &quot;env.exmaple.php&quot; file in the config folder and rename it to &quot;env.php&quot;.");
+		throw new Exception('Environment configuration file not found! Please create a copy of the &quot;env.exmaple.php&quot; file in the root folder and rename it to &quot;env.php&quot;.');
 	}
 			
 		// Set default urls
@@ -64,13 +49,28 @@
 		// Sanitize url parameters
 	if(!empty($_GET)){
 		foreach ($_GET as $key => $value) {
-		  $key = preg_replace('/[^-a-zA-Z0-9_]/', '', $key);
-		  $value = preg_replace('/[^-a-zA-Z0-9_]/', '', $value);
-		  $_GET[$key] = $value;
+			$key = preg_replace('/[^-a-zA-Z0-9_]/', '', $key);
+			$value = preg_replace('/[^-a-zA-Z0-9_]/', '', $value);
+			$_GET[$key] = $value;
 		}
-	} 
+	}
 
-		// Create route ur string
+		// Check and set post parameters
+    if (!empty($_POST)) {
+    	if(!empty($headers['X-CSRF-TOKEN']) && array_key_exists($headers['X-CSRF-TOKEN'], $_SESSION['tokens'])){
+    		logger('Ajax call recieved to url: '.$_SERVER['REQUEST_URI'].'!');
+    	}
+    	elseif(!empty($_POST['_token']) && array_key_exists($_POST['_token'], $_SESSION['tokens'])){ 
+    		$_SESSION['processing_token'] = $_POST['_token']; 
+    		$_SESSION['tokens'][$_SESSION['processing_token']]['posts'] = $_POST; 
+    	}
+    	else{
+    		unset($_POST);
+			throw new Exception('Token mismatch!');
+    	}
+    }
+
+		// Create route url string
 	$route_url = '';
 
 	$_URI = explode("/", $_SERVER['REQUEST_URI']);
@@ -98,6 +98,22 @@
 	else{
 		call($default['landing']);
 	}
-	
+
+
+		// Log last occured error
+	$fetch_error = error_get_last();
+
+    if(!empty($fetch_error)){
+    	logger('ERROR: '.$fetch_error['message'].' in '.$fetch_error['file'].' in '.$fetch_error['line']);
+    }
+
+}
+catch (Exception $e) {
+    logger('ERROR: '.$e->getMessage());
+    die("<h4 style='margin-top: 50px; color: #666666; text-align: center;'>Error: ".$e->getMessage()."</h4>");
+}
+finally{
 	ob_end_flush();
+}
+	
 ?>
