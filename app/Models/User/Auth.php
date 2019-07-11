@@ -41,6 +41,11 @@ class Auth extends User{
 
 
   /* All functions */
+
+  public function getUser(){    
+    $user = $this->db->table('users')->where('username', '=', $this->getUsername())->or('email', '=', $this->getEmail())->read();
+    return $user[0];
+  }
   
   public function signin(){   
       $auth = $this->auth->signin($this->getUsername(), $this->getPassword());
