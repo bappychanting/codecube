@@ -85,60 +85,54 @@ class Mail
     // Send SMTP Mail
   private function sendSMTP(){
 
-      try {
+    $mail = new PHPMailer(TRUE);
 
-        $mail = new PHPMailer(TRUE);
-
-        $mail->SMTPDebug = 2;                                       
-        $mail->isSMTP();                      
-        $mail->Host       = MAIL_HOST;          
-        $mail->SMTPAuth   = TRUE;                              
-        $mail->Username   = MAIL_USERNAME;            
-        $mail->Password   = MAIL_PASSWORD;         
-        $mail->SMTPSecure = MAIL_ENCRYPTION;      
-        $mail->Port       = MAIL_PORT; 
+    $mail->SMTPDebug = 2;                                       
+    $mail->isSMTP();                      
+    $mail->Host       = MAIL_HOST;          
+    $mail->SMTPAuth   = TRUE;                              
+    $mail->Username   = MAIL_USERNAME;            
+    $mail->Password   = MAIL_PASSWORD;         
+    $mail->SMTPSecure = MAIL_ENCRYPTION;      
+    $mail->Port       = MAIL_PORT; 
 
         //Recipients
-        $mail->setFrom($this->getSender()); 
+    $mail->setFrom($this->getSender()); 
 
-        if(!empty($this->getReceivers())){
-          foreach ($this->getReceivers() as $name => $address) {
-            $mail->addAddress($address, is_numeric($name) ? '' : $name);     
-          }
-        }     
-        
-        $mail->addReplyTo(MAIL_USERNAME);
+    if(!empty($this->getReceivers())){
+      foreach ($this->getReceivers() as $name => $address) {
+        $mail->addAddress($address, is_numeric($name) ? '' : $name);     
+      }
+    }     
+    
+    $mail->addReplyTo(MAIL_USERNAME);
 
-        if(!empty($this->getCarbonCopies())){
-          foreach ($this->getCarbonCopies() as $cc) {
-            $mail->addCC($cc);     
-          }
-        }
+    if(!empty($this->getCarbonCopies())){
+      foreach ($this->getCarbonCopies() as $cc) {
+        $mail->addCC($cc);     
+      }
+    }
 
-        if(!empty($this->getBlindCarbonCopies())){
-          foreach ($this->getBlindCarbonCopies() as $bcc) {
-            $mail->addBCC($bcc);     
-          }
-        }
+    if(!empty($this->getBlindCarbonCopies())){
+      foreach ($this->getBlindCarbonCopies() as $bcc) {
+        $mail->addBCC($bcc);     
+      }
+    }
 
         // Attachments
 
-        if(!empty($this->getAttachments())){
-          foreach ($this->getAttachments() as $file => $name) {
-            $mail->addAttachment($file, is_numeric($name) ? '' : $name);     
-          }
-        }   
-
-        $mail->isHTML(true);                                  
-        $mail->Subject = $this->getSubject();
-        $mail->Body    = $this->getMessage();
-
-        $mail->send();
-        return TRUE;
-      } 
-      catch (Exception $e) {
-        return FALSE;
+    if(!empty($this->getAttachments())){
+      foreach ($this->getAttachments() as $file => $name) {
+        $mail->addAttachment($file, is_numeric($name) ? '' : $name);     
       }
+    }   
+
+    $mail->isHTML(true);                                  
+    $mail->Subject = $this->getSubject();
+    $mail->Body    = $this->getMessage();
+
+    $mail->send();
+
   }
 
     // Create the message body
@@ -168,7 +162,7 @@ class Mail
 
     switch(MAIL_DRIVER) {
       case 'smtp': 
-        $this->sendSMTP();
+      $this->sendSMTP();
       break;
     }
 
