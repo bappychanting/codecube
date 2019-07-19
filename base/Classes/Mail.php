@@ -1,97 +1,149 @@
 <?php
-  
+
 namespace Base;
-  
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 class Mail
 {
 
-  private $receiver;
   private $sender;
-  private $carbonCopy;
-  private $blindCarbonCopy;
+  private $receivers = array();
+  private $carbonCopies = array();
+  private $blindCarbonCopies = array();
   private $subject;
-  private $headers;
   private $message;
+  private $attachments = array();
 
   /* Setter getter for all variables */
 
-    // Reciever setter getter
-  function setReceiver($receiver){
-      $this->receiver = strtolower(strip_tags($receiver));
-  }
-  function getReceiver(){
-      return $this->receiver;
-  }
-
     // Sender setter getter
   function setSender($sender){
-      $this->sender = strtolower(strip_tags($sender));
+    $this->sender = strtolower(strip_tags($sender));
   }
   function getSender(){
-      return $this->sender;
+    return $this->sender;
+  }
+
+    // Reciever setter getter
+  function setReceivers($receivers){
+    if(is_array($receivers) && count($receivers) >= 1){
+      $this->receivers = $receivers;
+    }
+  }
+  function getReceivers(){
+    return $this->receivers;
   }
 
     // Carbon Copy setter getter
-  function setCarbonCopy($carbonCopy){
-      $this->carbonCopy = strip_tags($carbonCopy);
+  function setCarbonCopies($carbonCopies){
+    if(is_array($carbonCopies) && count($carbonCopies) >= 1){
+      $this->carbonCopies = $carbonCopies;
+    }
   }
-  function getCarbonCopy(){
-      return $this->carbonCopy;
+  function getCarbonCopies(){
+    return $this->carbonCopies;
   }
 
     // Blind Carbon Copy setter getter
-  function setBlindCarbonCopy($blindCarbonCopy){
-      $this->blindCarbonCopy = strip_tags($blindCarbonCopy);
+  function setBlindCarbonCopies($blindCarbonCopies){
+    if(is_array($blindCarbonCopies) && count($blindCarbonCopies) >= 1){
+      $this->blindCarbonCopies = $blindCarbonCopies;
+    }
   }
-  function getBlindCarbonCopy(){
-      return $this->blindCarbonCopy;
+  function getBlindCarbonCopies(){
+    return $this->blindCarbonCopies;
   }
 
     // Subject setter getter
   function setSubject($subject){
-      $this->subject = ucwords($subject);
+    $this->subject = ucwords($subject);
   }
   function getSubject(){
-      return $this->subject;
-  }
-
-    // Header setter getter
-  function setHeader($headers){
-      $this->headers = $headers;
-  }
-  function getHeader(){
-      return $this->headers;
+    return $this->subject;
   }
 
     // Message setter getter
   function setMessage($message){
-      $this->message = $message;
+    $this->message = $message;
   }
   function getMessage(){
-      return $this->message;
+    return $this->message;
   }
 
-  public function createHeader(){
-
-    $headers = "From: " . $this->getSender() . "\r\n";
-    $headers .= "Reply-To: ". $this->getSender() . "\r\n";
-    if(!empty($this->getCarbonCopy())){
-      $headers .= "CC: ".$this->getCarbonCopy()."\r\n";
+    // Attachment setter getter
+  function setAttachments($attachments){
+    if(is_array($attachments) && count($attachments) >= 1){
+      $this->attachments = $attachments;
     }
-    if(!empty($this->getCarbonCopy())){
-      $headers .= "BCC: ".$this->getBlindCarbonCopy()."\r\n";
-    }
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-
-    $this->setHeader($headers);
-       
-    return $this;
-
+  }
+  function getAttachments(){
+    return $this->attachments;
   }
 
+    // Send SMTP Mail
+  private function sendSMTP(){
+
+      try {
+
+        $mail = new PHPMailer(TRUE);
+
+        $mail->SMTPDebug = 2;                                       
+        $mail->isSMTP();                      
+        $mail->Host       = MAIL_HOST;          
+        $mail->SMTPAuth   = TRUE;                              
+        $mail->Username   = MAIL_USERNAME;            
+        $mail->Password   = MAIL_PASSWORD;         
+        $mail->SMTPSecure = MAIL_ENCRYPTION;      
+        $mail->Port       = MAIL_PORT; 
+
+        //Recipients
+        $mail->setFrom($this->getSender()); 
+
+        if(!empty($this->getReceivers())){
+          foreach ($this->getReceivers() as $name => $address) {
+            $mail->addAddress($address, is_numeric($name) ? '' : $name);     
+          }
+        }     
+        
+        $mail->addReplyTo(MAIL_USERNAME);
+
+        if(!empty($this->getCarbonCopies())){
+          foreach ($this->getCarbonCopies() as $cc) {
+            $mail->addCC($cc);     
+          }
+        }
+
+        if(!empty($this->getBlindCarbonCopies())){
+          foreach ($this->getBlindCarbonCopies() as $bcc) {
+            $mail->addBCC($bcc);     
+          }
+        }
+
+        // Attachments
+
+        if(!empty($this->getAttachments())){
+          foreach ($this->getAttachments() as $file => $name) {
+            $mail->addAttachment($file, is_numeric($name) ? '' : $name);     
+          }
+        }   
+
+        $mail->isHTML(true);                                  
+        $mail->Subject = $this->getSubject();
+        $mail->Body    = $this->getMessage();
+
+        $mail->send();
+        return TRUE;
+      } 
+      catch (Exception $e) {
+        return FALSE;
+      }
+  }
+
+    // Create the message body
   public function createMessage(){
-    
+
     if (file_exists("resources/markups/mail.xml")){
       $xml = simplexml_load_file("resources/markups/mail.xml") or die(logger('ERROR: Can  not load xml file'));
     }
@@ -106,22 +158,23 @@ class Mail
     $message = '<html><head><style>'.$style.'</style></head><body>'.$header.'<br>'.$this->getMessage().'<br>'.$footer.'</body></html>';
 
     $this->setMessage($message);
-       
+
     return $this;
 
   }
 
+    // Send Mail
   public function send(){
-    if(!empty($this->getReceiver()) && !empty($this->getSubject()) && !empty($this->getMessage())){
-      $isSend = mail($this->getReceiver(), $this->getSubject(), $this->getMessage(), $this->getHeader());
-      if($isSend) {
-        return TRUE;
-      }
+
+    switch(MAIL_DRIVER) {
+      case 'smtp': 
+        $this->sendSMTP();
+      break;
     }
-    return FALSE;
 
   }
 
+
 }
-  
+
 ?>

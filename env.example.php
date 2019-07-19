@@ -23,3 +23,15 @@
 	const DB_USERNAME = 'homestead';
 
 	const DB_PASSWORD = 'secret';
+
+	const MAIL_DRIVER='smtp';
+
+	const MAIL_HOST='smtp.mailtrap.io';
+
+	const MAIL_PORT='2525';
+
+	const MAIL_USERNAME= NULL;
+
+	const MAIL_PASSWORD= NULL;
+
+	const MAIL_ENCRYPTION= NULL;

@@ -7,17 +7,16 @@ use Base\BaseController;
 
 class Controller extends BaseController{
 
-  public function sendMail($receivers = array(), $subject, $message, $cc = array(), $bcc = array()) 
+  public function sendMail($receivers = array(), $subject, $message, $sender = 'noreply@codecube.com', $cc = array(), $bcc = array()) 
   {
-    $config = $this->config('app');
     $mail = new Mail; 
-    $mail->setReceiver(implode(", ", $receivers)); 
-    $mail->setSender($config['mail']);
-    $mail->setCarbonCopy(implode(", ", $cc));
-    $mail->setBlindCarbonCopy(implode(", ", $bcc));
+    $mail->setReceivers($receivers);  
+    $mail->setSender($sender);
+    $mail->setCarbonCopies($cc);
+    $mail->setBlindCarbonCopies($bcc);
     $mail->setSubject($subject);
     $mail->setMessage($message);  
-    $mail->createHeader()->createMessage()->send();
+    $mail->createMessage()->send();
   }
 
 }
