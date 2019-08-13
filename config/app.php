@@ -12,6 +12,4 @@ return [
 
 		'auto_logging' => 'on', // configuration for allowing automatic logging 
 
-		'mail' => 'noreplay@srms.com', // configuration for email address for mail headers 
-
 ];
