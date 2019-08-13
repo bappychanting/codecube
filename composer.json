@@ -11,6 +11,6 @@
         ]
     },
     "require": {
-        "abeautifulsite/simple-php-captcha":"1.0.1"
+        "phpmailer/phpmailer": "~6.0"
     }
 }

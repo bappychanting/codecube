@@ -92,6 +92,33 @@ class Misc{
     return $dates;
   }
 
+  public static function createCalendarDateRange($strDateFrom='',$strDateTo='')
+  {
+    $aryRange=array();
+
+    $start_date = empty($strDateFrom) ? date('Y-01-01') : date('Y-m-d', strtotime($strDateFrom)); 
+    $end_date = empty($strDateTo) ? date('Y-12-31') : date('Y-m-d', strtotime($strDateTo)); 
+
+      // Initialize Date From
+    $iDateFrom=mktime(1, 0, 0, substr($start_date,5,2), substr($start_date,8,2), substr($start_date,0,4));
+    $iDateFrom-=86400; 
+
+      // Initialize Date To
+    $iDateTo=mktime(1, 0, 0, substr($end_date,5,2), substr($end_date,8,2), substr($end_date,0,4));
+
+    if ($iDateTo>=$iDateFrom){
+      while ($iDateFrom<$iDateTo){ 
+        $iDateFrom+=86400; // add 24 hours
+        $month = date('m', $iDateFrom);
+        $wk = date('W', $iDateFrom);
+        $wkDay = date('D', $iDateFrom);
+        $aryRange[$month][$wk][$wkDay] = ['date_of_month' => date('d', $iDateFrom), 'date' => date('Y-m-d',$iDateFrom)]; 
+      }
+    }
+    unset($aryRange[0]);
+    return $aryRange;
+  }
+
     // Function for generating Captcha
   public static function generateCaptcha($img_width = 70, $img_height = 40, $font_size = 30, $font_type = 'font.ttf', $image_color = array(0, 0, 0), $background_color = array(255, 255, 255)){
 
