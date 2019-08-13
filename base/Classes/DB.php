@@ -380,24 +380,24 @@ class DB
     $pagination = '<nav class="'.$nav_class.'"><ul class="'.$ul_class.'">';
     
     if($page > 1 ){
-      $pagination .= '<li>
-                        <a href="'.$url.'=1" class="'.$a_class.'">
+      $pagination .= '<li class="'.$li_class.'">
+                        <a class="'.$a_class.'" href="'.$url.'=1">
                           &#8676;
                         </a>
                       </li>';
     }
   
     if($page <=1 ){
-      $pagination .= '<li class="disabled">
-                        <a href="javascript:void(0);">
+      $pagination .= '<li class="'.$li_class.' disabled">
+                        <a class="'.$a_class.'" href="javascript:void(0);">
                           Previous
                         </a>
                       </li>';
     }
     else{
       $j = $page - 1;
-      $pagination .= '<li>
-                        <a href="'.$url.'='.$j.'" class="'.$a_class.'">
+      $pagination .= '<li class="'.$li_class.'">
+                        <a class="'.$a_class.'" href="'.$url.'='.$j.'">
                           Previous
                         </a>
                       </li>';
@@ -409,58 +409,58 @@ class DB
       $pagination .= '';
 
       if ($page > $limit){ 
-        $pagination .= '<li>
-                          <a href="'.$url.'=1" class="'.$a_class.'">1</a>
+        $pagination .= '<li class="'.$li_class.'">
+                          <a class="'.$a_class.'" href="'.$url.'=1">1</a>
                         </li>
-                        <li class="disabled">
-                          <a href = "javascript:void(0);">...</a>
+                        <li class="'.$li_class.' disabled">
+                          <a class="'.$a_class.'" href = "javascript:void(0);">...</a>
                         </li>';
       }
 
       for($i= ($page-$range); $i <(($page + $range)  + 1); $i++){
         if (($i > 0) && ($i <= $totalPages)){
           if($i<>$page){
-            $pagination .= '<li>
-                              <a href="'.$url.'='.$i.'" class="'.$a_class.'">'.$i.'</a>
+            $pagination .= '<li class="'.$li_class.'">
+                              <a class="'.$a_class.'" href="'.$url.'='.$i.'">'.$i.'</a>
                             </li>';
           }
           else{
             $pagination .= '<li class="'.$li_class.'">
-                              <a href="javascript:void(0);">'.$i.'</a>
+                              <a class="'.$a_class.'" href="javascript:void(0);">'.$i.'</a>
                             </li>';
           }       
         }
       }
 
       if ($page <= $totalPages - $limit){ 
-        $pagination .= '<li class="disabled">
-                          <a href = "javascript:void(0);">...</a>
+        $pagination .= '<li class="'.$li_class.' disabled">
+                          <a  class="'.$a_class.'" href = "javascript:void(0);">...</a>
                         </li>
-                        <li> 
-                          <a href="'.$url.'='.$totalPages.'" class="'.$a_class.'">'.$totalPages.'</a>
+                        <li class="'.$li_class.'"> 
+                          <a class="'.$a_class.'" href="'.$url.'='.$totalPages.'">'.$totalPages.'</a>
                         </li>'; 
       }
     } 
 
     if($page == $totalPages ){
-      $pagination .= '<li class="disabled">
-                        <a href="javascript:void(0);">
+      $pagination .= '<li class="'.$li_class.' disabled">
+                        <a class="'.$a_class.'" href="javascript:void(0);">
                             Next
                         </a>
                       </li>';
     }
     else{
       $j = $page + 1;
-      $pagination .= '<li>
-                        <a href="'.$url.'='.$j.'" class="'.$a_class.'">
+      $pagination .= '<li class="'.$li_class.'">
+                        <a class="'.$a_class.'" href="'.$url.'='.$j.'">
                             Next
                         </a>
                       </li>';
     }
 
     if($page < $totalPages ){ 
-      $pagination .= '<li>
-                        <a href="'.$url.'='.$totalPages.'" class="'.$a_class.'">
+      $pagination .= '<li class="'.$li_class.'">
+                        <a class="'.$a_class.'" href="'.$url.'='.$totalPages.'">
                           &#8677;
                         </a>
                       </li>'; 
