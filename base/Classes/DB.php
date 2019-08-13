@@ -425,7 +425,7 @@ class DB
                             </li>';
           }
           else{
-            $pagination .= '<li class="'.$li_class.'">
+            $pagination .= '<li class="'.$li_class.' active">
                               <a class="'.$a_class.'" href="javascript:void(0);">'.$i.'</a>
                             </li>';
           }       
