@@ -21,14 +21,16 @@ class AuthController extends Controller
 
     public function signin() 
     {
-        $this->guard('CheckGuest'); 
-        $this->request->put('captcha', simple_php_captcha());   
+        $this->guard('CheckGuest');
+        $number1 = rand(10,100); $number2 = rand(10,100); $total = $number1 + $number2;
+        $captcha = ['number1' => $number1, 'number2' => $number2, 'total' => $total]; 
+        $this->request->put('captcha', $captcha);   
         return $this->view('auth.login');
     }
 
     public function checkCaptcha() 
     {
-        if($_POST['check'] == $this->request->show('captcha')->code){
+        if($_POST['check'] == $this->request->show('captcha')->total){
           $this->auth->signout();
         }
         $this->redirect('signin');
