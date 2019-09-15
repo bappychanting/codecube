@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class Misc{
 
-    // Function For Plucking
+    // Function For getting values with specific key from array
   public static function pluck($array = array(), $column= '')
   {
     $plucked = array();
@@ -16,22 +16,15 @@ class Misc{
     return $plucked;
   }
 
-  public static function createArrString($strArray = array())
-  {
-    $str = '';
-    $count = 1;
-    if(!empty($strArray)){
-      foreach($strArray as $arr){
-        if($count != count($strArray)){
-          $str .= $arr.', ';
-        }
-        else{
-          $str .= $arr;
-        }
-        $count++;
-      }
+    // Function for generating random string
+  public function randStr($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
-    return $str;
+    return $randomString;
   }
 
     // Function for creating SEO friendly url
@@ -118,27 +111,6 @@ class Misc{
     unset($aryRange[0]);
     return $aryRange;
   }
-
-    // Function for generating Captcha
-  public static function generateCaptcha($img_width = 70, $img_height = 40, $font_size = 30, $font_type = 'font.ttf', $image_color = array(0, 0, 0), $background_color = array(255, 255, 255)){
-
-    $captcha_num = rand(1000, 9999);
-    $_SESSION['code'] = $captcha_num;
-
-    header('Content-type: image/jpeg');
-
-      // create background image with dimensions
-    $image = imagecreate($img_width, $img_height); 
-     // set background color
-    imagecolorallocate($image, $background_color[0], $background_color[1], $background_color[2]);
-      // set captcha text color
-    $text_color = imagecolorallocate($image, $image_color[0], $image_color[1], $image_color[2]);
-
-    imagettftext($image, $font_size, 0, 15, 30, $text_color, $font_type, $captcha_num);
-    return imagejpeg($image);
-
-  }
-
 
 }
 

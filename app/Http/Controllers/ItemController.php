@@ -33,8 +33,8 @@ class ItemController extends Controller
         $store = $this->item->setData($_POST)->validateData()->storeItem();
         if($store){
             $this->request->destroy('post');
-            $this->request->setFlash(array('success' => "New item has been added!"));
-            $this->redirect('items/all');
+            $this->request->setFlash(array('success' => "Your item has been added!"));
+            $this->redirect('items/show', ['id' => $this->item->getLastId()]);
         }
         else{
             $this->redirect(back());
