@@ -13,4 +13,9 @@ class Model{
 		$this->db = new DB();
 	}
 
+	public function getLastId() 
+	{
+        return $this->db->getLastId();
+	}
+
 }

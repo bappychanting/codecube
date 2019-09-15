@@ -91,7 +91,7 @@ class Item extends Model{
 
 		// Function for showing items
     public function getItems() {   
-	    $items = $this->db->table('items')->limit(2)->read();
+	    $items = $this->db->table('items')->orderBy('created_at', 'desc')->limit(2)->read();
         $pagination = $this->db->pagination();
         return array('items' => $items, 'pagination' => $pagination);
     }

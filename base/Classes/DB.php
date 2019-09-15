@@ -13,9 +13,10 @@ class DB
   private $queryString;
   private $orderby;
   private $paginate;
-  private $execArray;
   private $lastId;
   private $total;
+  private $sqlQuery;
+  private $execArray;
   
     // Declaring database credentials
   private $dbhost;
@@ -33,6 +34,7 @@ class DB
     $this->paginate = '';
     $this->lastId = '';
     $this->total = '';
+    $this->sqlQuery = '';
     $this->execArray = array();
 
     $this->dbhost = '127.0.0.1';
@@ -256,7 +258,7 @@ class DB
       }
       $this->queryString .= $deleted_at;
     }
-    logger('SELECT * FROM '.$this->table.' '.$this->queryString.' '.$this->orderby.' '.$this->paginate);
+    $this->sqlQuery = 'SELECT * FROM '.$this->table.' '.$this->queryString.' '.$this->orderby.' '.$this->paginate;
     $query = $pdo->prepare('SELECT * FROM '.$this->table.' '.$this->queryString.' '.$this->orderby.' '.$this->paginate);    
     $query->execute($this->execArray);
     $data = $query->fetchAll();
@@ -281,7 +283,7 @@ class DB
   public function check()
   {
     $pdo = $this->getInstance();
-    logger('SELECT * FROM '.$this->table.' '.$this->queryString);
+    $this->sqlQuery = 'SELECT * FROM '.$this->table.' '.$this->queryString;
     $query = 'SELECT * FROM '.$this->table.' '.$this->queryString;
     $total = $pdo->prepare($query);
     $total->execute($this->execArray);
@@ -295,7 +297,7 @@ class DB
   public function create()
   {
     $pdo = $this->getInstance();
-    logger('INSERT INTO '.$this->table.' '.$this->queryString);
+    $this->sqlQuery = 'INSERT INTO '.$this->table.' '.$this->queryString;
     $query = $pdo->prepare('INSERT INTO '.$this->table.' '.$this->queryString);    
     $status = $query->execute($this->execArray);
     $this->lastId = $pdo->lastInsertId();
@@ -315,7 +317,7 @@ class DB
   public function update()
   {
     $pdo = $this->getInstance();
-    logger('UPDATE '.$this->table.' '.$this->queryString);
+    $this->sqlQuery = 'UPDATE '.$this->table.' '.$this->queryString;
     $query = $pdo->prepare('UPDATE '.$this->table.' '.$this->queryString);    
     $status = $query->execute($this->execArray); 
     $this->destroy();
@@ -328,17 +330,22 @@ class DB
     $pdo = $this->getInstance();
     $check = $this->checkColumn('deleted_at');
     if($check){
-      logger('UPDATE '.$this->table.' SET deleted_at = :deleted_at '.$this->queryString);
+      $this->sqlQuery = 'UPDATE '.$this->table.' SET deleted_at = :deleted_at '.$this->queryString;
       $query = $pdo->prepare('UPDATE '.$this->table.' SET deleted_at = :deleted_at '.$this->queryString);
       $this->execArray[':deleted_at'] = date("Y-m-d H:i:s", time());
     } 
     else {
-      logger('DELETE FROM '.$this->table.' '.$this->queryString);
+      $this->sqlQuery = 'DELETE FROM '.$this->table.' '.$this->queryString;
       $query = $pdo->prepare('DELETE FROM '.$this->table.' '.$this->queryString);
     }
     $status = $query->execute($this->execArray);
     $this->destroy();
     return $status;
+  }
+
+    // Get Last MySQL command
+  public function getLastSQL(){
+    return $this->sqlQuery;
   }
 
     // Create pagination
