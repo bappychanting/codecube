@@ -19,13 +19,16 @@ class ItemController extends Controller
 
     public function index() 
     {
+        $auth_user = $this->request->getAuth();
+        $this->item->setUser($auth_user->id);
         $items = $this->item->getItems();
         return $this->view('items.index', compact('items'));
     }
 
     public function create() 
     {
-        return $this->view('items.create');
+        $auth_user = $this->request->getAuth();
+        return $this->view('items.create', compact('auth_user'));
     }
 
     public function store() 

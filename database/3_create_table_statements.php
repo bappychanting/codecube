@@ -29,11 +29,11 @@ return [
 							`token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   							`user_id` int(11) unsigned DEFAULT NULL,
 							`validity` tinyint(4) NOT NULL DEFAULT '1',
-							PRIMARY KEY (`id`),
-  							KEY `user_id` (`user_id`),
 							`created_at` timestamp NULL DEFAULT NULL,
 							`updated_at` timestamp NULL DEFAULT NULL,
 							`deleted_at` timestamp NULL DEFAULT NULL,
+							PRIMARY KEY (`id`),
+  							KEY `user_id` (`user_id`),
 							CONSTRAINT `reset_password_link_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 						)",
 
@@ -43,9 +43,12 @@ return [
 							`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 							`name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
     						`price` DECIMAL(8,2) NOT NULL,
+  							`user_id` int(11) unsigned DEFAULT NULL,
 							`created_at` timestamp NULL DEFAULT NULL,
 							`updated_at` timestamp NULL DEFAULT NULL,
 							`deleted_at` timestamp NULL DEFAULT NULL,
-							PRIMARY KEY (`id`)
+							PRIMARY KEY (`id`),
+  							KEY `user_id` (`user_id`),
+							CONSTRAINT `create_item_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 						)",	
 ];

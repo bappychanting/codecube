@@ -11,6 +11,7 @@ class Item extends Model{
     private $id;
     private $name;
     private $price;
+    private $user_id;
 
     /* Setter getter for all variables */
 
@@ -49,6 +50,14 @@ class Item extends Model{
         return $this->price;
     }
 
+        // User Id Setter Getter
+    function setUser($user_id){
+        $this->user_id = intval($user_id); 
+    }       
+    function getUser(){
+        return $this->user_id;
+    }
+
     /* All functions */
 
       // Setting all the data
@@ -61,6 +70,9 @@ class Item extends Model{
 		}
         if (isset($data['price'])){
             $this->setPrice($data['price']);
+        }
+        if (isset($data['user_id'])){
+            $this->setUser($data['user_id']);
         }
       	return $this;
     }
@@ -91,7 +103,7 @@ class Item extends Model{
 
 		// Function for showing items
     public function getItems() {   
-	    $items = $this->db->table('items')->orderBy('created_at', 'desc')->limit(2)->read();
+        $items = $this->db->table('items')->where('user_id', '=', $this->getUser())->orderBy('created_at', 'desc')->limit(2)->read();
         $pagination = $this->db->pagination();
         return array('items' => $items, 'pagination' => $pagination);
     }
@@ -105,7 +117,7 @@ class Item extends Model{
     	// Function for storing item
     public function storeItem() {   
         if(empty(getErrors())){
-            $store = $this->db->table('items')->data(['name' => $this->getName(), 'price' => $this->getPrice()])->create();
+            $store = $this->db->table('items')->data(['name' => $this->getName(), 'price' => $this->getPrice(), 'user_id' => $this->getUser()])->create();
             return $store;
         }       
     }

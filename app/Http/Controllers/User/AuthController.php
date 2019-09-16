@@ -79,7 +79,6 @@ class AuthController extends Controller
         $user = $this->auth->getUser();
         if($user){
             $token = md5(uniqid());
-            logger(json_encode($user));
             $this->auth->setId($user['id']);
             $this->auth->setToken($token);
             $this->auth->storeLink();
