@@ -13,12 +13,12 @@
     Reset Password
   </div>
   <div class="card-body">
-      <h5 class="card-title">Enter Your New Password <?php echo $link['name']; ?></h5>
+      <h5 class="card-title">Enter Your New Password, <?php echo $link['name']; ?></h5>
 
       <form method="POST" action="<?php echo route('password/update'); ?>"> 
 
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-        <input type="hidden" name="username" value="<?php echo $link['username']; ?>">
+        <input type="hidden" name="id" value="<?php echo $link['user_id']; ?>">
         <input type="hidden" name="token" value="<?php echo $link['token']; ?>">
         
         <div class="form-label-group my-3">

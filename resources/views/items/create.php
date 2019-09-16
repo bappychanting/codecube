@@ -17,6 +17,8 @@
       <form method="POST" action="<?php echo route('items/store'); ?>"> 
 
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+
+        <input type="hidden" name="user_id" value="<?php echo $auth_user->id; ?>">
         
         <div class="form-label-group my-3">
           <label for="inputName">Name</label>
