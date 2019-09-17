@@ -110,8 +110,7 @@ try {
 }
 catch (Exception $e) {
     logger('ERROR: '.$e->getMessage());
-    die("<h4 style='margin-top: 50px; color: #666666; text-align: center;'>Error: ".$e->getMessage()."</h4>");
-    // die(json_decode(['status'=>401, 'reason'=>$e->getMessage()]));
+    die(json_encode(['status'=>401, 'reason'=>$e->getMessage()]));
 }
 finally{
 	ob_end_flush();
