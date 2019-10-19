@@ -36,7 +36,7 @@ class BaseController
       return $config;
     }
     else{
-      throw new \Exception('Configuration file '.$_file.' not found!');
+      throw new \Exception('Configuration file '.$file.' not found!');
     }
   }
 
