@@ -7,15 +7,15 @@ use Base\Request;
 class BaseController 
 {
 
-  public static function guard($file='', $parameters = array()){
-    if(!empty($file)){
-      if (file_exists("app/Http/Guards/".$file.".php")){
-        include("app/Http/Guards/".$file.'.php');
-        $middleware = 'App\Http\Guards\\'.str_replace('/', '\\', $file);
+  public static function guard($guard='', $parameters = array()){
+    if(!empty($guard)){
+      if (file_exists("app/Http/Guards/".$guard.".php")){
+        include("app/Http/Guards/".$guard.'.php');
+        $middleware = 'App\Http\Guards\\'.str_replace('/', '\\', $guard);
         $class = new $middleware($parameters);
       }
       else{ 
-        throw new \Exception("Guard &quot;".$file.".php&quot; not found!");
+        throw new \Exception("Guard &quot;".$guard.".php&quot; not found!");
       }
     }
   }
@@ -25,18 +25,18 @@ class BaseController
   {
     $locationArray =  explode(".",$location);
 
-    $file = 'config';
+    $_file = 'config';
     foreach ($locationArray as $loc) {
-      $file .= '/'.$loc; 
+      $_file .= '/'.$loc; 
     }
-    $file .= '.php';
+    $_file .= '.php';
 
-    if(file_exists($file)){
-      $config = include($file);
+    if(file_exists($_file)){
+      $config = include($_file);
       return $config;
     }
     else{
-      throw new \Exception('Configuration file '.$file.' not found!');
+      throw new \Exception('Configuration file '.$_file.' not found!');
     }
   }
 
