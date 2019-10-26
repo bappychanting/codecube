@@ -77,13 +77,8 @@ class User extends Model{
       $this->setEmail($data['email']);
     }
 
-    if (isset($data['password'])){
-      if(isset($data['confirmPassword']) && $data['password'] != $data['confirmPassword']){
-        $this->setPassword('');
-      }
-      else{
-        $this->setPassword($data['password']);
-      }
+    if (isset($data['password']) && isset($data['confirmPassword']) && $data['password'] == $data['confirmPassword']){
+      $this->setPassword($data['password']);
     }
 
     return $this;
