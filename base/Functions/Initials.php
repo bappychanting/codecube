@@ -22,8 +22,8 @@ function locale($loc_file, $loc_key)
 {
 	if(file_exists('config/app.php')){
 		$config = include('config/app.php');
-		$_file = 'resources/locale/'.$config['fallback_locale'].'/'.$loc_file.'.php');
-		if(file_exists($_file){
+		$_file = 'resources/locale/'.$config['fallback_locale'].'/'.$loc_file.'.php';
+		if(file_exists($_file)){
 			$locale = include($_file);
 			return $locale[$loc_key];
 		}

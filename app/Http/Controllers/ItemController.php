@@ -36,7 +36,7 @@ class ItemController extends Controller
         $store = $this->item->setData($_POST)->validateData()->storeItem();
         if($store){
             $this->request->destroy('post');
-            $this->request->setFlash(array('success' => "Your item has been added!"));
+            $this->request->setFlash(['success' => locale('message', 'success')]);
             $this->redirect('items/show', ['id' => $this->item->getLastId()]);
         }
         else{
@@ -61,7 +61,7 @@ class ItemController extends Controller
         $update = $this->item->setData($_POST)->validateData()->updateItem();
         if($update){
             $this->request->destroy('post');
-            $this->request->setFlash(array('success' => "Item has been updated!"));
+            $this->request->setFlash(['success' => locale('message', 'success')]);
             $this->redirect('items/show', ['id' => $_POST['id']]);
         }
         else{
@@ -73,11 +73,11 @@ class ItemController extends Controller
     { 
         $delete = $this->item->setData($_POST)->deleteItem();
         if($delete){
-            $this->request->setFlash(array('success' => "Selected item has been deleted!"));
+            $this->request->setFlash(['success' => locale('message', 'success')]);
             $this->redirect('items/all');
         }
         else{
-            $this->request->setFlash(array('danger' => "Item could not be deleted!"));
+            $this->request->setFlash(['danger' => locale('message', 'danger')]);
             $this->redirect(back());
         }  
     }

@@ -31,7 +31,7 @@ class Auth extends User{
     $errors = array();
 
     if(empty($this->getPassword())){
-      $errors['password'] = "Please input password and make sure it matches with the password confirmation!";
+      $errors['password'] = 'Please input password and make sure it matches with the password confirmation!';
     }
 
     setErrors($errors);   
