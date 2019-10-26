@@ -9,12 +9,26 @@ function logger($log_msg = '')
 			$log_filename = "storage/logs";
 			if (!file_exists($log_filename)) 
 			{
-			    mkdir($log_filename, 0777, true);
+				mkdir($log_filename, 0777, true);
 			}
 			$log_file_data = $log_filename.'/log-' . date('Y-m-d') . '.log';
 			file_put_contents($log_file_data, '['.date('Y-m-d H:i:s').'] '.$log_msg . "\n", FILE_APPEND);
 		}
 	}
+}
+
+	// Fucntion for getting locale
+function locale($loc_file, $loc_key)
+{
+	if(file_exists('config/app.php')){
+		$config = include('config/app.php');
+		$_file = 'resources/locale/'.$config['fallback_locale'].'/'.$loc_file.'.php');
+		if(file_exists($_file){
+			$locale = include($_file);
+			return $locale[$loc_key];
+		}
+	}
+	return '';
 }
 
 	// Get Field Data
@@ -28,7 +42,7 @@ function getTokenData()
 		$tokens = $_SESSION['tokens'];
 		if(count($tokens) > 1){
 			usort($tokens, function($a, $b) {
-			    return $a['time'] <=> $b['time'];
+				return $a['time'] <=> $b['time'];
 			});
 		}
 		$token_data = end($tokens);
@@ -39,22 +53,22 @@ function getTokenData()
   	// Errors setter
 function setErrors($errors)
 {
-    $token_data = getTokenData();
+	$token_data = getTokenData();
 	$_SESSION['tokens'][$token_data['csrf_token']]['errors'] = $errors; 
 }
 
 	// Errors getter
 function getErrors()
 {
-    $token_data = getTokenData();
-    return $_SESSION['tokens'][$token_data['csrf_token']]['errors'];
+	$token_data = getTokenData();
+	return $_SESSION['tokens'][$token_data['csrf_token']]['errors'];
 }
 
   	// get return url
 function back()
 {
-    $token_data = getTokenData();
-    return ltrim($token_data['url'], '/');
+	$token_data = getTokenData();
+	return ltrim($token_data['url'], '/');
 }
 
 	// Declaring controller method calling function
