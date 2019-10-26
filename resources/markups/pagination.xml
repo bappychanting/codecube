@@ -1,6 +1,10 @@
 <pagination>
-	<nav></nav>
-	<ul>pagination</ul>
-	<li>page-item</li>
-	<a>page-link</a>
+	<first>&#8676;</first>
+	<previous>Previous</previous>
+	<next>Next</next>
+	<last>&#8677;</last>
+	<nav_class></nav_class>
+	<ul_class>pagination</ul_class>
+	<li_class>page-item</li_class>
+	<a_class>page-link</a_class>
 </pagination>
