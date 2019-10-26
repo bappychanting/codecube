@@ -83,17 +83,17 @@ class Item extends Model{
 		$errors = array();
 
 		if(empty($this->getName())){
-		  $errors['name'] = "Name can not be empty!";
+		  $errors['name'] = locale('validation', 'name_empty');
 		}
         else{
             $item = $this->db->table('items')->where('name', '=', $this->getName())->and('id', '!=', $this->getId())->read();
             if($item){
-                $errors['name'] = "This item already exists in the database!";
+                $errors['name'] = locale('validation', 'name_exists');
             }
         }
 
         if(empty($this->getPrice())){
-          $errors['price'] = "Price can not be empty!";
+          $errors['price'] = locale('validation', 'price_empty');
         }
 
 		setErrors($errors);   

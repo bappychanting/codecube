@@ -59,7 +59,7 @@ class AuthController extends Controller
     {
         $store = $this->user->setData($_POST)->validateData()->storeUser();
         if($store){
-            $this->request->setFlash(array('success' => "You have now been registered!"));
+            $this->request->setFlash(['success' => "You have now been registered!"]);
             $this->redirect('signin');
         }
         $this->redirect(back());
@@ -87,7 +87,7 @@ class AuthController extends Controller
             $body .= '<br><a href="'.route("password/reset", ["token" => $token]).'" target="_blank">Link to reset password!</a>';
             $this->sendMail($user['email'], $subject, $body);
         }
-        $this->request->setFlash(array('success' => "Pleace check your mail! You will get an email if your given credential is found in our database!"));
+        $this->request->setFlash(['success' => "Pleace check your mail! You will get an email if your given credential is found in our database!"]);
         $this->redirect('password/forgot');
     }
 
@@ -100,7 +100,7 @@ class AuthController extends Controller
             return $this->view('auth.reset_pass', compact('link'));
         }
         else{
-            $this->request->setFlash(array('danger' => "This link is expired!"));
+            $this->request->setFlash(['danger' => "This link is expired!"]);
             $this->redirect('password/forgot');
         }
     }
@@ -112,7 +112,7 @@ class AuthController extends Controller
         if($update){
             $this->auth->setToken($_POST['token']);
             $this->auth->updateValidity();
-            $this->request->setFlash(array('success' => "Your password has been updated!"));
+            $this->request->setFlash(['success' => "Your password has been updated!"]);
             $this->redirect('signin');
         }
         $this->redirect(back());

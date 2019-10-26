@@ -379,33 +379,28 @@ class DB
       throw new \Exception("&quot;pagination.xml&quot; not found! This file is required for parsing pagination classes. Please create a &quot;pagination.xml&quot; file in the &quot;resources > markup&quot; folder containing markup for &quotnav&quot;, &quot;ul&quot;, &quot;li&quot;, and &quot;a&quot; tags!");
     }
 
-    $nav_class = $xml->nav;
-    $ul_class = $xml->ul;
-    $li_class = $xml->li;
-    $a_class = $xml->a;
-
-    $pagination = '<nav class="'.$nav_class.'"><ul class="'.$ul_class.'">';
+    $pagination = '<nav class="'.$xml->nav_class.'"><ul class="'.$xml->ul_class.'">';
     
-    if($page > 1 ){
-      $pagination .= '<li class="'.$li_class.'">
-                        <a class="'.$a_class.'" href="'.$url.'=1">
-                          &#8676;
+    if($page > 1){
+      $pagination .= '<li class="'.$xml->li_class.'">
+                        <a class="'.$xml->a_class.'" href="'.$url.'=1">
+                          '.$xml->first.'
                         </a>
                       </li>';
     }
   
-    if($page <=1 ){
-      $pagination .= '<li class="'.$li_class.' disabled">
-                        <a class="'.$a_class.'" href="javascript:void(0);">
-                          Previous
+    if($page <=1){
+      $pagination .= '<li class="'.$xml->li_class.' disabled">
+                        <a class="'.$xml->a_class.'" href="javascript:void(0);">
+                          '.$xml->previous.'
                         </a>
                       </li>';
     }
     else{
       $j = $page - 1;
-      $pagination .= '<li class="'.$li_class.'">
-                        <a class="'.$a_class.'" href="'.$url.'='.$j.'">
-                          Previous
+      $pagination .= '<li class="'.$xml->li_class.'">
+                        <a class="'.$xml->a_class.'" href="'.$url.'='.$j.'">
+                          '.$xml->previous.'
                         </a>
                       </li>';
     }
@@ -416,59 +411,58 @@ class DB
       $pagination .= '';
 
       if ($page > $limit){ 
-        $pagination .= '<li class="'.$li_class.'">
-                          <a class="'.$a_class.'" href="'.$url.'=1">1</a>
+        $pagination .= '<li class="'.$xml->li_class.'">
+                          <a class="'.$xml->a_class.'" href="'.$url.'=1">1</a>
                         </li>
-                        <li class="'.$li_class.' disabled">
-                          <a class="'.$a_class.'" href = "javascript:void(0);">...</a>
+                        <li class="'.$xml->li_class.' disabled">
+                          <a class="'.$xml->a_class.'" href = "javascript:void(0);">...</a>
                         </li>';
       }
 
       for($i= ($page-$range); $i <(($page + $range)  + 1); $i++){
         if (($i > 0) && ($i <= $totalPages)){
           if($i<>$page){
-            $pagination .= '<li class="'.$li_class.'">
-                              <a class="'.$a_class.'" href="'.$url.'='.$i.'">'.$i.'</a>
+            $pagination .= '<li class="'.$xml->li_class.'">
+                              <a class="'.$xml->a_class.'" href="'.$url.'='.$i.'">'.$i.'</a>
                             </li>';
           }
           else{
-            $pagination .= '<li class="'.$li_class.' active">
-                              <a class="'.$a_class.'" href="javascript:void(0);">'.$i.'</a>
+            $pagination .= '<li class="'.$xml->li_class.' active">
+                              <a class="'.$xml->a_class.'" href="javascript:void(0);">'.$i.'</a>
                             </li>';
           }       
         }
       }
 
       if ($page <= $totalPages - $limit){ 
-        $pagination .= '<li class="'.$li_class.' disabled">
-                          <a  class="'.$a_class.'" href = "javascript:void(0);">...</a>
+        $pagination .= '<li class="'.$xml->li_class.' disabled">
+                          <a  class="'.$xml->a_class.'" href = "javascript:void(0);">...</a>
                         </li>
-                        <li class="'.$li_class.'"> 
-                          <a class="'.$a_class.'" href="'.$url.'='.$totalPages.'">'.$totalPages.'</a>
+                        <li class="'.$xml->li_class.'"> 
+                          <a class="'.$xml->a_class.'" href="'.$url.'='.$totalPages.'">'.$totalPages.'</a>
                         </li>'; 
       }
     } 
-
-    if($page == $totalPages ){
-      $pagination .= '<li class="'.$li_class.' disabled">
-                        <a class="'.$a_class.'" href="javascript:void(0);">
-                            Next
+    if($totalPages == 0 || $page == $totalPages){
+      $pagination .= '<li class="'.$xml->li_class.' disabled">
+                        <a class="'.$xml->a_class.'" href="javascript:void(0);">
+                            '.$xml->next.'
                         </a>
                       </li>';
     }
     else{
       $j = $page + 1;
-      $pagination .= '<li class="'.$li_class.'">
-                        <a class="'.$a_class.'" href="'.$url.'='.$j.'">
-                            Next
+      $pagination .= '<li class="'.$xml->li_class.'">
+                        <a class="'.$xml->a_class.'" href="'.$url.'='.$j.'">
+                            '.$xml->next.'
                         </a>
                       </li>';
     }
 
-    if($page < $totalPages ){ 
-      $pagination .= '<li class="'.$li_class.'">
-                        <a class="'.$a_class.'" href="'.$url.'='.$totalPages.'">
-                          &#8677;
+    if($page < $totalPages){ 
+      $pagination .= '<li class="'.$xml->li_class.'">
+                        <a class="'.$xml->a_class.'" href="'.$url.'='.$totalPages.'">
+                          '.$xml->last.'
                         </a>
                       </li>'; 
     }

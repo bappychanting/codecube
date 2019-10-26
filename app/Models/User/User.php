@@ -77,13 +77,8 @@ class User extends Model{
       $this->setEmail($data['email']);
     }
 
-    if (isset($data['password'])){
-      if(isset($data['confirmPassword']) && $data['password'] != $data['confirmPassword']){
-        $this->setPassword('');
-      }
-      else{
-        $this->setPassword($data['password']);
-      }
+    if (isset($data['password']) && isset($data['confirmPassword']) && $data['password'] == $data['confirmPassword']){
+      $this->setPassword($data['password']);
     }
 
     return $this;
@@ -96,15 +91,15 @@ class User extends Model{
     $errors = array();
 
     if(empty($this->getName())){
-      $errors['name'] = "Name can not be empty!";
+      $errors['name'] = 'Name can not be empty!';
     }
 
     if(empty($this->getUsername())){
-      $errors['username'] = "Username can not be empty!";
+      $errors['username'] = 'Username can not be empty!';
     }
 
     if(empty($this->getEmail())){
-      $errors['email'] = "Email can not be empty!";
+      $errors['email'] = 'Email can not be empty!';
     }
 
     if(empty($this->getId())){
@@ -118,7 +113,7 @@ class User extends Model{
       }
 
       if(empty($this->getPassword())){
-        $errors['password'] = "Please input password and make sure it matches with the password confirmation!";
+        $errors['password'] = 'Please input password and make sure it matches with the password confirmation!';
       }
 
     }
@@ -129,7 +124,7 @@ class User extends Model{
       }
 
       if($this->db->table('users')->where('email', '=', $this->getEmail())->and('id', '!=', $this->getId())->check()){
-        $errors['email'] = "Email already exists!";
+        $errors['email'] =  "Email already exists!";
       }
 
     }

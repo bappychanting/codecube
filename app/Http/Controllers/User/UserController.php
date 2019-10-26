@@ -45,7 +45,7 @@ class UserController extends Controller
     {
         $update = $this->user->setData($_POST)->validateData()->updateUser();
         if($update){
-            $this->request->setFlash(array('success' => "User has beed updated!"));
+            $this->request->setFlash(['success' => "User has beed updated!"]);
             $this->redirect('user/show');
         }
         else{
@@ -62,11 +62,11 @@ class UserController extends Controller
             $update = $this->auth->setData($_POST)->validateData()->updatePass();
         }
         if($update){
-            $this->request->setFlash(array('success' => "Password has beed updated!"));
+            $this->request->setFlash(['success' => "Password has beed updated!"]);
             $this->redirect('user/show');
         }
         else{
-            $this->request->setFlash(array('danger' => "Password could not be updated! Please try again!"));
+            $this->request->setFlash(['danger' => "Password could not be updated! Please try again!"]);
             $this->redirect(back());
         }
     }
