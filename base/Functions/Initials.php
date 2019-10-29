@@ -12,6 +12,9 @@ function logger($log_msg = '')
 				mkdir($log_filename, 0777, true);
 			}
 			$log_file_data = $log_filename.'/log-' . date('Y-m-d') . '.log';
+			if(is_array($log_msg)){
+				$log_msg = json_encode($log_msg);
+			}
 			file_put_contents($log_file_data, '['.date('Y-m-d H:i:s').'] '.$log_msg . "\n", FILE_APPEND);
 		}
 	}
@@ -22,7 +25,7 @@ function locale($loc_file, $loc_key)
 {
 	if(file_exists('config/app.php')){
 		$config = include('config/app.php');
-		$_file = 'resources/locale/'.$config['fallback_locale'].'/'.$loc_file.'.php';
+		$_file = 'resources/locale/'.$config['locale'].'/'.$loc_file.'.php';
 		if(file_exists($_file)){
 			$locale = include($_file);
 			return $locale[$loc_key];
