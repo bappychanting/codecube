@@ -348,8 +348,8 @@ class DB
     return $this->sqlQuery;
   }
 
-    // Create pagination
-  public function pagination(){
+    // Create pagination data array
+  public function paginationData(){
 
     $total = $this->getTotal();
 
@@ -370,7 +370,14 @@ class DB
 
     $url = $url.$param; 
 
-    $totalPages = ceil($total / $perpage); 
+    $totalPages = ceil($total / $perpage);
+
+    return array('page' => $page, 'totalPages' => $totalPages, 'url' => $url);
+    
+  }
+
+    // function for generating pagination pages
+  public function generatePages($page=1, $totalPages=1, $url='javascript:void(0);'){ 
     
     if (file_exists("resources/markups/pagination.xml")){
       $xml = simplexml_load_file("resources/markups/pagination.xml") or die(logger('ERROR: Can  not load xml file'));
@@ -468,6 +475,16 @@ class DB
     }
 
     $pagination .= '</ul></nav>';
+
+    return $pagination;
+  }
+
+    // Create pagination
+  public function pagination(){
+
+    $data = $this->paginationData();
+
+    $pagination = $this->generatePages($data['page'], $data['totalPages'], $data['url']);
 
     return $pagination;
     
