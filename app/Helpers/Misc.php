@@ -16,6 +16,15 @@ class Misc{
     return $plucked;
   }
 
+    // Function for generating random number of fixed length
+  public function randomNumber($length) {
+    $result = '';
+    for($i = 0; $i < $length; $i++) {
+      $result .= mt_rand(0, 9);
+    }
+    return $result;
+  }
+
     // Function for generating random string
   public function randStr($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
