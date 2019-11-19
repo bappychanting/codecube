@@ -17,7 +17,7 @@ class Misc{
   }
 
     // Function for generating random number of fixed length
-  public function randNum($length = 10) {
+  public function randInt($length = 10) {
     $result = '';
     for($i = 0; $i < $length; $i++) {
       $result .= mt_rand(0, 9);
