@@ -357,18 +357,9 @@ class DB
 
     $perpage = intval($limit[count($limit)-1]);
 
-    $page = isset($_GET["page"]) ? intval($_GET["page"]) : 1; 
-
-    $param = '/?page';
+    $page = isset($_GET["page"]) ? intval($_GET["page"]) : 1;
 
     $url = $_SERVER['REQUEST_URI'];
-
-    if(count($_GET) > 0){
-      $param = strpos($_SERVER['REQUEST_URI'], $param) == false ? '&page' : $param;
-      $url = strpos($url, $param) !== false ? substr($url, 0, strpos($url, $param)) : $url;
-    }
-
-    $url = $url.$param; 
 
     $totalPages = ceil($total / $perpage);
 
@@ -377,7 +368,16 @@ class DB
   }
 
     // function for generating pagination pages
-  public function generatePages($page=1, $totalPages=1, $url='javascript:void(0);'){ 
+  public function generatePages($page=1, $totalPages=1, $url='javascript:void(0);'){  
+
+    $param = '/?page';
+
+    if(count($_GET) > 0){
+      $param = strpos($_SERVER['REQUEST_URI'], $param) == false ? '&page' : $param;
+      $url = strpos($url, $param) !== false ? substr($url, 0, strpos($url, $param)) : $url;
+    }
+
+    $url = $url.$param; 
     
     if (file_exists("resources/markups/pagination.xml")){
       $xml = simplexml_load_file("resources/markups/pagination.xml") or die(logger('ERROR: Can  not load xml file'));
