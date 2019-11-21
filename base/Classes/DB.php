@@ -359,11 +359,9 @@ class DB
 
     $page = isset($_GET["page"]) ? intval($_GET["page"]) : 1;
 
-    $url = $_SERVER['REQUEST_URI'];
-
     $totalPages = ceil($total / $perpage);
 
-    return array('page' => $page, 'totalPages' => $totalPages, 'url' => $url);
+    return array('page' => $page, 'totalPages' => $totalPages);
     
   }
 
@@ -484,7 +482,7 @@ class DB
 
     $data = $this->paginationData();
 
-    $pagination = $this->generatePages($data['page'], $data['totalPages'], $data['url']);
+    $pagination = $this->generatePages($data['page'], $data['totalPages'], $_SERVER['REQUEST_URI']);
 
     return $pagination;
     
