@@ -17,7 +17,7 @@ class Misc{
   }
 
     // Function for generating random number of fixed length
-  public function randInt($length = 10) {
+  public static function randInt($length = 10) {
     $result = '';
     for($i = 0; $i < $length; $i++) {
       $result .= mt_rand(0, 9);
@@ -26,7 +26,7 @@ class Misc{
   }
 
     // Function for generating random string
-  public function randStr($length = 10) {
+  public static function randStr($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -37,7 +37,7 @@ class Misc{
   }
 
     // Function for creating SEO friendly url
-  public function urlString($string, $separator = '-'){
+  public static function urlString($string, $separator = '-'){
     $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
     $special_cases = array( '&' => 'and', "'" => '');
     $string = mb_strtolower( trim( $string ), 'UTF-8' );
