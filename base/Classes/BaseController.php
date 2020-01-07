@@ -80,7 +80,7 @@ class BaseController
     $link = APP_URL.'/'.$route_url;
 
     if(!empty($parameters)){
-      $link .= '/?';
+      $link .= '?';
       $count = 1;
       foreach($parameters as $key=>$value){
         if($count > 1){

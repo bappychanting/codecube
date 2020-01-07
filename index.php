@@ -71,32 +71,17 @@ try {
     }
 
 		// Create route url string
-	$route_url = '';
-
-	$_URI = explode("/", $_SERVER['REQUEST_URI']);
-
-    $count_slash = 0;
-	foreach ($_URI as $value) {
-		if(!empty($value) && strpos($value, "=") == false){
-			if($count_slash > 0){
-        		$route_url .= '/';
-      		}
-			$route_url .= $value;
-      		$count_slash++;
-		}
-	}
+	$route_url = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
 		// Call route
-	if(!empty($route_url)){
-		if(!empty($routes[$route_url])){
-			call($routes[$route_url]);
-		}
-		else{
-			call($default['error']);
-		}
+	if(empty($route_url)){
+		call($default['landing']);
+	}
+	elseif(empty($routes[$route_url])){
+		call($default['error']);
 	}
 	else{
-		call($default['landing']);
+		call($routes[$route_url]);
 	}
 
 
