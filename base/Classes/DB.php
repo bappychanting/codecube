@@ -368,7 +368,7 @@ class DB
     // function for generating pagination pages
   public function generatePages($page=1, $totalPages=1, $url='javascript:void(0);'){  
 
-    $param = '/?page';
+    $param = '?page';
 
     if(count($_GET) > 0){
       $param = strpos($_SERVER['REQUEST_URI'], $param) == false ? '&page' : $param;

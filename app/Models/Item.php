@@ -83,17 +83,17 @@ class Item extends Model{
 		$errors = array();
 
 		if(empty($this->getName())){
-		  $errors['name'] = locale('validation', 'name_empty');
+		  $errors['name'] = locale('validation', 'empty', ['data' => 'name']);
 		}
         else{
             $item = $this->db->table('items')->where('name', '=', $this->getName())->and('id', '!=', $this->getId())->read();
             if($item){
-                $errors['name'] = locale('validation', 'name_exists');
+                $errors['name'] = locale('validation', 'exists', ['data' => 'name']);
             }
         }
 
         if(empty($this->getPrice())){
-          $errors['price'] = locale('validation', 'price_empty');
+          $errors['price'] = locale('validation', 'empty', ['data' => 'price']);
         }
 
 		setErrors($errors);   
