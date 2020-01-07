@@ -21,14 +21,20 @@ function logger($log_msg = '')
 }
 
 	// Fucntion for getting locale
-function locale($loc_file, $loc_key)
+function locale($loc_file, $loc_key, $words= array())
 {
 	if(file_exists('config/app.php')){
 		$config = include('config/app.php');
 		$_file = 'resources/locale/'.$config['locale'].'/'.$loc_file.'.php';
 		if(file_exists($_file)){
 			$locale = include($_file);
-			return $locale[$loc_key];
+			$string = $locale[$loc_key];
+			if(!empty($words)){
+				foreach ($words as $key => $value) {
+					$string = str_replace(':'.$key, $value, $string);
+				}
+			}
+			return $string;
 		}
 	}
 	return '';
