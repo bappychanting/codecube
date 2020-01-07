@@ -84,10 +84,8 @@ try {
 		call($routes[$route_url]);
 	}
 
-
 		// Log last occured error
 	$fetch_error = error_get_last();
-
     if(!empty($fetch_error)){
     	logger('ERROR: '.$fetch_error['message'].' in '.$fetch_error['file'].' in '.$fetch_error['line']);
     }
