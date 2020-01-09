@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User; 
 
 use Base\Request; 
+use Base\Authenticable; 
 use App\Models\User\Auth; 
 use App\Models\User\User; 
 use App\Http\Controllers\Controller; 
@@ -22,21 +23,21 @@ class UserController extends Controller
 
     public function show() 
     { 
-        $auth_user = $this->request->getAuth(); 
+        $auth_user = Authenticable::getAuth(); 
         $user = $this->user->setData((array) $auth_user)->getUser();
         return $this->view('user.show', compact('user'));
     }
 
     public function edit() 
     {
-        $auth_user = $this->request->getAuth(); 
+        $auth_user = Authenticable::getAuth(); 
         $user = $this->user->setData((array) $auth_user)->getUser();
         return $this->view('user.edit', compact('user'));
     }
 
     public function editPassword() 
     { 
-        $auth_user = $this->request->getAuth(); 
+        $auth_user = Authenticable::getAuth(); 
         $user = $this->user->setData((array) $auth_user)->getUser();
         return $this->view('user.edit_pass', compact('user'));
     }

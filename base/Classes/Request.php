@@ -1,42 +1,45 @@
 <?php
-  
+
 namespace Base;
-  
+
 class Request
 {
 
-    // Data setter and geter
+    // Set session data
   public static function setData($key, $value){
     $_SESSION['request'][$key] = $value;
   }
 
+    // Get session data
   public static function getData($key){
     if(isset($_SESSION['request'][$key])){
       return $_SESSION['request'][$key];
     }
   }
 
-    // Flash setter and geter
+    // Put array in request
+  public static function put($key, $arr = array()){
+    $_SESSION['request'][$key] = $arr;
+  }
+
+    // Get array from request
+  public static function show($key){
+    if(isset($_SESSION['request'][$key])){
+      return $_SESSION['request'][$key];
+    }
+  }
+
+    // Set flash session
   public static function setFlash($flash){
     $_SESSION['request']['flash'] = $flash;
   }
+
+    // Get flash session
   public static function getFlash(){
     if(isset($_SESSION['request']['flash'])){
       $flash = $_SESSION['request']['flash']; 
       unset($_SESSION['request']['flash']);
       return $flash;
-    }
-  }
-
-    // Put Array in request
-  public static function put($key, $arr = array()){
-    $_SESSION['request'][$key] = $arr;
-  }
-
-    // Get Array from request
-  public static function show($key){
-    if(isset($_SESSION['request'][$key])){
-      return (object)$_SESSION['request'][$key];
     }
   }
 
@@ -51,7 +54,14 @@ class Request
 
     // Get cookie data
   public static function getCookie($cookie){
-    return $_COOKIE[$cookie];
+    if(isset($_COOKIE[$cookie])){
+      return $_COOKIE[$cookie];
+    }
+  }
+
+    // destroy request session
+  public static function destroy($key){
+    unset($_SESSION['request'][$key]);
   }
 
     // delete cookie
@@ -59,38 +69,6 @@ class Request
     unset($_COOKIE[$cookie]);
   }
 
-    // Auth setter and geter
-  public static function setAuth($value){
-    $_SESSION['request']['auth'] = $value;
-  }
-  public static function getAuth(){
-    if(isset($_SESSION['request']['auth'])){
-      return (object)$_SESSION['request']['auth'];
-    }
-  }
-
-    // Check if auth
-  public static function auth(){
-    if(isset($_SESSION['request']['auth']) && count($_SESSION['request']['auth']) > 0 ){
-      return TRUE;
-    }
-    return FALSE;
-  }
-
-    // Check if remember
-  public static function remember(){
-    if(isset($_COOKIE['remember_me'])){
-      return TRUE;
-    }
-    return FALSE;
-  }
-
-    // destroy Request session array
-  public static function destroy($key){
-    unset($_SESSION['request'][$key]);
-    return TRUE;
-  }
-
 }
-  
+
 ?>

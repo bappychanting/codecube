@@ -2,15 +2,15 @@
 
 namespace App\Http\Guards;
 
-use Base\Request;
+use Base\Authenticable;
 use Base\BaseController as base; 
 
 class CheckGuest
 {
     public function __construct()
     {
-        $request = new Request();
-        if($request->auth()){
+        $auth = new Authenticable();
+        if($auth->authenticated() || $auth->remembered()){
             base::redirect('home');
         }
     }

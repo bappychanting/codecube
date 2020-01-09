@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Base\Request; 
+use Base\Authenticable; 
 use App\Models\Item; 
 
 class ItemController extends Controller
@@ -19,7 +20,7 @@ class ItemController extends Controller
 
     public function index() 
     {
-        $auth_user = $this->request->getAuth();
+        $auth_user = Authenticable::getAuth(); 
         $this->item->setUser($auth_user->id);
         $items = $this->item->getItems();
         return $this->view('items.index', compact('items'));
@@ -27,7 +28,7 @@ class ItemController extends Controller
 
     public function create() 
     {
-        $auth_user = $this->request->getAuth();
+        $auth_user = Authenticable::getAuth(); 
         return $this->view('items.create', compact('auth_user'));
     }
 
