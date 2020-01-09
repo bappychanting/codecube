@@ -11,8 +11,8 @@ class CheckAuth
     {
         $auth = new Authenticable;
 
-        if(!$request->auth()){
-            if($request->remember()){
+        if(!$auth->check()){
+            if($auth->remember()){
                 $auth->resetAuth();
             }
             else{
@@ -24,7 +24,7 @@ class CheckAuth
             $token = getTokenData(); 
             $auth_time = strtotime('+'.$config['auth_time'], $token['time']);
             if(time() > $auth_time){
-                if($request->remember()){
+                if($auth->remember()){
                     $auth->resetAuth();
                     base::redirect('home');
                 }

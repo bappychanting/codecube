@@ -29,6 +29,11 @@ class Request
     }
   }
 
+    // Destroy request session
+  public static function destroy($key){
+    unset($_SESSION['request'][$key]);
+  }
+
     // Set flash session
   public static function setFlash($flash){
     $_SESSION['request']['flash'] = $flash;
@@ -59,12 +64,7 @@ class Request
     }
   }
 
-    // destroy request session
-  public static function destroy($key){
-    unset($_SESSION['request'][$key]);
-  }
-
-    // delete cookie
+    // Delete cookie
   public static function deleteCookie($cookie){
     unset($_COOKIE[$cookie]);
   }

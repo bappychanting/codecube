@@ -9,8 +9,8 @@ class CheckGuest
 {
     public function __construct()
     {
-        $auth = new Authenticable();
-        if($auth->authenticated() || $auth->remembered()){
+        $auth = new Authenticable;
+        if($auth->check() || $auth->remember()){
             base::redirect('home');
         }
     }
