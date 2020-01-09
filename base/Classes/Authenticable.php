@@ -22,14 +22,14 @@ class Authenticable
 		if(count($get_user) == 1){
 			$user = $get_user[0];
 			if(password_verify($password, $user[$password_field])){
-				$remember_token = bin2hex(openssl_random_pseudo_bytes(30));
-				$update = $this->db->table($auth_table)->set(['attempts' => 0, 'last_login' => time(), 'remember_token' => $remember_token])->where('username', '=', $identity)->or('email', '=', $identity)->update();
+				$login_token = bin2hex(openssl_random_pseudo_bytes(30));
+				$update = $this->db->table($auth_table)->set(['attempts' => 0, 'login_token' => $login_token])->where('username', '=', $identity)->or('email', '=', $identity)->update();
 				if($update){ 
-					/*if(isset($_POST[$remember])){
+					if(isset($_POST[$remember])){
 						$config = include("config/app.php");
 						$expire = time() + strtotime($config['remember_me'], 0);
-						setcookie('remember_me', base64_encode($token), $expire);
-					}*/
+						setcookie('remember_me', base64_encode($identity).':'.base64_encode($login_token), $expire);
+					}
 					$this->request->setAuth($user);
 					$this->request->setFlash(array('success' => "Login successful!"));
 					return TRUE;
@@ -71,10 +71,8 @@ class Authenticable
 	}
 
     	// Function for signing out
-    public function signout($auth_table='users'){
-    	$auth = $this->request->getAuth();
-		$update = $this->db->table($auth_table)->set(['last_logout' => time()])->where('id', '=', $auth->id)->update();
-    	// unset($_COOKIE['remember_me']);
+    public function signout(){
+    	$this->request->deleteCookie('remember_me');
     	session_destroy();
     }
 

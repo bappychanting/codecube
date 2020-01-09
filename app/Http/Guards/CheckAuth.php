@@ -11,16 +11,21 @@ class CheckAuth
     public function __construct()
     {
         $request = new Request();
-        if(!$request->auth()){
-            base::redirect('signin');
+        if(isset($_COOKIE['remember_me'])){
+
         }
         else{
-	        $config = base::config('app');
-            $token = getTokenData();
-	        $auth_time = strtotime('+'.$config['auth_time'].' minutes', $token['time']);
-	        if(time() > $auth_time){
-	        	base::redirect('signout');
-	        }
+            if(!$request->auth()){
+                base::redirect('signin');
+            }
+            else{
+                $config = base::config('app');
+                $token = getTokenData(); 
+                $auth_time = strtotime('+'.$config['auth_time'], $token['time']);
+                if(time() > $auth_time){
+                    base::redirect('signout');
+                }
+            }
         }
     }
 
