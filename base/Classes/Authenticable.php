@@ -17,13 +17,19 @@ class Authenticable
 	}
 
 		// Function for signing in
-    public function signin($identity='', $password='', $auth_table='users', $identity_field_1='username', $identity_field_2='email', $password_field='password') { 
+    public function signin($identity='', $password='', $remember = 'remember', $auth_table='users', $identity_field_1='username', $identity_field_2='email', $password_field='password') { 
 		$get_user = $this->db->table($auth_table)->where($identity_field_1, '=', $identity)->or($identity_field_2, '=', $identity)->read();  
 		if(count($get_user) == 1){
 			$user = $get_user[0];
 			if(password_verify($password, $user[$password_field])){
-				$update = $this->db->table($auth_table)->set(['timestamp' => time(), 'attempts' => 0])->where('username', '=', $identity)->or('email', '=', $identity)->update();
+				$remember_token = bin2hex(openssl_random_pseudo_bytes(30));
+				$update = $this->db->table($auth_table)->set(['attempts' => 0, 'last_login_attempt' => time(), 'remember_token' => $remember_token])->where('username', '=', $identity)->or('email', '=', $identity)->update();
 				if($update){ 
+					if(isset($_POST[$remember])){
+						$config = include("config/app.php");
+						$expire = time() + strtotime($config['remember_me'], 0);
+						setcookie($remember, base64_encode($token), $expire);
+					}
 					$this->request->setAuth($user);
 					$this->request->setFlash(array('success' => "Login successful!"));
 					return TRUE;
@@ -66,6 +72,7 @@ class Authenticable
 
     	// Function for signing out
     public function signout(){
+    	unset($_COOKIE['Hello']);
     	session_destroy();
     }
 

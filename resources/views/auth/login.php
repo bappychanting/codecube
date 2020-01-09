@@ -41,7 +41,7 @@
           }
         } 
         else { ?> 
-        <h5 class="card-title">Please Input Your Login Credentials</h5>
+          <h5 class="card-title">Please Input Your Login Credentials</h5>
         <?php } ?>
         <div class="form-group">
           <label for="username">Username/Email address:</label>
@@ -50,6 +50,10 @@
         <div class="form-group">
           <label for="password">Password:</label>
           <input type="password" id="password" class="form-control" name="password">
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="remember" id="remember">
+          <label class="form-check-label" for="remember">Remember Me</label>
         </div>
         <button type="submit" class="btn btn-primary mr-5">Submit</button>
         <a href="<?php echo route('password/forgot'); ?>">Forgot Password?</a>

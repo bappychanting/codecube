@@ -7,8 +7,8 @@ try {
 	if(file_exists('config/app.php')){
 		$config = include('config/app.php');
 		if($config['update_session_cookie_settings'] == 'yes'){
-			ini_set('session.gc_maxlifetime', $config['auth_time']*60);
-			session_set_cookie_params($config['auth_time']*60);
+			ini_set('session.gc_maxlifetime', strtotime($config['auth_time'], 0));
+			session_set_cookie_params(strtotime($config['auth_time'], 0));
 		}
 		session_start();
 		$headers = apache_request_headers();
