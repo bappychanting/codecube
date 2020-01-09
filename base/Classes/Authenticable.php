@@ -28,7 +28,7 @@ class Authenticable
 					if(isset($_POST[$remember])){
 						$config = include("config/app.php");
 						$expire = time() + strtotime($config['remember_me'], 0);
-						setcookie('remember_me', base64_encode($identity).':'.base64_encode($login_token), $expire);
+						$this->request->setCookie('remember_me', base64_encode($identity).':'.base64_encode($login_token), $expire);
 					}
 					$this->request->setAuth($user);
 					$this->request->setFlash(array('success' => "Login successful!"));

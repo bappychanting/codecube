@@ -11,7 +11,7 @@ class CheckAuth
     public function __construct()
     {
         $request = new Request();
-        if(isset($_COOKIE['remember_me'])){
+        if($request->remember()){
 
         }
         else{

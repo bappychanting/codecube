@@ -46,7 +46,7 @@ class Request
     $domain = APP_URL;
     $secure = APP_ENV == 'dev' ? false : true;
     $httponly = APP_ENV == 'dev' ? false : true;
-    setcookie($name, $value, $expire, path, domain, secure, httponly);
+    setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
   }
 
     // Get cookie data
@@ -56,7 +56,7 @@ class Request
 
     // delete cookie
   public static function deleteCookie($cookie){
-      unset($_COOKIE[$cookie]);
+    unset($_COOKIE[$cookie]);
   }
 
     // Auth setter and geter
@@ -72,6 +72,14 @@ class Request
     // Check if auth
   public static function auth(){
     if(isset($_SESSION['request']['auth']) && count($_SESSION['request']['auth']) > 0 ){
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+    // Check if remember
+  public static function remember(){
+    if(isset($_COOKIE['remember_me'])){
       return TRUE;
     }
     return FALSE;
