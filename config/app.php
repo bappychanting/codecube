@@ -4,7 +4,7 @@ return [
 
 			// Configuring application behaviour
 
-		'auth_time' => '30 minutes', // declaring how long a login session will last in minutes
+		'auth_time' => '1 minute', // declaring how long a login session will last
 
 		'remember_me' => '30 days', // declaring how long remember me cookie will last
 

@@ -44,14 +44,14 @@ class Request
   public static function setCookie($name, $value, $expire){
     $path = '/';
     $domain = APP_URL;
-    $secure = APP_ENV == 'dev' ? false : true;
-    $httponly = APP_ENV == 'dev' ? false : true;
+    $secure = APP_ENV == 'dev' ? 0 : 1;
+    $httponly = APP_ENV == 'dev' ? 0 : 1;
     setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
   }
 
     // Get cookie data
   public static function getCookie($cookie){
-    return (object)$_COOKIE[$cookie];
+    return $_COOKIE[$cookie];
   }
 
     // delete cookie

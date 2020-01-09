@@ -3,26 +3,34 @@
 namespace App\Http\Guards;
 
 use Base\Request;
-use Base\DB;
+use Base\Authenticable;
 use Base\BaseController as base; 
 
 class CheckAuth 
 {
     public function __construct()
     {
-        $request = new Request();
-        if($request->remember()){
+        $request = new Request;
+        $auth = new Authenticable;
 
-        }
-        else{
-            if(!$request->auth()){
-                base::redirect('signin');
+        if(!$request->auth()){
+            if($request->remember()){
+                $auth->resetAuth();
             }
             else{
-                $config = base::config('app');
-                $token = getTokenData(); 
-                $auth_time = strtotime('+'.$config['auth_time'], $token['time']);
-                if(time() > $auth_time){
+                base::redirect('signin');
+            }
+        }
+        else{
+            $config = base::config('app');
+            $token = getTokenData(); 
+            $auth_time = strtotime('+'.$config['auth_time'], $token['time']);
+            if(time() > $auth_time){
+                if($request->remember()){
+                    $auth->resetAuth();
+                    base::redirect('welcome');
+                }
+                else{
                     base::redirect('signout');
                 }
             }

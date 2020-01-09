@@ -1,10 +1,10 @@
 <?php
-  
+
 namespace Base;
 
 use Base\DB; 
 use Base\Request;
-  
+
 class Authenticable
 {
 	private $db;
@@ -17,7 +17,7 @@ class Authenticable
 	}
 
 		// Function for signing in
-    public function signin($identity='', $password='', $remember = 'remember', $auth_table='users', $identity_field_1='username', $identity_field_2='email', $password_field='password') { 
+	public function signin($identity='', $password='', $remember = 'remember', $auth_table='users', $identity_field_1='username', $identity_field_2='email', $password_field='password') { 
 		$get_user = $this->db->table($auth_table)->where($identity_field_1, '=', $identity)->or($identity_field_2, '=', $identity)->read();  
 		if(count($get_user) == 1){
 			$user = $get_user[0];
@@ -53,29 +53,37 @@ class Authenticable
 			$this->request->setFlash(array('danger' => "Wrong login credentials! Try again to log in with correct username/email and password."));
 			return FALSE;
 		}
-    }
-  
+	}
+
+	public function resetAuth($auth_table='users', $identity_field='username', $token_field='login_token'){   
+		list($username, $token) = explode(':', $request->getCookie('remember_me'));
+		$user = $db->table($auth_table)->where($identity_field, '=', base64_decode($username))->read(); 
+		if(hash_equals($user[$token_field], hash('sha256', base64_decode($token)))){
+			$this->request->setAuth($user);
+		}  
+	}
+
 	public function storeLink($token, $user, $links_table='reset_password_links'){   
 		$store = $this->db->table($links_table)->data(['token' => $token, 'user_id' => $user])->create();
 		return $store;
 	}
-  
+
 	public function getLink($token, $links_table='reset_password_links_view'){   
 		$link = $this->db->table($links_table)->where('token', '=', $token)->read(); 
 		return $link[0];
 	}
-  
+
 	public function updateValidity($token, $links_table='reset_password_links'){   
 		$update = $this->db->table($links_table)->set(['validity' => 0])->where('token', '=', $token)->update(); 
 		return $update;
 	}
 
     	// Function for signing out
-    public function signout(){
-    	$this->request->deleteCookie('remember_me');
-    	session_destroy();
-    }
+	public function signout(){
+		$this->request->deleteCookie('remember_me');
+		session_destroy();
+	}
 
 }
-  
+
 ?>
