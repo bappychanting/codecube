@@ -3,7 +3,6 @@
 namespace App\Http\Guards;
 
 use Base\Authenticable;
-use Base\BaseController as base; 
 
 class CheckAuth 
 {

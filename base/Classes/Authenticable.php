@@ -17,13 +17,13 @@ class Authenticable
 	}
 
 		// Function for signing in
-	public function signin($identity='', $password='', $remember = 'remember', $auth_table='users', $identity_field_1='username', $identity_field_2='email', $password_field='password') { 
+	public function signin($identity='', $password='', $remember = 'remember', $auth_table='users', $identity_field_1='username', $identity_field_2='email', $password_field='password', $attempts_field = 'attempts', $login_token_field = 'login_token') { 
 		$get_user = $this->db->table($auth_table)->where($identity_field_1, '=', $identity)->or($identity_field_2, '=', $identity)->read();  
 		if(count($get_user) == 1){
 			$user = $get_user[0];
 			if(password_verify($password, $user[$password_field])){
 				$login_token = bin2hex(openssl_random_pseudo_bytes(30));
-				$update = $this->db->table($auth_table)->set(['attempts' => 0, 'login_token' => $login_token])->where('username', '=', $identity)->or('email', '=', $identity)->update();
+				$update = $this->db->table($auth_table)->set([$attempts_field => 0, $login_token_field => $login_token])->where($identity_field_1, '=', $identity)->or($identity_field_2, '=', $identity)->update();
 				if($update){ 
 					if(isset($_POST[$remember])){
 						$config = include("config/app.php");
@@ -38,7 +38,7 @@ class Authenticable
 			}
 			else{
 				$attempts = $user['attempts'] + 1;
-				$update = $this->db->table($auth_table)->set(['attempts' => $attempts])->where('username', '=', $identity)->or('email', '=', $identity)->update();
+				$update = $this->db->table($auth_table)->set([$attempts_field => $attempts])->where($identity_field_1, '=', $identity)->or($identity_field_2, '=', $identity)->update();
 				if($attempts > 3){
 					$this->request->setData('timeout', 'Multiple incorrect attempts detected!');
 					return FALSE;
@@ -81,7 +81,7 @@ class Authenticable
 				return FALSE;
             }
 		}
-		
+
 		return TRUE;
 	}
 
