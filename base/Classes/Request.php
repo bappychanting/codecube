@@ -67,6 +67,7 @@ class Request
     // Delete cookie
   public static function deleteCookie($cookie){
     unset($_COOKIE[$cookie]);
+    setcookie('remember_me', NULL, time()-3600);
   }
 
 }

@@ -74,7 +74,8 @@ class Authenticable
 
     	// Fuction to check if remember
 	public function remember(){
-		if(isset($_COOKIE['remember_me'])){
+		$remember_me = $this->request->getCookie('remember_me');
+		if(isset($remember_me)){
 			return TRUE;
 		}
 		return FALSE;
