@@ -11,7 +11,7 @@ return [
 							`email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 							`password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 							`attempts` int(11) DEFAULT NULL,
-							`timestamp` int(11) DEFAULT NULL,
+							`login_token` varchar(255) DEFAULT NULL,
 							`created_at` timestamp NULL DEFAULT NULL,
 							`updated_at` timestamp NULL DEFAULT NULL,
 							`deleted_at` timestamp NULL DEFAULT NULL,

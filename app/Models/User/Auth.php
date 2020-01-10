@@ -52,6 +52,11 @@ class Auth extends User{
       }
   }
   
+  public function getAuth(){   
+    $auth = $this->auth->getAuth();
+    return $auth;
+  }
+  
   public function storeLink(){   
     $auth = $this->auth->storeLink($this->getToken(), $this->getId());
     if($auth){

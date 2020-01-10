@@ -33,7 +33,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <?php if(Base\Request::auth()){ ?>
+        <?php $auth = new Base\Authenticable; if($auth->check()){ ?>
           <ul class="navbar-nav mr-auto">
             <li class="nav-item <?php echo route_is('home') ? 'active' : '' ?>">
               <a class="nav-link" href="<?php echo route('home'); ?>"><span class="oi oi-home pr-2"></span>Home <span class="sr-only">(current)</span></a>

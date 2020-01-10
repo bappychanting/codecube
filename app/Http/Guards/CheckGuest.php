@@ -2,17 +2,17 @@
 
 namespace App\Http\Guards;
 
-use Base\Request;
+use Base\Authenticable as auth;
 use Base\BaseController as base; 
 
 class CheckGuest
 {
-    public function __construct()
-    {
-        $request = new Request();
-        if($request->auth()){
-            base::redirect('home');
-        }
-    }
+	public function __construct()
+	{
+		$auth = new auth;
+		if($auth->check()){
+			base::redirect('home');
+		}
+	}
 
 }
