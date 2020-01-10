@@ -55,43 +55,41 @@ class Authenticable
 		}
 	}
 
+    	// Fuction to check if auth
+	public function check($auth_table='users', $identity_field='username', $token_field='login_token'){
+		$auth = $this->request->show('auth');
+		$remember_me = $this->request->getCookie('remember_me');
+
+		if(empty($auth) && empty($remember_me)){
+			return FALSE;
+		}
+		elseif(empty($auth) && !empty($remember_me)){
+			list($username, $token) = explode(':', $this->request->getCookie('remember_me'));
+			$user = $this->db->table($auth_table)->where($identity_field, '=', base64_decode($username))->read(); 
+			if(hash_equals($user[0][$token_field], hash('sha256', base64_decode($token)))){
+				$this->request->put('auth', $user);
+				return TRUE;
+			} 
+			return FALSE;
+		}
+		elseif(!empty($auth) && empty($remember_me)){
+            $config = include("config/app.php");
+            $token = getTokenData(); 
+            $auth_time = strtotime('+'.$config['auth_time'], $token['time']);
+            if(time() > $auth_time){
+				session_destroy();
+				return FALSE;
+            }
+		}
+		
+		return TRUE;
+	}
+
     	// Function to get auth data
 	public function getAuth(){
 		$auth = $this->request->show('auth');
 		if(!empty($auth)){
 			return (object)$auth;
-		}
-	}
-
-    	// Fuction to check if auth
-	public function check(){
-		$auth = $this->request->show('auth');
-		if(!empty($auth)){
-			return TRUE;
-		}
-		return FALSE;
-	}
-
-    	// Fuction to check if remember
-	public function remember(){
-		$remember_me = $this->request->getCookie('remember_me');
-		if(isset($remember_me)){
-			return TRUE;
-		}
-		return FALSE;
-	}
-
-    	// Fuction to reset Auth
-	public function resetAuth($auth_table='users', $identity_field='username', $token_field='login_token'){   
-		list($username, $token) = explode(':', $this->request->getCookie('remember_me'));
-		$get_user = $this->db->table($auth_table)->where($identity_field, '=', base64_decode($username))->read(); 
-		$user = $get_user[0];
-		if(hash_equals($user[$token_field], hash('sha256', base64_decode($token)))){
-			$this->request->put('auth', $user);
-			return TRUE;
-		}  
-		else{
-			return FALSE;
 		}
 	}
 
