@@ -55,7 +55,7 @@ class Authenticable
 		}
 	}
 
-    	// Get auth data
+    	// Function to get auth data
 	public function getAuth(){
 		$auth = $this->request->show('auth');
 		if(!empty($auth)){
@@ -83,7 +83,8 @@ class Authenticable
     	// Fuction to reset Auth
 	public function resetAuth($auth_table='users', $identity_field='username', $token_field='login_token'){   
 		list($username, $token) = explode(':', $this->request->getCookie('remember_me'));
-		$user = $this->db->table($auth_table)->where($identity_field, '=', base64_decode($username))->read(); 
+		$get_user = $this->db->table($auth_table)->where($identity_field, '=', base64_decode($username))->read(); 
+		$user = $get_user[0];
 		if(hash_equals($user[$token_field], hash('sha256', base64_decode($token)))){
 			$this->request->put('auth', $user);
 			return TRUE;
@@ -91,6 +92,12 @@ class Authenticable
 		else{
 			return FALSE;
 		}
+	}
+
+    	// Function for signing out
+	public function signout(){
+		$this->request->deleteCookie('remember_me');
+		session_destroy();
 	}
 
     	// Fuction to store password reset link
@@ -109,12 +116,6 @@ class Authenticable
 	public function updateValidity($token, $links_table='reset_password_links'){   
 		$update = $this->db->table($links_table)->set(['validity' => 0])->where('token', '=', $token)->update(); 
 		return $update;
-	}
-
-    	// Function for signing out
-	public function signout(){
-		$this->request->deleteCookie('remember_me');
-		session_destroy();
 	}
 
 }

@@ -26,7 +26,6 @@ class CheckAuth
             if(time() > $auth_time){
                 if($auth->remember()){
                     $auth->resetAuth();
-                    base::redirect('home');
                 }
                 else{
                     base::redirect('signout');
