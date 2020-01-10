@@ -37,7 +37,7 @@ class Authenticable
 				return FALSE;
 			}
 			else{
-				$attempts = $user['attempts'] + 1;
+				$attempts = $user[$attempts_field] + 1;
 				$update = $this->db->table($auth_table)->set([$attempts_field => $attempts])->where($identity_field_1, '=', $identity)->or($identity_field_2, '=', $identity)->update();
 				if($attempts > 3){
 					$this->request->setData('timeout', 'Multiple incorrect attempts detected!');
@@ -81,7 +81,6 @@ class Authenticable
 				return FALSE;
             }
 		}
-
 		return TRUE;
 	}
 
