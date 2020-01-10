@@ -50,11 +50,12 @@ class Request
 
     // Set cookie
   public static function setCookie($name, $value, $expire){
-    $path = '/';
-    $domain = APP_URL;
-    $secure = APP_ENV == 'dev' ? 0 : 1;
-    $httponly = APP_ENV == 'dev' ? 0 : 1;
-    setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+    if(APP_ENV == 'dev'){
+      setcookie($name, $value, $expire);
+    }
+    else{
+      setcookie($name, $value, $expire, '/', APP_URL, 1, 1);
+    }
   }
 
     // Get cookie data
