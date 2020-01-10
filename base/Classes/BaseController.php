@@ -7,6 +7,7 @@ use Base\Request;
 class BaseController 
 {
 
+    // Function for calling guards
   public static function guard($guard='', $parameters = array()){
     if(!empty($guard)){
       if (file_exists("app/Http/Guards/".$guard.".php")){
