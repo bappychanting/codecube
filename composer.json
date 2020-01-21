@@ -1,5 +1,5 @@
 {
-    "name": "codecube",
+    "name": "codecube/codecube",
     "type": "project",
     "description": "The CodeCube Framework.",
     "keywords": [
