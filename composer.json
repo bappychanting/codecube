@@ -7,9 +7,16 @@
         "framework",
         "codecube"
     ],
+    "authors": [
+        {
+            "name": "Mahadi Hasan",
+            "email": "bappychanting@outlook.com"
+        }
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "codecube/codecube": "1.0.*",
         "phpmailer/phpmailer": "~6.0"
     },
     "autoload": {
