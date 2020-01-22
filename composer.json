@@ -9,6 +9,7 @@
     ],
     "license": "MIT",
     "require": {
+        "php": "^7.2",
         "phpmailer/phpmailer": "~6.0"
     },
     "autoload": {
@@ -22,6 +23,6 @@
             "base/Functions/View.php"
         ]
     },
-    "minimum-stability": "dev-master",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
