@@ -1,7 +1,7 @@
 {
     "name": "codecube/codecube",
     "type": "project",
-    "description": "The CodeCube Framework.",
+    "description": "The CodeCube Framework: An easy & lightweight PHP framework.",
     "keywords": [
         "php",
         "framework",
@@ -21,5 +21,7 @@
             "base/Functions/Inheritance.php",
             "base/Functions/View.php"
         ]
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
 }
