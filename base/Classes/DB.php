@@ -160,14 +160,13 @@ class DB
     // Including Order By Statement
   public function orderBy($row='created_at', $order='ASC')
   {
-    if(strpos($this->orderby, 'ORDER BY') == false){
-      $this->orderby .= 'ORDER BY';
+    if(strpos($this->orderby, 'ORDER BY') === false){
+      $this->orderby .= 'ORDER BY ';
     }
     else{
       $this->orderby .= ', ';
     }
-    $this->orderby .= ' ';
-    $this->orderby .= $row.' '.strtoupper($order);
+    $this->orderby .= $row.' '.strtoupper($order).' ';
     return $this;
   }
 
