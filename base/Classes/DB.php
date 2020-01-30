@@ -166,7 +166,7 @@ class DB
     else{
       $this->orderby .= ', ';
     }
-    $this->orderby .= $row.' '.strtoupper($order).' ';
+    $this->orderby .= $row.' '.strtoupper($order);
     return $this;
   }
 
