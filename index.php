@@ -17,27 +17,27 @@ try {
 		throw new Exception('Framework configuration file not found!');
 	}
 
-		// Check if database migration
-	if($_SERVER['REQUEST_URI'] == '/database_migration'){
-		if(file_exists("base/Migration/migration_view.php") && is_readable("base/Migration/migration_view.php")) {
-			require_once("base/Migration/migration_view.php");
-			ob_end_flush();
-			die();
-		}
-		else{
-			throw new Exception('Database Management files missing!');
-		}
-	}
-
-		// Include autoload
-	include("vendor/autoload.php");
-
 		// Include project configurations
 	if(file_exists("env.php") && is_readable("env.php")) {
 		include("env.php");
 	}
 	else{
 		throw new Exception('Environment configuration file not found! Please create a copy of the &quot;env.exmaple.php&quot; file in the root folder and rename it to &quot;env.php&quot;.');
+	}
+
+		// Include autoload
+	include("vendor/autoload.php");
+
+		// Check if database migration
+	if($_SERVER['REQUEST_URI'] == '/database_migration'){
+		echo Base\Migration::migrationView();
+		die();
+	}
+	elseif($_SERVER['REQUEST_URI'] == '/execute_queries'){
+		$files = glob("database/*.php");
+		$messages = Base\Migration::executeQueries($files);
+		echo json_encode($messages);
+		die();
 	}
 			
 		// Set default urls
