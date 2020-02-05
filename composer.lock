@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b8f62ead819fdd0d761e1886a093025",
+    "content-hash": "8d58191551f1630035d2b9defd65bb00",
     "packages": [
+        {
+            "name": "codecube/base",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Bappy25/base.git",
+                "reference": "5c33e73d3ff9a8a1770e3c3be7a8f675b59a4291"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Bappy25/base/zipball/5c33e73d3ff9a8a1770e3c3be7a8f675b59a4291",
+                "reference": "5c33e73d3ff9a8a1770e3c3be7a8f675b59a4291",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "phpmailer/phpmailer": "~6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Base\\": "Classes"
+                },
+                "files": [
+                    "Functions/Initials.php",
+                    "Functions/Inheritance.php",
+                    "Functions/View.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mahadi Hasan",
+                    "email": "bappychanting@outlook.com"
+                }
+            ],
+            "description": "Base files for CodeCube Framework.",
+            "homepage": "http://mhasan.amarneta.com/codecube-framework/",
+            "keywords": [
+                "base",
+                "codecube",
+                "php"
+            ],
+            "time": "2020-02-05T11:18:05+00:00"
+        },
         {
             "name": "phpmailer/phpmailer",
             "version": "v6.1.4",
@@ -71,10 +119,12 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^7.2"
+    },
     "platform-dev": []
 }

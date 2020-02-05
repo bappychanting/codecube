@@ -16,18 +16,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "phpmailer/phpmailer": "~6.0"
+        "codecube/base": "^1.0"
     },
     "autoload": {
         "psr-4":{
-            "App\\": "app/",
-            "Base\\": "base/Classes"
-        },
-        "files": [
-            "base/Functions/Initials.php",
-            "base/Functions/Inheritance.php",
-            "base/Functions/View.php"
-        ]
+            "App\\": "app/"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
