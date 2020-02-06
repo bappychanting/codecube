@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d58191551f1630035d2b9defd65bb00",
+    "content-hash": "02a1876645e51d390209c418240eafb3",
     "packages": [
         {
             "name": "codecube/base",
-            "version": "v1.0",
+            "version": "v1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bappy25/base.git",
-                "reference": "5c33e73d3ff9a8a1770e3c3be7a8f675b59a4291"
+                "reference": "3610cfd1174b584dc8512996acec0a5844cc6fa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bappy25/base/zipball/5c33e73d3ff9a8a1770e3c3be7a8f675b59a4291",
-                "reference": "5c33e73d3ff9a8a1770e3c3be7a8f675b59a4291",
+                "url": "https://api.github.com/repos/Bappy25/base/zipball/3610cfd1174b584dc8512996acec0a5844cc6fa4",
+                "reference": "3610cfd1174b584dc8512996acec0a5844cc6fa4",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +52,7 @@
                 "codecube",
                 "php"
             ],
-            "time": "2020-02-05T11:18:05+00:00"
+            "time": "2020-02-06T10:22:28+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
