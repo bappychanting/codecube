@@ -1,102 +1,83 @@
 <?php
 
-try {
+    // Include autoload
+include("vendor/autoload.php");
 
-	ob_start();
+try{
 
-	if(file_exists('config/app.php')){
-		$config = include('config/app.php');
-		if($config['update_session_cookie_settings'] == 'yes'){
-			ini_set('session.gc_maxlifetime', strtotime($config['auth_time'], 0));
-			session_set_cookie_params(strtotime($config['auth_time'], 0));
-		}
-		session_start();
-		$headers = apache_request_headers();
-	}
-	else{
-		throw new Exception('Framework configuration file not found!');
-	}
+    ob_start();
 
-		// Include project configurations
-	if(file_exists("env.php") && is_readable("env.php")) {
-		include("env.php");
-	}
-	else{
-		throw new Exception('Environment configuration file not found! Please create a copy of the &quot;env.exmaple.php&quot; file in the root folder and rename it to &quot;env.php&quot;.');
-	}
+        // Declaring essential configuration files
+    $config_files = ['env' => 'env.php', 'app' => 'config/app.php', 'default' => 'routes/default.php', 'routes' => 'routes/web.php'];
 
-		// Include autoload
-	include("vendor/autoload.php");
-
-		// Check if database migration
-	if($_SERVER['REQUEST_URI'] == '/database_migration'){
-		echo Base\Migration::migrationView();
-		die();
-	}
-	elseif($_SERVER['REQUEST_URI'] == '/execute_queries'){
-		$files = glob("database/*.php");
-		$messages = Base\Migration::executeQueries($files);
-		echo json_encode($messages);
-		die();
-	}
-			
-		// Set default urls
-	$default = include("routes/default.php");
-
-		// Include Routes
-    $routes = include("routes/web.php");
-
-		// Sanitize url parameters
-	if(!empty($_GET)){
-		foreach ($_GET as $key => $value) {
-			$key = preg_replace('/[^-a-zA-Z0-9_]/', '', $key);
-			$value = preg_replace('/[^-a-zA-Z0-9_]/', '', $value);
-			$_GET[$key] = $value;
-		}
-	}
-
-		// Check and set post parameters
-    if (!empty($_POST)) {
-    	if(!empty($headers['X-CSRF-TOKEN']) && array_key_exists($headers['X-CSRF-TOKEN'], $_SESSION['tokens'])){
-    		logger('Ajax call recieved to url: '.$_SERVER['REQUEST_URI'].'!');
-    	}
-    	elseif(!empty($_POST['_token']) && array_key_exists($_POST['_token'], $_SESSION['tokens'])){ 
-    		$_SESSION['processing_token'] = $_POST['_token']; 
-    		$_SESSION['tokens'][$_SESSION['processing_token']]['posts'] = $_POST; 
-    	}
-    	else{
-    		unset($_POST);
-			throw new Exception('Token mismatch!');
-    	}
+        // Checking missing configuration files
+    foreach ($config_files as $file) {
+        if(!file_exists($file)){  
+            throw new Exception('Essential project configuration file missing: '.str_replace('/', '&#47;',$file));
+        }
     }
 
-		// Create route url string
-	$route_url = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+        // Include environment configuration files
+    include($config_files['env']);
 
-		// Call route
-	if(empty($route_url)){
-		call($default['landing']);
-	}
-	elseif(empty($routes[$route_url])){
-		call($default['error']);
-	}
-	else{
-		call($routes[$route_url]);
-	}
+        // Set default project routes
+    $default = include($config_files['default']);
 
-		// Log last occured error
-	$fetch_error = error_get_last();
-    if(!empty($fetch_error)){
-    	logger('ERROR: '.$fetch_error['message'].' in '.$fetch_error['file'].' in '.$fetch_error['line']);
+    if(substr($_SERVER['REQUEST_URI'], 1) == $default['migration_url'])
+    {   
+            // executing migration
+        if(empty($_POST)){
+            echo Base\Migration::migrationView($default['migration_url']);
+        }
+        else{
+            $files = glob("database/*.php");
+            $messages = Base\Migration::executeQueries($files);
+            echo json_encode($messages);
+        }
     }
+    else
+    {
 
+            // Include project application configuration files and setting up
+        $config = include($config_files['app']);
+        apacheSetup($config);
+
+            // Starting session
+        session_start();
+
+            // Sanitizing incoming parameters
+        sanitize();
+
+            // Include Routes
+        $routes = include($config_files['routes']);
+
+            // Create route url string
+        $route_url = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+
+            // Call route
+        if(empty($route_url)){
+            call($default['landing']);
+        }
+        elseif(empty($routes[$route_url])){
+            call($default['error']);
+        }
+        else{
+            call($routes[$route_url]);
+        }
+
+            // Log last occured error
+        $fetch_error = error_get_last();
+        if(!empty($fetch_error)){
+            logger('ERROR: '.$fetch_error['message'].' in '.$fetch_error['file'].' in '.$fetch_error['line']);
+        }
+    }
 }
-catch (Exception $e) {
-    logger('ERROR: '.$e->getMessage());
+catch (Exception $e){
+    logger('ERROR: '.html_entity_decode($e->getMessage()));
     die(json_encode(['status'=>401, 'reason'=>$e->getMessage()]));
 }
 finally{
-	ob_end_flush();
+    ob_end_flush();
 }
-	
+
 ?>
