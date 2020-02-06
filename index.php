@@ -40,7 +40,7 @@ try{
 
             // Include project application configuration files and setting up
         $config = include($config_files['app']);
-        apacheSetup($config);
+        serverSetup($config);
 
             // Starting session
         session_start();
