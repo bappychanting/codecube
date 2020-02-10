@@ -1,14 +1,11 @@
 <?php
 
-    // Include autoload
-include("vendor/autoload.php");
-
 try{
 
     ob_start();
 
         // Declaring essential configuration files
-    $config_files = ['env' => 'env.php', 'app' => 'config/app.php', 'default' => 'routes/default.php', 'routes' => 'routes/web.php'];
+    $config_files = ['autoload' => 'vendor/autoload.php', 'env' => 'env.php', 'app' => 'config/app.php', 'default' => 'routes/default.php', 'routes' => 'routes/web.php'];
 
         // Checking missing configuration files
     foreach ($config_files as $file) {
@@ -16,6 +13,9 @@ try{
             throw new Exception('Essential project configuration file missing: '.str_replace('/', '&#47;',$file));
         }
     }
+
+        // Include autoload
+    include($config_files['autoload']);
 
         // Include environment configuration files
     include($config_files['env']);
@@ -73,7 +73,9 @@ try{
     }
 }
 catch (Exception $e){
-    logger('ERROR: '.html_entity_decode($e->getMessage()));
+    if(function_exists('logger')){
+        logger('ERROR: '.html_entity_decode($e->getMessage()));
+    }
     die(json_encode(['status'=>401, 'reason'=>$e->getMessage()]));
 }
 finally{
