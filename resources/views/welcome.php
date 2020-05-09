@@ -46,10 +46,10 @@
         <?php echo image('resources/assets/img/logo.png', 'framework_icon', ['class'=>'framework_icon pr-3']); ?>CodeCube
       </h1>
       <p class="my-5">
-        <a href="https://www.codecubeit.com/" class="mx-5">Documentation</a>
+        <a href="http://mhasan.amarneta.com/codecube-framework/" class="mx-5">Documentation</a>
         <a href="<?php echo route('signin'); ?>" class="mx-5">Demo App</a>
         <a href="/database_migration" class="mx-5">Migration</a>
-        <a href="https://www.codecubeit.com/know-us/" class="mx-5">About Us</a>
+        <a href="http://mhasan.amarneta.com" class="mx-5">About Developer</a>
       </p> 
     </div> 
 
