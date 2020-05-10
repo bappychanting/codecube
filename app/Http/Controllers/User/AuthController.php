@@ -30,7 +30,7 @@ class AuthController extends Controller
 
     public function checkCaptcha() 
     {
-        if($_POST['check'] == $this->request->show('captcha')->total){
+        if($_POST['check'] == $this->request->show('captcha')['total']){
           $this->auth->signout();
         }
         $this->redirect('signin');
