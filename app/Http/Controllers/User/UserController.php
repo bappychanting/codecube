@@ -59,6 +59,7 @@ class UserController extends Controller
         $this->auth->setPassword($_POST['auth_pass']);
         $check = $this->auth->passVerify();
         if($check){
+            $this->auth->setPassword('');
             $update = $this->auth->setData($_POST)->validateData()->updatePass();
         }
         if($update){
