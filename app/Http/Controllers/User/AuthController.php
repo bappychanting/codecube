@@ -30,7 +30,7 @@ class AuthController extends Controller
 
     public function checkCaptcha() 
     {
-        if($_POST['check'] == $this->request->show('captcha')->total){
+        if($_POST['check'] == $this->request->show('captcha')['total']){
           $this->auth->signout();
         }
         $this->redirect('signin');
@@ -85,7 +85,7 @@ class AuthController extends Controller
             $subject = 'Link For Password Reset!';
             $body = 'Please click the below link to reset your password-';
             $body .= '<br><a href="'.route("password/reset", ["token" => $token]).'" target="_blank">Link to reset password!</a>';
-            $this->sendMail($user['email'], $subject, $body);
+            $this->sendMail([$user['email']], $subject, $body);
         }
         $this->request->setFlash(['success' => "Pleace check your mail! You will get an email if your given credential is found in our database!"]);
         $this->redirect('password/forgot');
