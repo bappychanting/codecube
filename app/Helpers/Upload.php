@@ -7,14 +7,14 @@ class Upload{
       // Function for File upload
     public static function fileUpload($file, $directory){
       $validextensions = array("pdf", "doc", "docx", "xls", "xlsx", "txt", "csv", "zip", "rar", "png", "jpg", "jpeg", "gif");  
-      $ext = explode('.', basename($_FILES['file']['name']));
+      $ext = explode('.', basename($file['name']));
       $file_extension = end($ext); 
       $file_name = md5(uniqid())."." . $ext[count($ext) -1];  
-      if (($_FILES["file"]["size"] < 5000000) && in_array($file_extension, $validextensions)) {
+      if (($file["size"] < 5000000) && in_array($file_extension, $validextensions)) {
         if (!file_exists($directory)) {
             mkdir($directory, 0777, true);
         }
-        if (move_uploaded_file($_FILES['file']['tmp_name'], $directory.'/'.$file_name)) {
+        if (move_uploaded_file($file['tmp_name'], $directory.'/'.$file_name)) {
           return $directory.'/'.$file_name;
         } 
       } 
