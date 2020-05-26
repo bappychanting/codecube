@@ -21,7 +21,7 @@ class Upload{
     }
 
       // Function for Image upload
-    public static function imageUpload($file, $directory, $width=640, $height=480){
+    public static function imageUpload($file, $directory, $width=640, $height=480, $proportional=false){
       $validextensions = array("png", "jpg", "jpeg");  
       $ext = explode('.', basename($file['name']));
       $file_extension = end($ext); 
@@ -31,7 +31,7 @@ class Upload{
             mkdir($directory, 0777, true);
         }
         if (move_uploaded_file($file['tmp_name'], $directory.'/'.$file_name)) {
-          self::resizeImage($directory.'/'.$file_name, null, $width, $height);
+          self::resizeImage($directory.'/'.$file_name, null, $width, $height, $proportional);
           return $directory.'/'.$file_name;
         } 
       } 
