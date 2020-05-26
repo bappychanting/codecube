@@ -8,6 +8,6 @@ return [
 		*	Each route url key must contain a class and and a method referenced with "@" as value
 		*/
 
-	'welcome' => 'HomeController@welcome',
+	'test_api' => 'HomeController@testApi',
 
 ];
