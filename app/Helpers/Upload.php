@@ -38,7 +38,7 @@ class Upload{
     }
 
       // Function for resizing uploaded image
-    public static function resizeImage($file, $string = null, $width = 0, $height = 0, $proportional = false, $output = 'file', $delete_original = true, $use_linux_commands = false, $quality = 10){
+    public static function resizeImage($file, $string = null, $width = 0, $height = 0, $proportional = false, $output = 'file', $delete_original = true, $use_linux_commands = false, $quality = 100){
       if ( $height <= 0 && $width <= 0 ) return false;
       if ( $file === null && $string === null ) return false;
    
