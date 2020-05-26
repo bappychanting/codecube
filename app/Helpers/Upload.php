@@ -7,59 +7,38 @@ class Upload{
       // Function for File upload
     public static function fileUpload($file, $directory){
       $validextensions = array("pdf", "doc", "docx", "xls", "xlsx", "txt", "csv", "zip", "rar", "png", "jpg", "jpeg", "gif");  
-      $ext = explode('.', basename($_FILES['file']['name']));
+      $ext = explode('.', basename($file['name']));
       $file_extension = end($ext); 
       $file_name = md5(uniqid())."." . $ext[count($ext) -1];  
-      if (($_FILES["file"]["size"] < 5000000) && in_array($file_extension, $validextensions)) {
+      if (($file["size"] < 5000000) && in_array($file_extension, $validextensions)) {
         if (!file_exists($directory)) {
             mkdir($directory, 0777, true);
         }
-        if (move_uploaded_file($_FILES['file']['tmp_name'], $directory.'/'.$file_name)) {
+        if (move_uploaded_file($file['tmp_name'], $directory.'/'.$file_name)) {
           return $directory.'/'.$file_name;
         } 
       } 
     }
 
       // Function for Image upload
-    public static function imageUpload($directory, $filename){
-      $target_file = $directory . $filename;
-      $uploadOk = 1;
-      $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-      $check = getimagesize($_FILES["image"]["tmp_name"]);
-      if($check !== false){
-        $uploadOk = 1;
-      } 
-      else{
-        $warning = "No image selected or file is not an image.";
-        $uploadOk = 0;
-      }
-      if (file_exists($target_file)) {  
-          $uploadOk = 1;
-      }
-      if ($_FILES["image"]["size"] > 1500000) {
-        $warning = "Your image is too large. Keep the maximum file size at 1.5 MB.";
-        $uploadOk = 0;
-      }
-      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-        $warning = "Only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-      }    
-      
-      if ($uploadOk == 0) {
-        return "Sorry, the image is not uploaded. " .$warning;
-      } 
-      else{
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-          return "Image has been updated.";
-        } 
-        else {
-          return "Image can't be uploaded.";
+    public static function imageUpload($file, $directory, $width=640, $height=480, $proportional=false){
+      $validextensions = array("png", "jpg", "jpeg");  
+      $ext = explode('.', basename($file['name']));
+      $file_extension = end($ext); 
+      $file_name = md5(uniqid())."." . $ext[count($ext) -1];  
+      if (($file["size"] < 5000000) && in_array($file_extension, $validextensions)) {
+        if (!file_exists($directory)) {
+            mkdir($directory, 0777, true);
         }
-      }
+        if (move_uploaded_file($file['tmp_name'], $directory.'/'.$file_name)) {
+          self::resizeImage($directory.'/'.$file_name, null, $width, $height, $proportional);
+          return $directory.'/'.$file_name;
+        } 
+      } 
     }
 
       // Function for resizing uploaded image
-    public static function resizeImage($file, $string = null, $width = 0, $height = 0, $proportional = false, $output = 'file', $delete_original = true, $use_linux_commands = false, $quality = 10){
+    public static function resizeImage($file, $string = null, $width = 0, $height = 0, $proportional = false, $output = 'file', $delete_original = true, $use_linux_commands = false, $quality = 100){
       if ( $height <= 0 && $width <= 0 ) return false;
       if ( $file === null && $string === null ) return false;
    

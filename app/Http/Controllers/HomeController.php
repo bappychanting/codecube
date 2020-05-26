@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ApiHelper; 
+
 class HomeController extends Controller
 {
 
@@ -14,6 +16,11 @@ class HomeController extends Controller
     {
         $this->guard('CheckAuth');
         return $this->view('home');
+    }
+
+    public function testApi() 
+    {
+        echo ApiHelper::success();
     }
 
     public function error() 

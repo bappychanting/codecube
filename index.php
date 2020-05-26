@@ -5,7 +5,7 @@ try{
     ob_start();
 
         // Declaring essential configuration files
-    $config_files = ['autoload' => 'vendor/autoload.php', 'env' => 'env.php', 'app' => 'config/app.php', 'default' => 'routes/default.php', 'routes' => 'routes/web.php'];
+    $config_files = ['autoload' => 'vendor/autoload.php', 'env' => 'env.php', 'app' => 'config/app.php', 'default' => 'config/url.php', 'web_routes' => 'routes/web.php', 'api_routes' => 'routes/api.php'];
 
         // Checking missing configuration files
     foreach ($config_files as $file) {
@@ -37,32 +37,50 @@ try{
     }
     else
     {
-
-            // Include project application configuration files and setting up
-        $config = include($config_files['app']);
-        serverSetup($config);
-
-            // Starting session
-        session_start();
-
-            // Sanitizing incoming parameters
-        sanitize();
-
-            // Include Routes
-        $routes = include($config_files['routes']);
-
             // Create route url string
         $route_url = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
-            // Call route
-        if(empty($route_url)){
-            call($default['landing']);
-        }
-        elseif(empty($routes[$route_url])){
-            call($default['error']);
+            // Checking if api url
+        if(strpos($route_url, $default['api_url'].'/') === 0){
+
+                // Rewrite URL
+            $api_url = substr($route_url, strlen('api/'));
+
+                // Include api routes
+            $routes = include($config_files['api_routes']);
+
+                // Call api route
+            if(empty($routes[$api_url])){
+                call($default['error']);
+            }
+            else{
+                call($routes[$api_url]);
+            }
         }
         else{
-            call($routes[$route_url]);
+                // Include Web Routes
+            $routes = include($config_files['web_routes']);
+
+                // Include project application configuration files and setting up
+            $config = include($config_files['app']);
+            serverSetup($config);
+
+                // Starting session
+            session_start();
+
+                // Sanitizing incoming parameters
+            sanitize();
+
+                // Call route
+            if(empty($route_url)){
+                call($default['landing']);
+            }
+            elseif(empty($routes[$route_url])){
+                call($default['error']);
+            }
+            else{
+                call($routes[$route_url]);
+            }
         }
 
             // Log last occured error
