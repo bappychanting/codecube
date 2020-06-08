@@ -7,7 +7,7 @@ Aims of this framework are to
 
 ## Documentation
 
-To get the full documentation please visit [this page](http://mhasan.amarneta.com/codecube-framework/).
+To get the full documentation please visit [this page](http://mhasan.amrameghnabasi.org/codecube-framework/).
 
 ## License
 
