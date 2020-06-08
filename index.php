@@ -94,7 +94,7 @@ catch (Exception $e){
     if(function_exists('logger')){
         logger('ERROR: '.html_entity_decode($e->getMessage()));
     }
-    die(json_encode(['status'=>401, 'reason'=>$e->getMessage()]));
+    die(json_encode(['status'=>$e->getCode(), 'reason'=>$e->getMessage()]));
 }
 finally{
     ob_end_flush();
