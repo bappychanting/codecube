@@ -54,7 +54,7 @@
     </div> 
 
     <p class="small brand">
-      <a href="https://www.codecubeit.com/" class="text-muted">CodeCube IT Solutions</a> 
+      <a href="https://www.codecubeit.com/" rel="nofollow" class="text-muted">CodeCube IT Solutions</a> 
     </p> 
 
     <!-- Bootstrap tooltips -->
