@@ -37,6 +37,25 @@ class Upload{
       } 
     }
 
+      // Function for Image upload with thumbnails
+    public static function imageUploadWithThumb($file, $directory, $thumb_ext='_thumb', $thumb_width=320, $thumb_height=240, $proportional=false){
+      $validextensions = array("png", "jpg", "jpeg");  
+      $ext = explode('.', basename($file['name']));
+      $file_extension = end($ext); 
+      $file_id = md5(uniqid());
+      $file_name = $file_id.".".$ext[count($ext) -1];  
+      $thumb_name = $file_id.$thumb_ext.".".$ext[count($ext) -1];  
+      if (($file["size"] < 5000000) && in_array($file_extension, $validextensions)) {
+        if (!file_exists($directory)) {
+          mkdir($directory, 0777, true);
+        }
+        if (move_uploaded_file($file['tmp_name'], $directory.'/'.$file_name) && copy($directory.'/'.$file_name, $directory.'/'.$thumb_name)) {
+          self::resizeImage($directory.'/'.$thumb_name, null, $thumb_width, $thumb_width, $proportional);
+          return $directory.'/'.$file_name;
+        } 
+      } 
+    }
+
       // Function for resizing uploaded image
     public static function resizeImage($file, $string = null, $width = 0, $height = 0, $proportional = false, $output = 'file', $delete_original = true, $use_linux_commands = false, $quality = 100){
       if ( $height <= 0 && $width <= 0 ) return false;

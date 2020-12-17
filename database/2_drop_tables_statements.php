@@ -6,7 +6,7 @@ return [
 
 	'drop_items' => 	"DROP TABLE IF EXISTS `items`",
 
-		// Reverse users table.
+		// Reverse reset password links table.
 
 	'drop_reset_password_links' => 	"DROP TABLE IF EXISTS `reset_password_links`", 
 
