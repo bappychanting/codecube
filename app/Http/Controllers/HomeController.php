@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Base\Sitemap; 
 use App\Helpers\ApiHelper; 
 
 class HomeController extends Controller
@@ -18,9 +19,16 @@ class HomeController extends Controller
         return $this->view('home');
     }
 
-    public function testApi() 
+    public function sitemapUpdate() 
     {
-        echo ApiHelper::success();
+        try{
+            $sitemap = new Sitemap;
+            $sitemap->rewriteXml(['items']);
+            echo ApiHelper::success();
+        }
+        catch (\Exception $e) {
+            echo ApiHelper::fail($e->getMessage());
+        }
     }
 
     public function error() 
