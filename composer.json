@@ -16,7 +16,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "codecube/base": "^2.1"
+        "codecube/base": "^2.2"
     },
     "autoload": {
         "psr-4":{

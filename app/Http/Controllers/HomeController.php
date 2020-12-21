@@ -23,7 +23,7 @@ class HomeController extends Controller
     {
         try{
             $sitemap = new Sitemap;
-            $sitemap->rewriteXml(['items']);
+            $sitemap->refreshSitemap(['items']);
             echo ApiHelper::success();
         }
         catch (\Exception $e) {
