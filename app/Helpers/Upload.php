@@ -11,6 +11,7 @@ class Upload{
       $file_extension = end($ext); 
       $file_name = md5(uniqid())."." . $ext[count($ext) -1];  
       if (($file["size"] < 5000000) && in_array($file_extension, $validextensions)) {
+        $directory = $directory.'/'.date('Y').'/'.date('F').'/'.date('d');
         if (!file_exists($directory)) {
             mkdir($directory, 0777, true);
         }
@@ -27,6 +28,7 @@ class Upload{
       $file_extension = end($ext); 
       $file_name = md5(uniqid())."." . $ext[count($ext) -1];  
       if (($file["size"] < 5000000) && in_array($file_extension, $validextensions)) {
+        $directory = $directory.'/'.date('Y').'/'.date('F').'/'.date('d');
         if (!file_exists($directory)) {
             mkdir($directory, 0777, true);
         }
@@ -46,6 +48,7 @@ class Upload{
       $file_name = $file_id.".".$ext[count($ext) -1];  
       $thumb_name = $file_id.$thumb_ext.".".$ext[count($ext) -1];  
       if (($file["size"] < 5000000) && in_array($file_extension, $validextensions)) {
+        $directory = $directory.'/'.date('Y').'/'.date('F').'/'.date('d');
         if (!file_exists($directory)) {
           mkdir($directory, 0777, true);
         }
