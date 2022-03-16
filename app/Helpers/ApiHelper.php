@@ -14,25 +14,30 @@ class ApiHelper{
 
     public static function validator(array $val_messages = [], string $message='Validation failed!') {
       logger('Validation failed: '.json_encode($val_messages));
-      return self::response($message, $val_messages, false);
+      return self::fail($message, $val_messages, 5001);
     }
 
     public static function success(array $data = [], string $message='Success!'){
-      return self::response($message , $data);
+      return self::response([
+        'message' => $message, 
+        'data' => $data
+      ]);
     }
 
-    public static function fail(string $message='Exception found!', array $details=[], int $code=500){
-      logger('Exception Found: '.json_encode($details));
-      return self::response($message, $details, false, $code);
+    public static function fail(string $message='Exception found!', array $error=[], int $code=500, int $status_code=400){
+      logger('Exception Found: '.json_encode($error));
+      return self::response([
+        'message' => $message, 
+        'code' => $code,
+        'error' => $error
+      ], false, $status_code);
     }
 
-    public static function response(string $message ="", array $details=[], bool $result= true, int $code = 200){
-        header('Content-Type: application/json');
+    public static function response(array $details=[], bool $result= true, int $status_code=200){
+        header('Content-Type: application/json', TRUE, $status_code);
         return json_encode([
-            "result" => $result,
-            "code" => $code,
-            "message" => $message,
-            "details" => $details
+          'result' => $result,
+          'details' => $details
         ], JSON_PRETTY_PRINT);
     }
 }
