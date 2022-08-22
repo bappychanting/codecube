@@ -19,6 +19,7 @@ class Upload{
           return $directory.'/'.$file_name;
         } 
       } 
+      return false;
     }
 
       // Function for Image upload
@@ -37,6 +38,7 @@ class Upload{
           return $directory.'/'.$file_name;
         } 
       } 
+      return false;
     }
 
       // Function for Image upload with thumbnails
@@ -57,6 +59,7 @@ class Upload{
           return $directory.'/'.$file_name;
         } 
       } 
+      return false;
     }
 
       // Function for resizing uploaded image
