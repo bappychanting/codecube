@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "codecube/base",
-            "version": "v2.5",
+            "version": "v2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bappychanting/base.git",
-                "reference": "96e11d2b4ba8f3c2efa75fa90640f05e8445e713"
+                "reference": "9c21d4a5362234da9bb7ae2ae1cd3ded38840223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bappychanting/base/zipball/96e11d2b4ba8f3c2efa75fa90640f05e8445e713",
-                "reference": "96e11d2b4ba8f3c2efa75fa90640f05e8445e713",
+                "url": "https://api.github.com/repos/bappychanting/base/zipball/9c21d4a5362234da9bb7ae2ae1cd3ded38840223",
+                "reference": "9c21d4a5362234da9bb7ae2ae1cd3ded38840223",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "issues": "https://github.com/bappychanting/base/issues",
                 "source": "https://github.com/bappychanting/base"
             },
-            "time": "2022-08-28T09:22:59+00:00"
+            "time": "2022-08-29T06:27:33+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
