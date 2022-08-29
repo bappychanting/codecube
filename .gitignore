@@ -1,3 +1,4 @@
 /storage/*.key
 env.php
 /vendor
+sitemap.xml
