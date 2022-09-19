@@ -1,5 +1,9 @@
 <?php
 
+/*echo strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://';
+
+die();*/
+
 try{
 
     ob_start();
@@ -18,7 +22,13 @@ try{
     include($config_files['autoload']);
 
         // Include environment configuration files
-    include($config_files['env']);
+    $env_array = include($config_files['env']);
+    foreach($env_array as $env=>$value){
+        if($env == 'APP_URL')
+            define($env, strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://'.$value);
+        else
+            define($env, $value);
+    }
 
         // Set default project routes
     $default = include($config_files['default']);
