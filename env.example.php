@@ -4,34 +4,34 @@
 
 		// Keep value of APP_ENV constant as 'dev' only when in development mode
 
- 	const APP_NAME = 'CodeCube';
+ 	define('APP_NAME', 'CodeCube');
 
- 	const APP_URL = 'http://localhost:8000';
+ 	define('APP_URL', strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://localhost:8000');
 
- 	const APP_ENV = 'dev';
+ 	define('APP_ENV', 'dev');
 
- 	const APP_KEY = 'secret';
+ 	define('APP_KEY', 'secret');
 
-	const DB_CONNECTION = 'mysql';
+ 	define('DB_CONNECTION', 'mysql');
 
-	const DB_HOST = '127.0.0.1';
+ 	define('DB_HOST', '127.0.0.1');
 
-	const DB_PORT = '3306';
+ 	define('DB_PORT', '3306');
 
-	const DB_DATABASE = 'homestead';
+ 	define('DB_DATABASE', 'homestead');
 
-	const DB_USERNAME = 'homestead';
+ 	define('DB_USERNAME', 'homestead');
 
-	const DB_PASSWORD = 'secret';
+ 	define('DB_PASSWORD', 'secret');
 
-	const MAIL_DRIVER='smtp';
+ 	define('MAIL_DRIVER', 'smtp');
 
-	const MAIL_HOST='smtp.mailtrap.io';
+ 	define('MAIL_HOST', 'smtp.mailtrap.io');
 
-	const MAIL_PORT='2525';
+ 	define('MAIL_PORT', '2525');
 
-	const MAIL_USERNAME= NULL;
+ 	define('MAIL_USERNAME', NULL);
 
-	const MAIL_PASSWORD= NULL;
+ 	define('MAIL_PASSWORD', NULL);
 
-	const MAIL_ENCRYPTION= NULL;
+ 	define('MAIL_ENCRYPTION', NULL);
