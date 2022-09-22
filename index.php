@@ -25,7 +25,7 @@ try{
     $env_array = include($config_files['env']);
     foreach($env_array as $env=>$value){
         if($env == 'APP_URL')
-            define($env, strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://'.$value);
+            define($env, isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://'.$value : 'http://'.$value);
         else
             define($env, $value);
     }
