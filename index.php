@@ -1,9 +1,5 @@
 <?php
 
-/*echo strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://';
-
-die();*/
-
 try{
 
     ob_start();
@@ -12,23 +8,15 @@ try{
     $config_files = ['autoload' => 'vendor/autoload.php', 'env' => 'env.php', 'app' => 'config/app.php', 'default' => 'config/url.php', 'web_routes' => 'routes/web.php', 'api_routes' => 'routes/api.php'];
 
         // Checking missing configuration files
-    foreach ($config_files as $file) {
-        if(!file_exists($file)){  
-            throw new Exception('Essential project configuration file missing: '.str_replace('/', '&#47;',$file));
-        }
-    }
+    foreach ($config_files as $file)
+        if(!file_exists($file))  throw new Exception('Essential project configuration file missing: '.str_replace('/', '&#47;',$file));
 
         // Include autoload
     include($config_files['autoload']);
 
         // Include environment configuration files
     $env_array = include($config_files['env']);
-    foreach($env_array as $env=>$value){
-        if($env == 'APP_URL')
-            define($env, isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://'.$value : 'http://'.$value);
-        else
-            define($env, $value);
-    }
+    foreach($env_array as $env=>$value) define($env, $value);
 
         // Set default project routes
     $default = include($config_files['default']);
@@ -60,12 +48,10 @@ try{
             $routes = include($config_files['api_routes']);
 
                 // Call api route
-            if(empty($routes[$api_url])){
+            if(empty($routes[$api_url]))
                 call($default['error']);
-            }
-            else{
+            else
                 call($routes[$api_url]);
-            }
         }
         else{
                 // Include Web Routes
@@ -78,32 +64,23 @@ try{
                 // Starting session
             session_start();
 
-                // Sanitizing incoming parameters
-            sanitize();
+                // Sanitizing url and incoming parameters
+            $route_url = sanitize($route_url, $routes);
 
                 // Call route
-            if(empty($route_url)){
+            if(empty($route_url))
                 call($default['landing']);
-            }
-            elseif(empty($routes[$route_url])){
+            elseif(empty($routes[$route_url]))
                 call($default['error']);
-            }
-            else{
+            else
                 call($routes[$route_url]);
-            }
         }
 
             // Log last occured error
-        $fetch_error = error_get_last();
-        if(!empty($fetch_error)){
-            logger('ERROR: '.$fetch_error['message'].' in '.$fetch_error['file'].' in '.$fetch_error['line']);
-        }
+        if(!empty(error_get_last()))    logger('ERROR: '.error_get_last()['message'].' in '.error_get_last()['file'].' in '.error_get_last()['line']);
     }
 }
 catch (Exception $e){
-    if(function_exists('logger')){
-        logger('ERROR: '.html_entity_decode($e->getMessage()));
-    }
     die(json_encode(['status'=>$e->getCode(), 'reason'=>$e->getMessage()]));
 }
 finally{
