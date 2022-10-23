@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "codecube/base",
-            "version": "v2.7",
+            "version": "v2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bappychanting/base.git",
-                "reference": "2d70af25f136555911e284a7c4a566d6cce25b1f"
+                "reference": "35b87192b0e5f8d89e36a4424187a2b3723b0b49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bappychanting/base/zipball/2d70af25f136555911e284a7c4a566d6cce25b1f",
-                "reference": "2d70af25f136555911e284a7c4a566d6cce25b1f",
+                "url": "https://api.github.com/repos/bappychanting/base/zipball/35b87192b0e5f8d89e36a4424187a2b3723b0b49",
+                "reference": "35b87192b0e5f8d89e36a4424187a2b3723b0b49",
                 "shasum": ""
             },
             "require": {
@@ -27,9 +27,9 @@
             "type": "library",
             "autoload": {
                 "files": [
-                    "Functions/Initials.php",
-                    "Functions/Inheritance.php",
-                    "Functions/View.php"
+                    "Functions/Framework.php",
+                    "Functions/Templating.php",
+                    "Functions/Views.php"
                 ],
                 "psr-4": {
                     "Base\\": "Classes"
@@ -56,20 +56,20 @@
                 "issues": "https://github.com/bappychanting/base/issues",
                 "source": "https://github.com/bappychanting/base"
             },
-            "time": "2022-08-29T06:54:50+00:00"
+            "time": "2022-10-20T03:28:42+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.6.4",
+            "version": "v6.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "a94fdebaea6bd17f51be0c2373ab80d3d681269b"
+                "reference": "8b6386d7417526d1ea4da9edb70b8352f7543627"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/a94fdebaea6bd17f51be0c2373ab80d3d681269b",
-                "reference": "a94fdebaea6bd17f51be0c2373ab80d3d681269b",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/8b6386d7417526d1ea4da9edb70b8352f7543627",
+                "reference": "8b6386d7417526d1ea4da9edb70b8352f7543627",
                 "shasum": ""
             },
             "require": {
@@ -93,8 +93,8 @@
                 "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
                 "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
                 "psr/log": "For optional PSR-3 debug logging",
-                "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
-                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
+                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
+                "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
             },
             "type": "library",
             "autoload": {
@@ -126,7 +126,7 @@
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.6.4"
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.6.5"
             },
             "funding": [
                 {
@@ -134,7 +134,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-22T09:22:00+00:00"
+            "time": "2022-10-07T12:23:10+00:00"
         }
     ],
     "packages-dev": [],

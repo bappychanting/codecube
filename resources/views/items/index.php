@@ -49,7 +49,7 @@
             <form method="post" action="<?php echo route('items/delete') ?>" onsubmit="return confirm('Do you really want to delete this item?');">
               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <input type="hidden" value="<?php echo $item['id']; ?>" name="id">
-              <a class="btn btn-primary" href="<?php echo route('items/show', ['id' => $item['id']]) ?>"><span class="oi oi-eye"></span></a>
+              <a class="btn btn-primary" href="<?php echo route('items/show/{id}', ['id' => $item['id']]) ?>"><span class="oi oi-eye"></span></a>
               <button class="btn btn-danger" type="submit"><span class="oi oi-trash"></span></button>
             </form>
           </td>

@@ -8,7 +8,7 @@ return [
 
 	'APP_NAME' => 'CodeCube',
 
-	'APP_URL' => 'localhost:8000',
+	'APP_URL' => 'http://localhost:8000',
 
 	'APP_ENV' => 'dev',
 	
