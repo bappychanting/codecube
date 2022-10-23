@@ -1,37 +1,41 @@
 <?php
-		
-		// Declaring application environment variables. 
 
-		// Keep value of APP_ENV constant as 'dev' only when in development mode
+	// Declaring application environment variables. 
 
- 	const APP_NAME = 'CodeCube';
+	// Keep value of 'APP_ENV' as 'dev' only when in development mode
 
- 	const APP_URL = 'http://localhost:8000';
+return [
 
- 	const APP_ENV = 'dev';
+	'APP_NAME' => 'CodeCube',
 
- 	const APP_KEY = 'secret';
+	'APP_URL' => 'http://localhost:8000',
 
-	const DB_CONNECTION = 'mysql';
+	'APP_ENV' => 'dev',
+	
+	'APP_KEY' => 'secret',
 
-	const DB_HOST = '127.0.0.1';
+	'DB_CONNECTION' => 'mysql',
 
-	const DB_PORT = '3306';
+	'DB_HOST' => '127.0.0.1',
 
-	const DB_DATABASE = 'homestead';
+	'DB_PORT' => '3306',
 
-	const DB_USERNAME = 'homestead';
+	'DB_DATABASE' => 'homestead',
 
-	const DB_PASSWORD = 'secret';
+	'DB_USERNAME' => 'homestead',
+	
+	'DB_PASSWORD' => 'secret',
 
-	const MAIL_DRIVER='smtp';
+	'MAIL_DRIVER' => 'smtp',
 
-	const MAIL_HOST='smtp.mailtrap.io';
+	'MAIL_HOST' => 'smtp.mailtrap.io',
+	
+	'MAIL_PORT' => '2525',
 
-	const MAIL_PORT='2525';
+	'MAIL_USERNAME' => NULL,
 
-	const MAIL_USERNAME= NULL;
+	'MAIL_PASSWORD' => NULL,
 
-	const MAIL_PASSWORD= NULL;
+	'MAIL_ENCRYPTION' => NULL,
 
-	const MAIL_ENCRYPTION= NULL;
+];

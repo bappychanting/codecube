@@ -40,7 +40,7 @@ class ItemController extends Controller
         if($store){
             $this->request->destroy('post');
             $this->request->setFlash(['success' => locale('message', 'success')]);
-            $this->redirect('items/show', ['id' => $this->item->getLastId()]);
+            $this->redirect('items/show/{id}', ['id' => $this->item->getLastId()]);
         }
         else{
             $this->redirect(back());
@@ -65,7 +65,7 @@ class ItemController extends Controller
         if($update){
             $this->request->destroy('post');
             $this->request->setFlash(['success' => locale('message', 'success')]);
-            $this->redirect('items/show', ['id' => $_POST['id']]);
+            $this->redirect('items/show/{id}', ['id' => $_POST['id']]);
         }
         else{
             $this->redirect(back());

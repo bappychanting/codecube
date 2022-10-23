@@ -32,7 +32,7 @@
       <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
       <input type="hidden" value="<?php echo $item['id']; ?>" name="id">
       <a class="btn btn-primary" href="<?php echo route('items/all') ?>"><span class="oi oi-list pr-2"></span>All Items</a>
-      <a class="btn btn-warning" href="<?php echo route('items/edit', ['id' => $item['id']]) ?>"><span class="oi oi-pencil pr-2"></span>Edit Item</a>
+      <a class="btn btn-warning" href="<?php echo route('items/edit/{id}', ['id' => $item['id']]) ?>"><span class="oi oi-pencil pr-2"></span>Edit Item</a>
       <button class="btn btn-danger" type="submit"><span class="oi oi-trash"></span> Delete Item</button>
     </form>
   </div>

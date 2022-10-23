@@ -42,9 +42,9 @@ return [
 
 	'items/store' => 'ItemController@store',
 
-	'items/show' => 'ItemController@show',
+	'items/show/{id}' => 'ItemController@show',
 
-	'items/edit' => 'ItemController@edit',
+	'items/edit/{id}' => 'ItemController@edit',
 
 	'items/update' => 'ItemController@update',
 

@@ -43,7 +43,7 @@
         <button type="submit" class="btn btn-primary mr-5">Update</button>
       </form>
 
-      <a href="<?php echo route('items/show', ['id' => $item['id']]) ?>" class="btn btn-primary btn-sm my-3"><span class="oi oi-arrow-left pr-2"></span>Go Back</a>
+      <a href="<?php echo route('items/show/{id}', ['id' => $item['id']]) ?>" class="btn btn-primary btn-sm my-3"><span class="oi oi-arrow-left pr-2"></span>Go Back</a>
 
   </div>
 </div>
