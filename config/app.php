@@ -16,4 +16,6 @@ return [
 
 		'locale' => 'en', // configuration for default locale
 
+		'placeholder' => 'https://picsum.photos/200/300', // configuration for image placeholder
+
 ];
