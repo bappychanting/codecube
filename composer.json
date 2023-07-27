@@ -15,7 +15,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
+        "php": ">=7.0",
         "codecube/base": "^3.0"
     },
     "autoload": {
