@@ -11,12 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Favicon-->
-    <?php echo icon('img/favicon.png'); ?>
+    <?= icon('img/favicon.png') ?>
 
-    <title><?php echo 'Welcome || '.title(); ?></title>
+    <title><?= 'Welcome || '.title() ?></title>
     
     <!-- CSS-->
-    <?php echo style('plugins/bootstrap/css/bootstrap.min.css'); ?>
+    <?= style('plugins/bootstrap/css/bootstrap.min.css') ?>
 
     <style>
       body {
@@ -43,13 +43,13 @@
     
     <div class="text-center">
       <h1 class="my-5 text-secondary">
-        <?php echo image('resources/assets/img/logo.png', 'framework_icon', ['class'=>'framework_icon pr-3']); ?>CodeCube
+        <?= image('resources/assets/img/logo.png', 'framework_icon', ['class'=>'framework_icon pr-3']) ?>CodeCube
       </h1>
       <p class="my-5">
-        <a href="http://mhasan.amrameghnabasi.org/codecube-framework/" class="mx-5">Documentation</a>
+        <a href="codecube.readthedocs.io" class="mx-5">Documentation</a>
         <a href="/signin" class="mx-5">Demo App</a>
         <a href="/database_migration" class="mx-5">Migration</a>
-        <a href="http://mhasan.amrameghnabasi.org" class="mx-5">About Developer</a>
+        <a href="bappychanting.wordpress.org" class="mx-5">About Developer</a>
       </p> 
     </div> 
 
@@ -58,9 +58,9 @@
     </p> 
 
     <!-- Bootstrap tooltips -->
-    <?php echo script('plugins/bootstrap/js/popper.min.js'); ?>
+    <?= script('plugins/bootstrap/js/popper.min.js') ?>
     <!-- Bootstrap core JavaScript -->
-    <?php echo script('plugins/bootstrap/js/bootstrap.min.js'); ?>
+    <?= script('plugins/bootstrap/js/bootstrap.min.js') ?>
 
   </body>
 

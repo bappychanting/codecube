@@ -4,6 +4,8 @@ return [
 
 			// Configuring application behaviour
 
+		'error_reporting' => 'off', // declaring whether to show error reporting
+
 		'auth_time' => '30 minutes', // declaring how long a login session will last
 
 		'remember_me' => '30 days', // declaring how long remember me cookie will last

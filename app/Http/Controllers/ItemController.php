@@ -20,7 +20,7 @@ class ItemController extends Controller
         $this->request = new Request;  
     }
 
-    public function index() 
+    public function index()
     {
         $auth_user = $this->auth->getAuth(); 
         $this->item->setUser($auth_user->id);
@@ -28,7 +28,7 @@ class ItemController extends Controller
         return $this->view('items.index', compact('items'));
     }
 
-    public function create() 
+    public function create()
     {
         $auth_user = $this->auth->getAuth(); 
         return $this->view('items.create', compact('auth_user'));

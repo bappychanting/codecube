@@ -1,8 +1,8 @@
-<?php inherits('app'); ?>
+<?php inherits('app') ?>
 
 <?php startblock('title') ?>
 
-<?php echo 'Reset Password || '.title(); ?>
+<?= 'Reset Password || '.title() ?>
 
 <?php endblock() ?>
 
@@ -13,20 +13,20 @@
     Reset Password
   </div>
   <div class="card-body">
-      <h5 class="card-title">Enter Your New Password, <?php echo $link['name']; ?></h5>
+      <h5 class="card-title">Enter Your New Password, <?= $link['name'] ?></h5>
 
-      <form method="POST" action="<?php echo route('password/update'); ?>"> 
+      <form method="POST" action="<?= route('password/update') ?>"> 
 
-        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-        <input type="hidden" name="id" value="<?php echo $link['user_id']; ?>">
-        <input type="hidden" name="token" value="<?php echo $link['token']; ?>">
+        <input type="hidden" name="_token" value="<?= csrf_token() ?>">
+        <input type="hidden" name="id" value="<?= $link['user_id'] ?>">
+        <input type="hidden" name="token" value="<?= $link['token'] ?>">
         
         <div class="form-label-group my-3">
           <label for="inputPassword">Password</label>
-          <input type="password" name="password" id="inputPassword" class="form-control <?php echo empty(field_err('password'))? '' : 'is-invalid'; ?>">
+          <input type="password" name="password" id="inputPassword" class="form-control <?= empty(field_err('password'))? '' : 'is-invalid' ?>">
           <?php if(!empty(field_err('password'))){ ?>
           <span class="invalid-feedback" role="alert">
-            <strong><?php echo field_err('password'); ?></strong>
+            <strong><?= field_err('password') ?></strong>
           </span>
           <?php } ?>
         </div>
