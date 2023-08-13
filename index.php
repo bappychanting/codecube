@@ -71,32 +71,3 @@ finally{
 }
 
 ?>
-
-<?php
-
-    $filters = array_fill(0, 3, null);
-
-    for($i = 1; $i < $argc; $i++) {
-
-        echo $argv[$i];
-        echo ("\n");
-
-    }
-
-    /*readline_callback_handler_install('', function(){});
-    echo("Enter password followed by return. (Do not use a real one!)\n");
-    echo("Password: ");
-    $strObscured='';
-    while(true)
-    {
-    $strChar = stream_get_contents(STDIN, 1);
-    if($strChar===chr(10))
-    {
-        break;
-    }
-    $strObscured.=$strChar;
-    echo("*");
-    }
-    echo("\n");
-    echo("You entered: ".$strObscured."\n");*/
-?>
