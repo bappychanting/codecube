@@ -48,7 +48,7 @@
       <p class="my-5">
         <a href="codecube.readthedocs.io" class="mx-5">Documentation</a>
         <a href="/signin" class="mx-5">Demo App</a>
-        <a href="/database_migration" class="mx-5">Migration</a>
+        <a href="https://github.com/bappychanting/codecube" class="mx-5">Github</a>
         <a href="bappychanting.wordpress.org" class="mx-5">About Developer</a>
       </p> 
     </div> 

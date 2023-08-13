@@ -20,12 +20,4 @@ return [
 
 	'api_url' => 'api',
 
-		/* 
-		*	Declaring default migration url 
-		*	Input the url that you would like to use for accessing migration page in your browser as the value of the key
-		*	Make sure to exclude the domain name and first forward slash
-		*/
-
-	'migration_url' => 'database_migration',
-
 ];
