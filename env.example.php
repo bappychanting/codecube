@@ -11,8 +11,6 @@ return [
 	'APP_URL' => 'http://localhost:8000',
 
 	'APP_ENV' => 'dev',
-	
-	'APP_KEY' => 'secret',
 
 	'DB_CONNECTION' => 'mysql',
 
