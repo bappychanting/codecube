@@ -1,9 +1,10 @@
 <?php
 
-    // Declaring essential configuration files
-    $config_files = [
+    // Include autoload
+    include('vendor/autoload.php');
 
-        'autoload' => 'vendor/autoload.php', 
+    // Executing Application
+    Base\CodeCube::start([
 
         'env' => 'env.php', 
 
@@ -15,16 +16,6 @@
 
         'api_routes' => 'routes/api.php'
 
-    ];
-
-    // Checking missing configuration files
-    foreach ($config_files as $file)
-        if(!file_exists($file))  throw new Exception('Essential project configuration file missing: '.str_replace('/', '&#47;',$file));
-
-    // Include autoload
-    include($config_files['autoload']);
-
-    // Executing Application
-    Base\CodeCube::start($config_files, $argc??null,  $argv??null); 
+    ], $argc??null,  $argv??null); 
 
 ?>
