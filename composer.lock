@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a82c493315dccf8ba264de04912ec5b8",
+    "content-hash": "a52827b4720f7d30c1ced7121e7eea07",
     "packages": [
         {
             "name": "codecube/base",
-            "version": "v3.1",
+            "version": "v4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bappychanting/base.git",
-                "reference": "771df4f693973029f92bec071275f9fb1c7081ab"
+                "reference": "18cc8f45f64b5ba0f39b490bb08dfd4b0f4fda4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bappychanting/base/zipball/771df4f693973029f92bec071275f9fb1c7081ab",
-                "reference": "771df4f693973029f92bec071275f9fb1c7081ab",
+                "url": "https://api.github.com/repos/bappychanting/base/zipball/18cc8f45f64b5ba0f39b490bb08dfd4b0f4fda4a",
+                "reference": "18cc8f45f64b5ba0f39b490bb08dfd4b0f4fda4a",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "issues": "https://github.com/bappychanting/base/issues",
                 "source": "https://github.com/bappychanting/base"
             },
-            "time": "2022-11-13T07:38:22+00:00"
+            "time": "2023-08-20T08:16:46+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
