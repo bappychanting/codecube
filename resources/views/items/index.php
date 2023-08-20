@@ -9,10 +9,7 @@
 <?php startblock('content') ?>
 
 <div class="card">
-  <div class="card-header">
-    Items
-    <?= $gay ?>
-  </div>
+  <div class="card-header">Items</div>
   <div class="card-body">
     <a class="btn btn-primary mb-3" href="<?= route('items/create') ?>"><span class="oi oi-plus pr-2"></span> Add New Item</a>
     <?php 
