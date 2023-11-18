@@ -9,7 +9,7 @@ class Migrate extends BaseConsole
 {
   public function handle()
   {
-    Migration::executeQueries($this->args[2]??'', glob("database/*.php"));
+    Migration::executeQueries($this->getArgs()[2]??'', glob("database/*.php"));
   }
 }
 
