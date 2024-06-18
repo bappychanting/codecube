@@ -14,7 +14,9 @@
 
         'web_routes' => 'routes/web.php', 
 
-        'api_routes' => 'routes/api.php'
+        'api_routes' => 'routes/api.php',
+
+        'commands' => 'app/Console/commands.php'
 
     ], $argc??null,  $argv??null); 
 
